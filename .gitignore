@@ -1,0 +1,55 @@
+# Visual Studio
+# User-specific files
+.vs/
+*.suo
+*.user
+*.userprefs
+.suo.cache
+.userprefs.cache
+*.tmp
+.buildignore
+*.sln.docstates
+
+# Build outputs
+bin/
+obj/
+
+# Packages
+packages/
+
+# Local application data
+*.db
+*.sdf
+*.mdf
+*.ldf
+
+# Logs
+logs/
+
+# Output
+*.log
+
+# IDE-specific files
+*.suo
+.vs/
+**/.ipynb_checkpoints
+
+# Test Results
+**/TestResults/
+
+# User files
+*.user
+*.userprefs
+
+# Build artifacts
+**/build/
+
+# Dependency caches
+**/node_modules/
+**/bower_components/
+
+# Visual Studio Code
+.vscode/
+
+# Dotnet
+*.dll
