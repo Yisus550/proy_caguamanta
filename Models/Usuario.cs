@@ -5,6 +5,7 @@ namespace proy_caguamanta.Models
 {
     public class Usuario
 	{
+		[Key]
 		[Required(ErrorMessage = "Este campo es requerido.")]
 		public int Id { get; set; }
 
