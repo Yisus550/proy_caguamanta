@@ -21,13 +21,13 @@ namespace proy_caguamanta.Models
 		[Required(ErrorMessage = "Este campo es requerido.")]
 		[EmailAddress]
 		[Display(Name = "Correo Electrónico")]
-		public string Correo { get; set; } //Login
+		public string Correo { get; set; }
 
 		[Required(ErrorMessage = "Este campo es requerido.")]
 		[DataType(DataType.Password)]
 		[StringLength(20)]
 		[Display(Name = "Contraseña")]
-		public string Contrasena { get; set; } //Login
+		public string Contrasena { get; set; }
 
 		[Required(ErrorMessage = "Este campo es requerido.")]
 		[DataType(DataType.PhoneNumber)]
