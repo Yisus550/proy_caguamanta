@@ -1,7 +1,6 @@
-﻿using proy_caguamanta.Models;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 
-namespace caguamanta2._0.Models;
+namespace proy_caguamanta.Models;
 
 public partial class Categoria
 {
