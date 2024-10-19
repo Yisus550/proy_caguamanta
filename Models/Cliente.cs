@@ -9,7 +9,7 @@ public partial class Cliente
 	public int IdCliente { get; set; }
 
     [Required(ErrorMessage = "Este campo es obligatorio")]
-    [StringLength(60, ErrorMessage = "La cadena de texto no puede sobrepasar los 60 caracteres")]\
+    [StringLength(60, ErrorMessage = "La cadena de texto no puede sobrepasar los 60 caracteres")]
 	[Display(Name = "Nombre")]
 	public string Nombre { get; set; }
 
