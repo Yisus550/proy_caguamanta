@@ -1,0 +1,23 @@
+name: CI/CD Pipeline
+
+on:
+  push:
+    branches:
+    - main
+  pull_request:
+    branches:
+    - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Build project
+        run: dotnet build
+      - name: Run code analysis
+        run: dotnet analyze
+      - name: Run linting
+        run: stylecop analyze --project .\MyProject.csproj
+      - name: Format code
+        run: dotnet format
