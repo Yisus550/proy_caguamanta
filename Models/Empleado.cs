@@ -3,18 +3,19 @@ using proy_caguamanta.Enums;
 
 namespace proy_caguamanta.Models
 {
-    public class Usuario
+    public class Empleado
 	{
+		[Key]
 		[Required(ErrorMessage = "Este campo es requerido.")]
 		public int Id { get; set; }
 
 		[Required(ErrorMessage = "Este campo es requerido.")]
-		[StringLength(30)]
+		[StringLength(30, ErrorMessage = "La cadena de texto no puede sobrepasar los 30 caracteres")]
 		[Display(Name = "Nombre")]
 		public string Nombre { get; set; }
 
 		[Required(ErrorMessage = "Este campo es requerido.")]
-		[StringLength(30)]
+		[StringLength(30, ErrorMessage = "La cadena de texto no puede sobrepasar los 30 caracteres")]
 		[Display(Name = "Apellido")]
 		public string Apellido { get; set; }
 		
@@ -25,7 +26,7 @@ namespace proy_caguamanta.Models
 
 		[Required(ErrorMessage = "Este campo es requerido.")]
 		[DataType(DataType.Password)]
-		[StringLength(20)]
+		[StringLength(20, ErrorMessage = "La cadena de texto no puede sobrepasar los 20 caracteres")]
 		[Display(Name = "Contraseña")]
 		public string Contrasena { get; set; }
 
@@ -35,15 +36,14 @@ namespace proy_caguamanta.Models
 		public string Telefono { get; set; }
 
 		[Required(ErrorMessage = "Este campo es requerido.")]
-		[StringLength(80)]
+		[StringLength(80, ErrorMessage = "La cadena de texto no puede sobrepasar los 80 caracteres")]
 		[Display(Name = "Dirección")]
 		public string Direccion { get; set; }
 
 		[Required(ErrorMessage = "Este campo es requerido.")]
-		[StringLength(20)]
-		[Display(Name = "Rol")]
-		[EnumDataType(typeof(RolesUsuario))]
-		public string Rol { get; set; }
+		[StringLength(20, ErrorMessage = "La cadena de texto no puede sobrepasar los 20 caracteres")]
+		[Display(Name = "Puesto")]
+		public string Puesto { get; set; }
 
 		[Required(ErrorMessage = "Este campo es requerido.")]
 		[EnumDataType(typeof(EstadosUsuario))]
