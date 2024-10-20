@@ -8,13 +8,21 @@ on:
     branches:
     - master
 
+permissions:
+  checks: write
+  contents: write
+
 jobs:
   build:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
-      - name: Build project
-        run: dotnet build
-      
-      - name: Linting Action
-        uses: ryanclark/lint-action@v1.15.0
+      - name: Set up .NET
+        uses: actions/setup-dotnet@v1
+        with:
+          dotnet-version: "8.0.x"
+
+      - name: Run linters
+        uses: wearerequired/lint-action@v2
+        with:
+          dotnet_format: true
