@@ -16,6 +16,6 @@ jobs:
       - name: Build project
         run: dotnet build
       - name: Format code
-        uses: eero-dev/dotnet-format@1.0.1
+        uses: eero-dev/dotnet-format@1.0.1 --workspace proy_caguamanta.sln
       - name: Linting Action
         uses: ryanclark/lint-action@v1.15.0
