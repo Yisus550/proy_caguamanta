@@ -15,7 +15,7 @@ jobs:
       - uses: actions/checkout@v3
       - name: Build project
         run: dotnet build
-      - name: Run linting
-        run: stylecop analyze --project .\MyProject.csproj
       - name: Format code
         run: dotnet format
+      - name: Linting Action
+      - uses: ryanclark/lint-action@v1.15.0
