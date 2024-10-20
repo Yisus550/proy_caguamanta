@@ -16,6 +16,6 @@ jobs:
       - name: Build project
         run: dotnet build
       - name: Format code
-        run: dotnet format
+        run: dotnet format --workspace proy_caguamanta.sln
       - name: Linting Action
         uses: ryanclark/lint-action@v1.15.0
