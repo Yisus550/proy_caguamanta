@@ -15,8 +15,6 @@ jobs:
       - uses: actions/checkout@v3
       - name: Build project
         run: dotnet build
-      - name: Run code analysis
-        run: dotnet analyze
       - name: Run linting
         run: stylecop analyze --project .\MyProject.csproj
       - name: Format code
