@@ -1,0 +1,61 @@
+﻿@model IEnumerable<proy_caguamanta.Models.Usuario>
+@{
+    ViewData["Title"] = "Lista de Usuarios";
+    Layout = "/Views/Shared/_Layout.cshtml";
+}
+
+<h1> LISTA DE ELEMTOS DE LA TABLA USUARIOS</h1>
+
+<div class="container">
+    <div class="row mt-5">
+        <div class="col-3">
+            <a class="btn btn-primary text-white form-control" asp-action="Crear">Crear Cliente</a>
+        </div>
+        <div class="col-3">
+            <a class="btn btn-success text-white form-control" asp-action="CrearMulti">Crear Multiples Cliente</a>
+        </div>
+    </div>
+    <div class="row mt-5">
+        <div class="col-12">
+            @if (Model.Count() > 0)
+            {
+                <table class="table table-striped border">
+                    <thead>
+                        <tr>
+                            <th>IdUsuario</th>
+                            <th>Nombre</th>
+                            <th>Apellido</th>
+                            <th>Correo</th>
+                            <th>Contraseña</th>
+                            <th>Telefono</th>
+                            <th>Direccion</th>
+                            <th>Rol</th>
+                            <th>Estado</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <td>@item.Id</td>
+                                <th>@item.Nombre</th>
+                                <td>@item.Apellido</td>
+                                <td>@item.Correo</td>
+                                <td>@item.Contrasena</td>
+                                <td>@item.Telefono</td>
+                                <td>@item.Direccion</td>
+                                <td>@item.Rol</td>
+                                <td>@item.Estado</td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            }
+            else
+            {
+                <p>NO HAY NINGUN CLIENTE</p>
+
+            }
+        </div>
+    </div>
+    </div>
