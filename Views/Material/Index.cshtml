@@ -1,0 +1,41 @@
+﻿@model IEnumerable<proy_caguamanta.Models.Material>
+@{
+	ViewData["Title"]="Listado de materiales";
+	Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="conteiner">
+	<h1>Listado de materiales</h1>
+	<div class="row mt-4">
+		<div class="col-12">
+			@if (Model.Count() > 0)
+			{
+				<table>
+					
+					<thead>
+						<tr>
+							<td>Nombre</td>
+							<td>Cantidad</td>
+							<td>Proveedor</td>
+							<td>Costo</td>
+						</tr>
+					</thead>
+					<tbody>
+						@foreach(var item in Model)
+						{
+						<td>@item.Nombre</td>
+						<td>@item.Cantidad</td>
+						<td>@item.Proveedor</td>
+						<td>@item.Costo</td>
+						}
+					</tbody>
+				</table>
+			}
+			else
+			{
+				<p>No se encontraron elementos</p>
+			}
+		</div>
+
+	</div>
+</div>
