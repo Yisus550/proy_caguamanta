@@ -1,0 +1,46 @@
+﻿@model IEnumerable<proy_caguamanta.Models.Categoria>
+@{
+    ViewData["Title"] = "Lista de Categorias";
+    Layout = "/Views/Shared/_Layout.cshtml";
+}
+
+<h1> LISTA DE ELEMTOS DE LA TABLA CATEGORIAS</h1>
+
+<div class="container">
+    <div class="row mt-5">
+        <div class="col-3">
+            <a class="btn btn-primary text-white form-control" asp-action="Crear">Crear Categoria</a>
+        </div>
+    </div>
+    <div class="row mt-5">
+        <div class="col-12">
+            @if (Model.Count() > 0)
+            {
+                <table class="table table-striped border">
+                    <thead>
+                        <tr>
+                            <th>Id</th>
+                            <th>Nombre</th>
+                            <th>Descripcion</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <td>@item.Id</td>
+                                <th>@item.Nombre</th>
+                                <td>@item.Descripcion</td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            }
+            else
+            {
+                <p>NO HAY NINGUNA CATEGORIA</p>
+
+            }
+        </div>
+    </div>
+</div>

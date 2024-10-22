@@ -1,0 +1,58 @@
+﻿@model proy_caguamanta.Models.DetalleVenta
+@{
+    ViewData["Title"] = "Crear Nuevo Detalle de Ventas";
+    Layout = "/Views/Shared/_Layout.cshtml";
+}
+
+<form method="post" asp-action="Crear">
+    <div class="container">
+        <div class="row mt-5">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="col-12">
+
+                <div class="row mt-2">
+                    <div class=" col-10">
+                        <label asp-for="IdVenta" class="form-label"></label>
+                        <input asp-for="IdVenta" class="form-control" />
+                        <span asp-validation-for="IdVenta" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="row mt-2">
+                    <div class=" col-10">
+                        <label asp-for="IdProducto" class="form-label"></label>
+                        <input asp-for="IdProducto" class="form-control" />
+                        <span asp-validation-for="IdProducto" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="row mt-2">
+                    <div class=" col-10">
+                        <label asp-for="PrecioUnidad" class="form-label"></label>
+                        <input asp-for="PrecioUnidad" class="form-control" />
+                        <span asp-validation-for="PrecioUnidad" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="row mt-2">
+                    <div class=" col-10">
+                        <label asp-for="Cantidad" class="form-label"></label>
+                        <input asp-for="Cantidad" class="form-control" />
+                        <span asp-validation-for="Cantidad" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="row mt-2">
+                    <div class=" col-10">
+                        <label asp-for="Importe" class="form-label"></label>
+                        <input asp-for="Importe" class="form-control" />
+                        <span asp-validation-for="Importe" class="text-danger"></span>
+                    </div>
+                </div>
+
+                <div class="row mt-5">
+                    <div class=" col-4">
+                        <button class="btn btn-secondary text-white form-control" type="submit">Guardar &nbsp;</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+
