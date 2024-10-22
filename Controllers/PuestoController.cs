@@ -18,5 +18,27 @@ namespace proy_caguamanta.Controllers
 			List<Puesto> listPuesto = _context.Puestos.ToList();
 			return View(listPuesto);
 		}
+		// sobrecaragr el metodo
+		[HttpGet]
+		public IActionResult Crear()
+		{
+			return View();
+		}
+		[HttpPost]
+		public IActionResult Crear(Puesto puesto)
+		{
+			//validar
+			if (ModelState.IsValid)
+			{
+				// agregar, guardar y redireccionar
+				_context.Puestos.Add(puesto);
+				_context.SaveChanges();
+				return RedirectToAction("Index");
+			}
+			else
+			{
+				return View("Crear", puesto);
+			}
+		}
 	}
 }

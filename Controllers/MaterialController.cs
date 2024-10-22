@@ -18,5 +18,27 @@ namespace proy_caguamanta.Controllers
 			List<Material> listMaterial = _context.Materiales.ToList();
 			return View(listMaterial);
 		}
+		// sobrecaragr el metodo
+		[HttpGet]
+		public IActionResult Crear()
+		{
+			return View();
+		}
+		[HttpPost]
+		public IActionResult Crear(Material material)
+		{
+			//validar
+			if (ModelState.IsValid)
+			{
+				// agregar, guardar y redireccionar
+				_context.Materiales.Add(material);
+				_context.SaveChanges();
+				return RedirectToAction("Index");
+			}
+			else
+			{
+				return View("Crear", material);
+			}
+		}
 	}
 }

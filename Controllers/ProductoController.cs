@@ -17,5 +17,27 @@ namespace proy_caguamanta.Controllers
             List<Producto> listaProducto = _context.Productos.ToList();
             return View(listaProducto);
         }
-    }
+		// sobrecaragr el metodo
+		[HttpGet]
+		public IActionResult Crear()
+		{
+			return View();
+		}
+		[HttpPost]
+		public IActionResult Crear(Producto producto)
+		{
+			//validar
+			if (ModelState.IsValid)
+			{
+				// agregar, guardar y redireccionar
+				_context.Productos.Add(producto);
+				_context.SaveChanges();
+				return RedirectToAction("Index");
+			}
+			else
+			{
+				return View("Crear", producto);
+			}
+		}
+	}
 }
