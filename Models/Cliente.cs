@@ -6,7 +6,7 @@ public partial class Cliente
 {
     [Key]
 	[Required(ErrorMessage = "Este campo es obligatorio")]
-	public int IdCliente { get; set; }
+	public int Id { get; set; }
 
     [Required(ErrorMessage = "Este campo es obligatorio")]
     [StringLength(60, ErrorMessage = "La cadena de texto no puede sobrepasar los 60 caracteres")]
