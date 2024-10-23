@@ -1,0 +1,55 @@
+﻿@model proy_caguamanta.Models.Material
+@{
+	ViewData["Title"] = "Crear multiples clientes";
+	Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>CREAR MATERIALES</h1>
+
+<form method="post" asp-action="Crear">
+	<div class="conteiner">
+		<div class="row mt-5">
+			<div asp-validation-summary="ModelOnly" class="text-danger"></div>
+			<div class="col-12">
+
+				<div class="row mt-2">
+					<div class="col-10">
+						<label asp-for="Nombre" class="form-label"></label>
+						<input asp-for="Nombre" class="form-control" />
+						<span asp-validation-for="Nombre" class="text-danger"></span>
+					</div>
+				</div>
+
+				<div class="row mt-2">
+					<div class="col-10">
+						<label asp-for="Cantidad" class="form-label"></label>
+						<input asp-for="Cantidad" class="form-control" />
+						<span asp-validation-for="Cantidad" class="text-danger"></span>
+					</div>
+				</div>
+
+				<div class="row mt-2">
+					<div class="col-10">
+						<label asp-for="Proveedor" class="form-label"></label>
+						<input asp-for="Proveedor" class="form-control" />
+						<span asp-validation-for="Proveedor" class="text-danger"></span>
+					</div>
+				</div>
+
+				<div class="row mt-2">
+					<div class="col-10">
+						<label asp-for="Costo" class="form-label"></label>
+						<input asp-for="Costo" class="form-control" />
+						<span asp-validation-for="Costo" class="text-danger"></span>
+					</div>
+				</div>
+
+				<div class="row mt-5">
+					<div class="col-4">
+						<button class="btn btn-secondary text-white form-control" type="submit">Guardar &nbsp;</button>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</form>

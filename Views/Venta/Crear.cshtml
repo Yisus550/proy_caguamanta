@@ -1,0 +1,55 @@
+﻿@model proy_caguamanta.Models.Venta
+@{
+	ViewData["Title"] = "Crear Ventas";
+	Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>CREAR VENTAS</h1>
+
+<form method="post" asp-action="Crear">
+	<div class="conteiner">
+		<div class="row mt-5">
+			<div asp-validation-summary="ModelOnly" class="text-danger"></div>
+			<div class="col-12">
+
+				<div class="row mt-2">
+					<div class="col-10">
+						<label asp-for="FechaVenta" class="form-label"></label>
+						<input asp-for="FechaVenta" class="form-control" />
+						<span asp-validation-for="FechaVenta" class="text-danger"></span>
+					</div>
+				</div>
+
+				<div class="row mt-2">
+					<div class="col-10">
+						<label asp-for="IdEmpleado" class="form-label"></label>
+						<input asp-for="IdEmpleado" class="form-control" />
+						<span asp-validation-for="IdEmpleado" class="text-danger"></span>
+					</div>
+				</div>
+
+				<div class="row mt-2">
+					<div class="col-10">
+						<label asp-for="IdCliente" class="form-label"></label>
+						<input asp-for="IdCliente" class="form-control" />
+						<span asp-validation-for="IdCliente" class="text-danger"></span>
+					</div>
+				</div>
+
+				<div class="row mt-2">
+					<div class="col-10">
+						<label asp-for="Importe" class="form-label"></label>
+						<input asp-for="Importe" class="form-control" />
+						<span asp-validation-for="Importe" class="text-danger"></span>
+					</div>
+				</div>
+
+				<div class="row mt-5">
+					<div class="col-4">
+						<button class="btn btn-secondary text-white form-control" type="submit">Guardar &nbsp;</button>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</form>
