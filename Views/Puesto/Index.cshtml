@@ -27,10 +27,10 @@
 					<tbody>
 						@foreach (var item in Model)
 						{
-						<td>
 						<td>@item.Nombre</td>
 						<td>@item.Sueldo</td>
-						</td>
+						<td><a class="btn btn-outline-primary form-control" asp-action="Editar" asp-route-id="@item.Id">Editar</a></td>
+						<td><a class="btn btn-outline-danger form-control" asp-action="Eliminar" asp-route-id="@item.Id">Eliminar</a></td>
 						}
 					</tbody>
 				</table>
