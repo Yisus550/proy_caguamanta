@@ -4,7 +4,7 @@
     Layout = "/Views/Shared/_Layout.cshtml";
 }
 
-<h1> LISTA DE ELEMTOS DE LA TABLA DETALLE DE COMPRA</h1>
+<h1> LISTA DE DETALLES DE COMPRA</h1>
 
 <div class="container">
     <div class="row mt-5">
@@ -32,14 +32,13 @@
                         {
                             <tr>
                                 <td>@item.Id</td>
-                                <th>@item.IdCompra</th>
+                                <td>@item.IdCompra</td>
                                 <td>@item.IdProducto</td>
                                 <td>@item.PrecioUnidad</td>
                                 <td>@item.Cantidad</td>
                                 <td>@item.Importe</td>
                                 <td><a class="btn btn-outline-primary form-control" asp-action="Editar" asp-route-id="@item.Id">Editar</a></td>
                                 <td><a class="btn btn-outline-danger form-control" asp-action="Eliminar" asp-route-id="@item.Id">Eliminar</a></td>
-
                             </tr>
                         }
                     </tbody>

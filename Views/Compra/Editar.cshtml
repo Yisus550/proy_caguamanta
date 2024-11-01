@@ -1,0 +1,53 @@
+﻿@model proy_caguamanta.Models.Compra
+@{
+    ViewData["Title"] = "Editar Compra";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1 class="text-center">Editar Compra</h1>
+
+<form method="post" asp-action="Editar">
+    <div class="container">
+        <div class="row mt-5">
+            <div class="col-12">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <div class="row mt-2">
+                    <div class=" col-10">
+                        <label asp-for="FechaCompra" class="form-label"></label>
+                        <input asp-for="FechaCompra" class="form-control" />
+                        <span asp-validation-for="FechaCompra" class="text-danger"></span>
+                    </div>
+                </div>
+
+                <div class="row mt-2">
+                    <div class=" col-10">
+                        <label asp-for="IdEmpleado" class="form-label"></label>
+                        <input asp-for="IdEmpleado" class="form-control" />
+                        <span asp-validation-for="IdEmpleado" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="row mt-2">
+                    <div class=" col-10">
+                        <label asp-for="IdProveedor" class="form-label"></label>
+                        <input asp-for="IdProveedor" class="form-control" />
+                        <span asp-validation-for="IdProveedor" class="text-danger"></span>
+                    </div>
+                </div>
+
+                <div class="row mt-2">
+                    <div class=" col-10">
+                        <label asp-for="Importe" class="form-label"></label>
+                        <input asp-for="Importe" class="form-control" />
+                        <span asp-validation-for="Importe" class="text-danger"></span>
+                    </div>
+                </div>
+
+                <div class="row mt-5">
+                    <div class=" col-4">
+                        <button class="btn btn-secondary text-white form-control" type="submit">Actualziar &nbsp;</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>

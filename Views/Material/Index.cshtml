@@ -4,8 +4,8 @@
 	Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<div class="conteiner">
-	<h1>Listado de materiales</h1>
+	<h1> LISTA DE MATERIALES</h1>
+
 	<div class="row mt-4">
 		<div class="col-3">
 			<a class="btn btn-primary text-white form-control" asp-action="Crear">Agregar nuevo</a>
@@ -28,21 +28,22 @@
 					<tbody>
 						@foreach(var item in Model)
 						{
-						<td>@item.Nombre</td>
-						<td>@item.Cantidad</td>
-						<td>@item.Proveedor</td>
-						<td>@item.Costo</td>
-						<td><a class="btn btn-outline-primary form-control" asp-action="Editar" asp-route-id="@item.Id">Editar</a></td>
-						<td><a class="btn btn-outline-danger form-control" asp-action="Eliminar" asp-route-id="@item.Id">Eliminar</a></td>
+							<tr>
+								<td>@item.Nombre</td>
+								<td>@item.Cantidad</td>
+								<td>@item.Proveedor</td>
+								<td>@item.Costo</td>
+								<td><a class="btn btn-outline-primary form-control" asp-action="Editar" asp-route-id="@item.Id">Editar</a></td>
+								<td><a class="btn btn-outline-danger form-control" asp-action="Eliminar" asp-route-id="@item.Id">Eliminar</a></td>
+							</tr>
 						}
 					</tbody>
 				</table>
 			}
 			else
 			{
-				<p>No se encontraron elementos</p>
+				<p>NO HAY NINGUN MATERIAL</p>
 			}
 		</div>
 
 	</div>
-</div>
