@@ -16,5 +16,8 @@ namespace proy_caguamanta.Models
 		[Required(ErrorMessage = "Este campo es obligatorio")]
 		[Range(1, double.MaxValue, ErrorMessage = "El sueldo no debe de ser menor a $1")]
 		public decimal Sueldo { get; set; }
+
+		// establecemos la relacion de 1:N
+		public List<Empleado> Empleado { get; set; }
 	}
 }

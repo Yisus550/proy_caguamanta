@@ -17,4 +17,8 @@ public partial class Categoria
     [StringLength(60, ErrorMessage = "La cadena de texto no puede sobrepasar los 60 caracteres")]
     [Display(Name = "Descripción de la categoría")]
     public string Descripcion { get; set; }
+
+    // relacion de 1:N
+    public List<Producto> Producto { get; set; }   
+    public List<Material> Material { get; set; }
 }

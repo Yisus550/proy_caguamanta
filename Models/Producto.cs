@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace proy_caguamanta.Models
 {
@@ -27,5 +28,15 @@ namespace proy_caguamanta.Models
 		[Range(0, int.MaxValue, ErrorMessage = "La cantidad debe ser mayor a 0.")]
 		[Display(Name = "Cantidad del producto")]
 		public int Cantidad { get; set; }
+
+		// llave foranea 
+		[ForeignKey("Categoria")]
+		public int IdCategoria { get; set; }
+		// navegacion
+		public Categoria Categoria { get; set; }
+
+		// relacion de 1:N
+		public List<DetalleVenta> DetalleVentas { get; set; }
+		
 	}
 }

@@ -17,4 +17,6 @@ public partial class Cliente
 	[DataType(DataType.PhoneNumber)]
 	[Display(Name = "Teléfono")]
 	public string Telefono { get; set; }
+
+	public List<Venta> Venta { get; set; }
 }
