@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using proy_caguamanta.Data;
 
@@ -11,9 +12,11 @@ using proy_caguamanta.Data;
 namespace proy_caguamanta.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20241031003739_cambio_id_Material_Proveedor")]
+    partial class cambio_id_Material_Proveedor
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -42,7 +45,7 @@ namespace proy_caguamanta.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Categorias", (string)null);
+                    b.ToTable("Categorias");
                 });
 
             modelBuilder.Entity("proy_caguamanta.Models.Cliente", b =>
@@ -64,7 +67,7 @@ namespace proy_caguamanta.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Clientes", (string)null);
+                    b.ToTable("Clientes");
                 });
 
             modelBuilder.Entity("proy_caguamanta.Models.Compra", b =>
@@ -89,7 +92,7 @@ namespace proy_caguamanta.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Compras", (string)null);
+                    b.ToTable("Compras");
                 });
 
             modelBuilder.Entity("proy_caguamanta.Models.DetalleCompra", b =>
@@ -117,7 +120,7 @@ namespace proy_caguamanta.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("DetalleCompras", (string)null);
+                    b.ToTable("DetalleCompras");
                 });
 
             modelBuilder.Entity("proy_caguamanta.Models.DetalleVenta", b =>
@@ -145,7 +148,7 @@ namespace proy_caguamanta.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("DetalleVentas", (string)null);
+                    b.ToTable("DetalleVentas");
                 });
 
             modelBuilder.Entity("proy_caguamanta.Models.Empleado", b =>
@@ -179,14 +182,15 @@ namespace proy_caguamanta.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("IdPuesto")
-                        .HasMaxLength(20)
-                        .HasColumnType("int");
-
                     b.Property<string>("Nombre")
                         .IsRequired()
                         .HasMaxLength(30)
                         .HasColumnType("nvarchar(30)");
+
+                    b.Property<string>("Puesto")
+                        .IsRequired()
+                        .HasMaxLength(20)
+                        .HasColumnType("nvarchar(20)");
 
                     b.Property<string>("Telefono")
                         .IsRequired()
@@ -194,16 +198,16 @@ namespace proy_caguamanta.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Empleados", (string)null);
+                    b.ToTable("Empleados");
                 });
 
             modelBuilder.Entity("proy_caguamanta.Models.Material", b =>
                 {
-                    b.Property<int>("IdMaterial")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("IdMaterial"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<int>("Cantidad")
                         .HasColumnType("int");
@@ -211,21 +215,19 @@ namespace proy_caguamanta.Migrations
                     b.Property<decimal>("Costo")
                         .HasColumnType("decimal(18,2)");
 
-                    b.Property<int>("IdCategoria")
-                        .HasColumnType("int");
-
-                    b.Property<int>("IdProveedor")
-                        .HasMaxLength(60)
-                        .HasColumnType("int");
-
                     b.Property<string>("Nombre")
                         .IsRequired()
                         .HasMaxLength(60)
                         .HasColumnType("nvarchar(60)");
 
-                    b.HasKey("IdMaterial");
+                    b.Property<string>("Proveedor")
+                        .IsRequired()
+                        .HasMaxLength(60)
+                        .HasColumnType("nvarchar(60)");
 
-                    b.ToTable("Materiales", (string)null);
+                    b.HasKey("Id");
+
+                    b.ToTable("Materiales");
                 });
 
             modelBuilder.Entity("proy_caguamanta.Models.Producto", b =>
@@ -254,16 +256,16 @@ namespace proy_caguamanta.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Productos", (string)null);
+                    b.ToTable("Productos");
                 });
 
             modelBuilder.Entity("proy_caguamanta.Models.Proveedor", b =>
                 {
-                    b.Property<int>("IdProveedor")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("IdProveedor"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<string>("Apellido")
                         .IsRequired()
@@ -288,9 +290,9 @@ namespace proy_caguamanta.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.HasKey("IdProveedor");
+                    b.HasKey("Id");
 
-                    b.ToTable("Proveedores", (string)null);
+                    b.ToTable("Proveedores");
                 });
 
             modelBuilder.Entity("proy_caguamanta.Models.Puesto", b =>
@@ -311,7 +313,7 @@ namespace proy_caguamanta.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Puestos", (string)null);
+                    b.ToTable("Puestos");
                 });
 
             modelBuilder.Entity("proy_caguamanta.Models.Venta", b =>
@@ -336,7 +338,7 @@ namespace proy_caguamanta.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Ventas", (string)null);
+                    b.ToTable("Ventas");
                 });
 #pragma warning restore 612, 618
         }

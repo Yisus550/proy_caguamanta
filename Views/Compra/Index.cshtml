@@ -35,6 +35,9 @@
                                 <td>@item.IdEmpleado</td>
                                 <td>@item.IdProveedor</td>
                                 <td>@item.Importe</td>
+                                <td><a class="btn btn-outline-primary form-control" asp-action="Editar" asp-route-id="@item.Id">Editar</a></td>
+                                <td><a class="btn btn-outline-danger form-control" asp-action="Eliminar" asp-route-id="@item.Id">Eliminar</a></td>
+
                             </tr>
                         }
                     </tbody>
