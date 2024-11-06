@@ -43,6 +43,39 @@ namespace proy_caguamanta.Controllers
             }
 
         }
+		[HttpGet]
+		public IActionResult Editar(int id)
+		{
+			Empleado estudiante = _context.Empleados.Find(id);
+			return View(estudiante);
+		}
 
-    }
+		[HttpPost]
+		public IActionResult Editar(Empleado empleado)
+		{
+			if (ModelState.IsValid)
+			{
+				_context.Empleados.Update(empleado);
+				_context.SaveChanges();
+				return RedirectToAction("Index");
+			}
+			return View("Editar", empleado);
+		}
+
+		[HttpGet]
+		public IActionResult Eliminar(int id)
+		{
+			Empleado estudiante = _context.Empleados.Find(id);
+			return View(estudiante);
+		}
+
+		[HttpPost]
+		public IActionResult Eliminar(Empleado empleado)
+		{
+			_context.Empleados.Remove(empleado);
+			_context.SaveChanges();
+			return RedirectToAction("Index");
+		}
+
+	}
 }

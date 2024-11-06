@@ -1,0 +1,31 @@
+﻿@model proy_caguamanta.Models.DetalleCompra
+@{
+	ViewData["Title"] = "Eliminar Detalle de compra";
+	Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1 class="text-center m-5">Eliminar Detalle de compra</h1>
+
+<form method="post" asp-action="Eliminar">
+	<div class="container">
+		<p>¿Estas seguro de eliminar este Detalle de compra?</p>
+		<hr color="gray" />
+		<p>
+			<strong>IdCompra</strong>: @Model.IdCompra
+		</p>
+		<p>
+			<strong>IdProducto</strong>: @Model.IdProducto
+		</p>
+		<p>
+			<strong>Precio por Unidad</strong>: @Model.PrecioUnidad
+		</p>
+		<p>
+			<strong>Cantidad</strong>: @Model.Cantidad
+		</p>
+		<p>
+			<strong>Importe</strong>: @Model.Importe
+		</p>
+		<button class="btn btn-danger" type="submit">Eliminar</button>
+		<button class="btn btn-secondary" asp-action="Index">Cancelar</button>
+	</div>
+</form>

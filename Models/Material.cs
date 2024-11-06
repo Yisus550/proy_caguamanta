@@ -4,9 +4,9 @@ namespace proy_caguamanta.Models;
 
 public partial class Material
 {
-    [Key]
+	[Key]
 	[Required(ErrorMessage = "Este campo es obligatorio")]
-	public int IdMaterial { get; set; }
+	public int Id { get; set; }
 
 	[Required(ErrorMessage = "Este campo es obligatorio")]
 	[StringLength(60, ErrorMessage = "La cadena de texto no puede sobrepasar los 60 caracteres")]

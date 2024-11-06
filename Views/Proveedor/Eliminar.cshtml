@@ -1,0 +1,31 @@
+﻿@model proy_caguamanta.Models.Proveedor
+@{
+	ViewData["Title"] = "Eliminar Proveedor";
+	Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1 class="text-center m-5">Eliminar Proveedor</h1>
+
+<form method="post" asp-action="Eliminar">
+	<div class="container">
+		<p>¿Estas seguro de eliminar este proveedor?</p>
+		<hr color="gray" />
+		<p>
+			<strong>Fecha de Compra</strong>: @Model.Nombre
+		</p>
+		<p>
+			<strong>IdEmpleado</strong>: @Model.Apellido
+		</p>
+		<p>
+			<strong>Proveedor</strong>: @Model.Telefono
+		</p>
+		<p>
+			<strong>Importe</strong>: @Model.Correo
+		</p>
+		<p>
+			<strong>Importe</strong>: @Model.Empresa
+		</p>
+		<button class="btn btn-danger" type="submit">Eliminar</button>
+		<button class="btn btn-secondary" asp-action="Index">Cancelar</button>
+	</div>
+</form>

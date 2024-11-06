@@ -38,6 +38,42 @@ namespace proy_caguamanta.Controllers
 			{
 				return View("Crear", producto);
 			}
+
+		}
+
+		[HttpGet]
+		public IActionResult Editar(int id)
+		{
+			Producto estudiante = _context.Productos.Find(id);
+			return View(estudiante);
+		}
+
+
+		[HttpPost]
+		public IActionResult Editar(Producto producto)
+		{
+			if (ModelState.IsValid)
+			{
+				_context.Productos.Update(producto);
+				_context.SaveChanges();
+				return RedirectToAction("Index");
+			}
+			return View("Editar", producto);
+		}
+
+		[HttpGet]
+		public IActionResult Eliminar(int id)
+		{
+			Producto estudiante = _context.Productos.Find(id);
+			return View(estudiante);
+		}
+
+		[HttpPost]
+		public IActionResult Eliminar(Producto producto)
+		{
+			_context.Productos.Remove(producto);
+			_context.SaveChanges();
+			return RedirectToAction("Index");
 		}
 	}
 }
