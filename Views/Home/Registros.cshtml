@@ -1,0 +1,90 @@
+﻿@{
+    ViewData["Title"] = "Registros";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div class="container">
+    <h1 class="title">Registros</h1>
+    <p class="text-secondary">Cahamanta</p>
+
+    <div class="row py-3">
+        <div class="col-sm-4 mb-3 mb-sm-0">
+            <div class="card h-100">
+                <div class="card-body">
+                    <img src="" alt=". . ." class="card-img" />
+                    <h5 class="card-title">Categorias</h5>
+                    <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
+                    <a asp-action="Categoria" class="card-link">Ir a Categorias</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-4">
+            <div class="card h-100">
+                <div class="card-body">
+                    <img src="../Assets/crm.png" alt=". . ." class="card-img-top" />
+                    <h5 class="card-title">Clientes</h5>
+                    <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
+                    <a asp-action="Cliente" class="card-link">Ir a Clientes</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-4">
+            <div class="card h-100">
+                <div class="card-body">
+                    <img src="../Assets/bolsa-de-la-compra.png" alt=". . ." class="card-img-top" />
+                    <h5 class="card-title">Compras</h5>
+                    <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
+                    <a asp-action="Compra" class="card-link">Ir a Compras</a>
+                    <a asp-action="DetalleCompra" class="btn btn-primary mx-3">Ir a Detalles de Compras</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row py-3">
+        <div class="col-sm-4 mb-3 mb-sm-0">
+            <div class="card h-100">
+                <div class="card-body">
+                    <img src="../Assets/requirements.png" alt=". . ." class="card-img-top" />
+                    <h5 class="card-title">Empleados</h5>
+                    <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
+                    <a asp-action="Empleado" class="card-link">Ir a Empleados</a>
+                    <a asp-action="Puesto" class="btn btn-primary mx-3">Ir a Puestos</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-4">
+            <div class="card h-100">
+                <div class="card-body">
+                    <img src="../Assets/product.png" alt=". . ." class="card-img-top" />
+                    <h5 class="card-title">Productos</h5>
+                    <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
+                    <a asp-action="Producto" class="card-link">Ir a Productos</a>
+                    <a asp-action="Material" class="btn btn-primary mx-3">Ir a Material</a>
+
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-4">
+            <div class="card h-100">
+				<div class="card-body">
+                    <img src="../Assets/supplier.png" alt=". . ." class="card-img-top" />
+                    <h5 class="card-title">Proveedores</h5>
+                    <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
+                    <a asp-action="Proveedor" class="card-link">Ir a Proveedores</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row py-3">
+        <div class="col-sm-4 mb-3 mb-sm-0">
+            <div class="card h-100">
+                <div class="card-body">
+                    <img src="" alt=". . ." class="card-img-top" />
+                    <h5 class="card-title">Ventas</h5>
+                    <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
+                    <a asp-action="Venta" class="card-link">Ir a Ventas</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

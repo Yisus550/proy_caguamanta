@@ -40,7 +40,6 @@ logs/
 # User files
 *.user
 *.userprefs
-appsettings.json
 
 # Build artifacts
 **/build/

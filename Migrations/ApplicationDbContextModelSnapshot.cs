@@ -42,7 +42,7 @@ namespace proy_caguamanta.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Categorias");
+                    b.ToTable("Categorias", (string)null);
                 });
 
             modelBuilder.Entity("proy_caguamanta.Models.Cliente", b =>
@@ -64,7 +64,7 @@ namespace proy_caguamanta.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Clientes");
+                    b.ToTable("Clientes", (string)null);
                 });
 
             modelBuilder.Entity("proy_caguamanta.Models.Compra", b =>
@@ -230,9 +230,9 @@ namespace proy_caguamanta.Migrations
                     b.Property<string>("Nombre")
                         .IsRequired()
                         .HasMaxLength(60)
-                        .HasColumnType("nvarchar(60)");
+                        .HasColumnType("int");
 
-                    b.Property<string>("Proveedor")
+                    b.Property<string>("Nombre")
                         .IsRequired()
                         .HasMaxLength(60)
                         .HasColumnType("nvarchar(60)");
@@ -311,7 +311,7 @@ namespace proy_caguamanta.Migrations
 
                     b.HasKey("IdProveedor");
 
-                    b.ToTable("Proveedores");
+                    b.ToTable("Proveedores", (string)null);
                 });
 
             modelBuilder.Entity("proy_caguamanta.Models.Puesto", b =>
@@ -332,7 +332,7 @@ namespace proy_caguamanta.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Puestos");
+                    b.ToTable("Puestos", (string)null);
                 });
 
             modelBuilder.Entity("proy_caguamanta.Models.Venta", b =>

@@ -40,5 +40,39 @@ namespace proy_caguamanta.Controllers
 				return View("Crear", proveedor);
 			}
 		}
+
+		[HttpGet]
+		public IActionResult Editar(int id)
+		{
+			Proveedor estudiante = _context.Proveedores.Find(id);
+			return View(estudiante);
+		}
+
+		[HttpPost]
+		public IActionResult Editar(Proveedor proveedor)
+		{
+			if (ModelState.IsValid)
+			{
+				_context.Proveedores.Update(proveedor);
+				_context.SaveChanges();
+				return RedirectToAction("Index");
+			}
+			return View("Editar", proveedor);
+		}
+
+		[HttpGet]
+		public IActionResult Eliminar(int id)
+		{
+			Proveedor estudiante = _context.Proveedores.Find(id);
+			return View(estudiante);
+		}
+
+		[HttpPost]
+		public IActionResult Eliminar(Proveedor proveedor)
+		{
+			_context.Proveedores.Remove(proveedor);
+			_context.SaveChanges();
+			return RedirectToAction("Index");
+		}
 	}
 }

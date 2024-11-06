@@ -1,0 +1,22 @@
+﻿@model proy_caguamanta.Models.Categoria
+@{
+	ViewData["Title"] = "Eliminar categoria";
+	Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1 class="text-center m-5">Eliminar categoria</h1>
+
+<form method="post" asp-action="Eliminar">
+	<div class="container">
+		<p>¿Estas seguro de eliminar esta categoria?</p>
+		<hr color="gray" />
+		<p>
+			<strong>Nombre</strong>: @Model.Nombre
+		</p>
+		<p>
+			<strong>Descripcion</strong>: @Model.Descripcion
+		</p>
+		<button class="btn btn-danger" type="submit">Eliminar</button>
+		<button class="btn btn-secondary" asp-action="Index">Cancelar</button>
+	</div>
+</form>

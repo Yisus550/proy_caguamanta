@@ -14,11 +14,17 @@ namespace proy_caguamanta.Controllers
 			_context = context;
 		}
 
-		public ActionResult Index() 
+		public ActionResult Index()
+		{
+			return View();
+		}
+
+		public IActionResult Listar()
 		{
 			List<Venta> listaVenta = _context.Ventas.ToList();
-		return View(listaVenta);
+			return View(listaVenta);
 		}
+
 		// sobrecaragr el metodo
 		[HttpGet]
 		public IActionResult Crear()

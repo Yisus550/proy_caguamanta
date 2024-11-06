@@ -40,5 +40,38 @@ namespace proy_caguamanta.Controllers
 				return View("Crear", puesto);
 			}
 		}
+		[HttpGet]
+		public IActionResult Editar(int id)
+		{
+			Puesto estudiante = _context.Puestos.Find(id);
+			return View(estudiante);
+		}
+
+		[HttpPost]
+		public IActionResult Editar(Puesto puesto)
+		{
+			if (ModelState.IsValid)
+			{
+				_context.Puestos.Update(puesto);
+				_context.SaveChanges();
+				return RedirectToAction("Index");
+			}
+			return View("Editar", puesto);
+		}
+
+		[HttpGet]
+		public IActionResult Eliminar(int id)
+		{
+			Puesto estudiante = _context.Puestos.Find(id);
+			return View(estudiante);
+		}
+
+		[HttpPost]
+		public IActionResult Eliminar(Puesto puesto)
+		{
+			_context.Puestos.Remove(puesto);
+			_context.SaveChanges();
+			return RedirectToAction("Index");
+		}
 	}
 }
