@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using proy_caguamanta.Data;
 
@@ -11,9 +12,11 @@ using proy_caguamanta.Data;
 namespace proy_caguamanta.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20241105215359_selectindex")]
+    partial class selectindex
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -192,6 +195,7 @@ namespace proy_caguamanta.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("IdPuesto")
+                        .HasMaxLength(20)
                         .HasColumnType("int");
 
                     b.Property<string>("Nombre")

@@ -53,13 +53,15 @@
                         <span asp-validation-for="Direccion" class="text-danger"></span>
                     </div>
                 </div>
+
                 <div class="row mt-2">
                     <div class=" col-10">
-                        <label asp-for="IdPuesto" class="form-label"></label>
-                        <input asp-for="IdPuesto" class="form-control" />
+						<label asp-for="IdPuesto">Puesto</label>
+                        <select asp-for="IdPuesto" class="form-control" asp-items="ViewBag.Puesto"></select>
                         <span asp-validation-for="IdPuesto" class="text-danger"></span>
                     </div>
                 </div>
+
                 <div class="row mt-2">
                     <div class=" col-10">
                         <label asp-for="Estado" class="form-label"></label>

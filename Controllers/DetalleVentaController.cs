@@ -32,7 +32,7 @@ namespace proy_caguamanta.Controllers
         [HttpPost]
         public IActionResult Crear(DetalleVenta detalleVenta)
         {
-            if (ModelState.IsValid)
+            if (detalleVenta.Id == 0 && detalleVenta.IdVenta != null && detalleVenta.IdProducto != null && detalleVenta.PrecioUnidad != null && detalleVenta.Cantidad != null && detalleVenta.Importe != null)
             {
                 _context.DetalleVentas.Add(detalleVenta);
                 _context.SaveChanges();

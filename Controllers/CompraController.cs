@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using proy_caguamanta.Data;
 using proy_caguamanta.Models;
 using System.ComponentModel;
@@ -26,14 +27,15 @@ namespace proy_caguamanta.Controllers
         [HttpGet]
         public IActionResult Crear()
         {
-
+            ViewBag.Empleado = GetEmpleadoSelectList();
+            ViewBag.Proveedor = GetPrveedorSelectList();
             return View();
         }
 
         [HttpPost]
         public IActionResult Crear(Compra compra)
         {
-            if (ModelState.IsValid)
+            if (compra.Id == 0 && compra.IdEmpleado != null && compra.FechaCompra != null && compra.IdProveedor != null && compra.Importe != null)
             {
                 _context.Compras.Add(compra);
                 _context.SaveChanges();
@@ -44,6 +46,26 @@ namespace proy_caguamanta.Controllers
                 return View("Crear", compra);
             }
 
+        }
+        // metodo para mandar los empleados 
+        private List<SelectListItem> GetEmpleadoSelectList()
+        {
+            return _context.Empleados.Select(d => new SelectListItem
+            {
+                Text = d.Nombre,
+                Value = d.Id.ToString(),
+                Selected = false
+            }).ToList();
+        }
+        // metodo para mandar los clientes 
+        private List<SelectListItem> GetPrveedorSelectList()
+        {
+            return _context.Proveedores.Select(d => new SelectListItem
+            {
+                Text = d.Nombre,
+                Value = d.IdProveedor.ToString(),
+                Selected = false
+            }).ToList();
         }
     }
 }

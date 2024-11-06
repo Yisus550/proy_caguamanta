@@ -32,7 +32,7 @@ namespace proy_caguamanta.Controllers
         [HttpPost]
         public IActionResult Crear(Cliente cliente)
         {
-            if (ModelState.IsValid)
+            if (cliente.Id == 0 && cliente.Nombre != null && cliente.Telefono != null)
             {
                 _context.Clientes.Add(cliente);
                 _context.SaveChanges();

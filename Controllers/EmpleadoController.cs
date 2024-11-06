@@ -1,4 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.EntityFrameworkCore;
 using proy_caguamanta.Data;
 using proy_caguamanta.Models;
 
@@ -24,15 +26,16 @@ namespace proy_caguamanta.Controllers
         [HttpGet]
         public IActionResult Crear()
         {
-
+            ViewBag.Puesto = GetPuestosSelectList();
             return View();
         }
 
         [HttpPost]
         public IActionResult Crear(Empleado empleado)
         {
-            if (ModelState.IsValid)
-            {
+             
+            if (empleado.Id == 0 && empleado.Nombre != null && empleado.Apellido != null && empleado.Correo != null && empleado.Contrasena != null && empleado.Telefono != null && empleado.Direccion != null && empleado.Estado != null && empleado.IdPuesto != 0)
+            { 
                 _context.Empleados.Add(empleado);
                 _context.SaveChanges();
                 return RedirectToAction("Index");
@@ -43,6 +46,17 @@ namespace proy_caguamanta.Controllers
             }
 
         }
+
+        // metodo para mandar los puestos 
+            private List<SelectListItem> GetPuestosSelectList()
+            {
+            return _context.Puestos.Select(d => new SelectListItem
+                {
+                    Text = d.Nombre,
+                    Value = d.Id.ToString(),
+                    Selected = false
+                }).ToList();
+            }
 
     }
 }

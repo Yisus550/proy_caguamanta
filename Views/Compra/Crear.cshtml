@@ -19,17 +19,20 @@
                 </div>
                 <div class="row mt-2">
                     <div class=" col-10">
-                        <label asp-for="IdEmpleado" class="form-label"></label>
-                        <input asp-for="IdEmpleado" class="form-control" />
+                        <label asp-for="IdEmpleado">Empleado</label>
+                        <select asp-for="IdEmpleado" class="form-control" asp-items="ViewBag.Empleado"></select>
                         <span asp-validation-for="IdEmpleado" class="text-danger"></span>
                     </div>
                 </div>
+
                 <div class="row mt-2">
                     <div class=" col-10">
-                        <label asp-for="IdProveedor" class="form-label"></label>
-                        <input asp-for="IdProveedor" class="form-control" />
+                        <label asp-for="IdProveedor">Proveedor</label>
+                        <select asp-for="IdProveedor" class="form-control" asp-items="ViewBag.Proveedor"></select>
                         <span asp-validation-for="IdProveedor" class="text-danger"></span>
                     </div>
+                </div>
+
                 </div>
                 <div class="row mt-2">
                     <div class=" col-10">

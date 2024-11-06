@@ -37,9 +37,9 @@
 				</div>
 
 				<div class="row mt-2">
-					<div class="col-10">
-						<label asp-for="IdCategoria" class="form-label"></label>
-						<input asp-for="IdCategoria" class="form-control" />
+					<div class=" col-10">
+						<label asp-for="IdCategoria">Categoria</label>
+						<select asp-for="IdCategoria" class="form-control form-select-sm" asp-items="ViewBag.Categoria"></select>
 						<span asp-validation-for="IdCategoria" class="text-danger"></span>
 					</div>
 				</div>

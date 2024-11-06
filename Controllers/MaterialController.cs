@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using proy_caguamanta.Data;
 using proy_caguamanta.Models;
 
@@ -22,13 +23,14 @@ namespace proy_caguamanta.Controllers
 		[HttpGet]
 		public IActionResult Crear()
 		{
-			return View();
+            ViewBag.Categoria = GetPuestosSelectList();
+            return View();
 		}
 		[HttpPost]
 		public IActionResult Crear(Material material)
 		{
 			//validar
-			if (ModelState.IsValid)
+			if (material.IdMaterial == 0 && material.Nombre != null && material.Proveedor != null && material.Cantidad != null && material.Costo != null && material.IdCategoria != null)
 			{
 				// agregar, guardar y redireccionar
 				_context.Materiales.Add(material);
@@ -40,5 +42,15 @@ namespace proy_caguamanta.Controllers
 				return View("Crear", material);
 			}
 		}
-	}
+        // metodo para mandar los puestos 
+        private List<SelectListItem> GetPuestosSelectList()
+        {
+            return _context.Categorias.Select(d => new SelectListItem
+            {
+                Text = d.Nombre,
+                Value = d.Id.ToString(),
+                Selected = false
+            }).ToList();
+        }
+    }
 }

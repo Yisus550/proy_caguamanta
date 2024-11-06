@@ -32,7 +32,7 @@ namespace proy_caguamanta.Controllers
         [HttpPost]
         public IActionResult Crear(Categoria categoria)
         {
-            if (ModelState.IsValid)
+            if (categoria.Id == 0 && categoria.Nombre != null && categoria.Descripcion != null)
             {
                 _context.Categorias.Add(categoria);
                 _context.SaveChanges();
