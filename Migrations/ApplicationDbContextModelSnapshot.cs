@@ -24,11 +24,11 @@ namespace proy_caguamanta.Migrations
 
             modelBuilder.Entity("proy_caguamanta.Models.Categoria", b =>
                 {
-                    b.Property<int?>("Id")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int?>("Id"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<string>("Descripcion")
                         .IsRequired()
@@ -42,16 +42,16 @@ namespace proy_caguamanta.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Categorias");
+                    b.ToTable("Categorias", (string)null);
                 });
 
             modelBuilder.Entity("proy_caguamanta.Models.Cliente", b =>
                 {
-                    b.Property<int?>("Id")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int?>("Id"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<string>("Nombre")
                         .IsRequired()
@@ -64,19 +64,18 @@ namespace proy_caguamanta.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Clientes");
+                    b.ToTable("Clientes", (string)null);
                 });
 
             modelBuilder.Entity("proy_caguamanta.Models.Compra", b =>
                 {
-                    b.Property<int?>("Id")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int?>("Id"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<DateOnly?>("FechaCompra")
-                        .IsRequired()
+                    b.Property<DateOnly>("FechaCompra")
                         .HasColumnType("date");
 
                     b.Property<int>("IdEmpleado")
@@ -94,7 +93,7 @@ namespace proy_caguamanta.Migrations
 
                     b.HasIndex("IdProveedor");
 
-                    b.ToTable("Compras");
+                    b.ToTable("Compras", (string)null);
                 });
 
             modelBuilder.Entity("proy_caguamanta.Models.DetalleCompra", b =>
@@ -126,7 +125,7 @@ namespace proy_caguamanta.Migrations
 
                     b.HasIndex("IdProducto");
 
-                    b.ToTable("DetalleCompras");
+                    b.ToTable("DetalleCompras", (string)null);
                 });
 
             modelBuilder.Entity("proy_caguamanta.Models.DetalleVenta", b =>
@@ -158,7 +157,7 @@ namespace proy_caguamanta.Migrations
 
                     b.HasIndex("IdVenta");
 
-                    b.ToTable("DetalleVentas");
+                    b.ToTable("DetalleVentas", (string)null);
                 });
 
             modelBuilder.Entity("proy_caguamanta.Models.Empleado", b =>
@@ -208,16 +207,16 @@ namespace proy_caguamanta.Migrations
 
                     b.HasIndex("IdPuesto");
 
-                    b.ToTable("Empleados");
+                    b.ToTable("Empleados", (string)null);
                 });
 
             modelBuilder.Entity("proy_caguamanta.Models.Material", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<int>("IdMaterial")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("IdMaterial"));
 
                     b.Property<int>("Cantidad")
                         .HasColumnType("int");
@@ -238,11 +237,11 @@ namespace proy_caguamanta.Migrations
                         .HasMaxLength(60)
                         .HasColumnType("nvarchar(60)");
 
-                    b.HasKey("Id");
+                    b.HasKey("IdMaterial");
 
                     b.HasIndex("IdCategoria");
 
-                    b.ToTable("Materiales");
+                    b.ToTable("Materiales", (string)null);
                 });
 
             modelBuilder.Entity("proy_caguamanta.Models.Producto", b =>
@@ -276,16 +275,16 @@ namespace proy_caguamanta.Migrations
 
                     b.HasIndex("IdCategoria");
 
-                    b.ToTable("Productos");
+                    b.ToTable("Productos", (string)null);
                 });
 
             modelBuilder.Entity("proy_caguamanta.Models.Proveedor", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<int>("IdProveedor")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("IdProveedor"));
 
                     b.Property<string>("Apellido")
                         .IsRequired()
@@ -310,9 +309,9 @@ namespace proy_caguamanta.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.HasKey("Id");
+                    b.HasKey("IdProveedor");
 
-                    b.ToTable("Proveedores");
+                    b.ToTable("Proveedores", (string)null);
                 });
 
             modelBuilder.Entity("proy_caguamanta.Models.Puesto", b =>
@@ -333,7 +332,7 @@ namespace proy_caguamanta.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Puestos");
+                    b.ToTable("Puestos", (string)null);
                 });
 
             modelBuilder.Entity("proy_caguamanta.Models.Venta", b =>
@@ -362,7 +361,7 @@ namespace proy_caguamanta.Migrations
 
                     b.HasIndex("IdEmpleado");
 
-                    b.ToTable("Ventas");
+                    b.ToTable("Ventas", (string)null);
                 });
 
             modelBuilder.Entity("proy_caguamanta.Models.Compra", b =>

@@ -32,4 +32,5 @@ public partial class Proveedor
 	public string Empresa { get; set; }
 
 	public List<Compra> Compra { get; set; }
+
 }

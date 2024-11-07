@@ -47,8 +47,8 @@ namespace proy_caguamanta.Controllers
 		[HttpGet]
 		public IActionResult Editar(int id)
 		{
-			Categoria estudiante = _context.Categorias.Find(id);
-			return View(estudiante);
+			Categoria categoria = _context.Categorias.Find(id);
+			return View(categoria);
 		}
 
 		[HttpPost]
