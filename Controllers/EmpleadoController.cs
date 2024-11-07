@@ -56,7 +56,7 @@ namespace proy_caguamanta.Controllers
 		[HttpPost]
 		public IActionResult Editar(Empleado empleado)
 		{
-			if (ModelState.IsValid)
+			if (empleado.Id != 0 && empleado.Nombre != null && empleado.Apellido != null && empleado.Correo != null && empleado.Contrasena != null && empleado.Telefono != null && empleado.Direccion != null && empleado.Estado != null && empleado.IdPuesto != 0)
 			{
 				_context.Empleados.Update(empleado);
 				_context.SaveChanges();

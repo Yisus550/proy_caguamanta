@@ -16,7 +16,6 @@
 			@if (Model.Count() > 0)
 			{
 				<table class="table table-striped border">
-
 					<thead>
 						<tr>
 							<td>Fecha de venta</td>
@@ -28,12 +27,14 @@
 					<tbody>
 						@foreach (var item in Model)
 						{
-						<td>@item.FechaVenta</td>
-						<td>@item.IdEmpleado</td>
-						<td>@item.IdCliente</td>
-						<td>@item.Importe</td>
-						<td><a class="btn btn-outline-primary form-control" asp-action="Editar" asp-route-id="@item.Id">Editar</a></td>
-						<td><a class="btn btn-outline-danger form-control" asp-action="Eliminar" asp-route-id="@item.Id">Eliminar</a></td>
+							<tr>
+								<td>@item.FechaVenta</td>
+								<td>@item.IdEmpleado</td>
+								<td>@item.IdCliente</td>
+								<td>@item.Importe</td>
+								<td><a class="btn btn-outline-primary form-control" asp-action="Editar" asp-route-id="@item.Id">Editar</a></td>
+								<td><a class="btn btn-outline-danger form-control" asp-action="Eliminar" asp-route-id="@item.Id">Eliminar</a></td>
+							</tr>
 						}
 					</tbody>
 				</table>

@@ -55,7 +55,7 @@ namespace proy_caguamanta.Controllers
         [HttpPost]
         public IActionResult Editar(Cliente cliente)
         {
-            if (ModelState.IsValid)
+            if (cliente.Id != 0 && cliente.Nombre != null && cliente.Telefono != null)
             {
                 _context.Clientes.Update(cliente);
                 _context.SaveChanges();

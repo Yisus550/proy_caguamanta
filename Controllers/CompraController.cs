@@ -18,7 +18,7 @@ namespace proy_caguamanta.Controllers
         }
 
         //Metodos de accion
-        public IActionResult Index() 
+        public IActionResult Index()
         {
             List<Compra> listaCompra = _context.Compras.ToList();
             return View(listaCompra);
@@ -35,7 +35,7 @@ namespace proy_caguamanta.Controllers
         [HttpPost]
         public IActionResult Crear(Compra compra)
         {
-            if (compra.Id == 0 && compra.IdEmpleado != null && compra.FechaCompra != null && compra.IdProveedor != null && compra.Importe != null)
+            if (compra.Id == 0 && compra.IdEmpleado != 0 && compra.FechaCompra != null && compra.IdProveedor != 0 && compra.Importe != 0)
             {
                 _context.Compras.Add(compra);
                 _context.SaveChanges();
@@ -47,41 +47,6 @@ namespace proy_caguamanta.Controllers
             }
 
         }
-
-		[HttpGet]
-		public IActionResult Editar(int id)
-		{
-			Compra estudiante = _context.Compras.Find(id);
-			return View(estudiante);
-		}
-
-		[HttpPost]
-		public IActionResult Editar(Compra compra)
-		{
-			if (ModelState.IsValid)
-			{
-				_context.Compras.Update(compra);
-				_context.SaveChanges();
-				return RedirectToAction("Index");
-			}
-			return View("Editar", compra);
-		}
-
-		[HttpGet]
-		public IActionResult Eliminar(int id)
-		{
-			Compra estudiante = _context.Compras.Find(id);
-			return View(estudiante);
-		}
-
-		[HttpPost]
-		public IActionResult Eliminar(Compra compra)
-		{
-			_context.Compras.Remove(compra);
-			_context.SaveChanges();
-			return RedirectToAction("Index");
-		}
-	}
         // metodo para mandar los empleados 
         private List<SelectListItem> GetEmpleadoSelectList()
         {
@@ -92,15 +57,51 @@ namespace proy_caguamanta.Controllers
                 Selected = false
             }).ToList();
         }
-        // metodo para mandar los clientes 
+        // metodo para mandar los proveedor 
         private List<SelectListItem> GetPrveedorSelectList()
         {
             return _context.Proveedores.Select(d => new SelectListItem
             {
                 Text = d.Nombre,
-                Value = d.IdProveedor.ToString(),
+                Value = d.Id.ToString(),
                 Selected = false
             }).ToList();
         }
+
+        [HttpGet]
+        public IActionResult Editar(int id)
+        {
+            Compra estudiante = _context.Compras.Find(id);
+            return View(estudiante);
+        }
+
+        [HttpPost]
+        public IActionResult Editar(Compra compra)
+        {
+            if (compra.Id != 0 && compra.IdEmpleado != 0 && compra.FechaCompra != null && compra.IdProveedor != 0 && compra.Importe != 0)
+            {
+                _context.Compras.Update(compra);
+                _context.SaveChanges();
+                return RedirectToAction("Index");
+            }
+            return View("Editar", compra);
+        }
+
+        [HttpGet]
+        public IActionResult Eliminar(int id)
+        {
+            Compra estudiante = _context.Compras.Find(id);
+            return View(estudiante);
+        }
+
+        [HttpPost]
+        public IActionResult Eliminar(Compra compra)
+        {
+            _context.Compras.Remove(compra);
+            _context.SaveChanges();
+            return RedirectToAction("Index");
+        }
     }
-}
+}       
+
+

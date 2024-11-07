@@ -54,7 +54,7 @@ namespace proy_caguamanta.Controllers
 		[HttpPost]
 		public IActionResult Editar(Producto producto)
 		{
-			if (ModelState.IsValid)
+			if (producto.Id != 0 && producto.Nombre != null && producto.Descripcion != null && producto.Precio != null && producto.Cantidad != null && producto.IdCategoria != null)
 			{
 				_context.Productos.Update(producto);
 				_context.SaveChanges();
