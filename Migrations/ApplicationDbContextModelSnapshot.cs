@@ -199,6 +199,11 @@ namespace proy_caguamanta.Migrations
                         .HasMaxLength(30)
                         .HasColumnType("nvarchar(30)");
 
+                    b.Property<string>("Puesto")
+                        .IsRequired()
+                        .HasMaxLength(20)
+                        .HasColumnType("nvarchar(20)");
+
                     b.Property<string>("Telefono")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -212,11 +217,11 @@ namespace proy_caguamanta.Migrations
 
             modelBuilder.Entity("proy_caguamanta.Models.Material", b =>
                 {
-                    b.Property<int>("IdMaterial")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("IdMaterial"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<int>("Cantidad")
                         .HasColumnType("int");
@@ -237,7 +242,7 @@ namespace proy_caguamanta.Migrations
                         .HasMaxLength(60)
                         .HasColumnType("nvarchar(60)");
 
-                    b.HasKey("IdMaterial");
+                    b.HasKey("Id");
 
                     b.HasIndex("IdCategoria");
 
@@ -280,11 +285,11 @@ namespace proy_caguamanta.Migrations
 
             modelBuilder.Entity("proy_caguamanta.Models.Proveedor", b =>
                 {
-                    b.Property<int>("IdProveedor")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("IdProveedor"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<string>("Apellido")
                         .IsRequired()
@@ -309,7 +314,7 @@ namespace proy_caguamanta.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.HasKey("IdProveedor");
+                    b.HasKey("Id");
 
                     b.ToTable("Proveedores", (string)null);
                 });
