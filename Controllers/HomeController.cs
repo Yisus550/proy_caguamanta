@@ -1,4 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using proy_caguamanta.Data;
 using proy_caguamanta.Models;
 using System.Diagnostics;
 
@@ -6,19 +8,48 @@ namespace proy_caguamanta.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly ILogger<HomeController> _logger;
+        public readonly ApplicationDbContext _context;
 
-        public HomeController(ILogger<HomeController> logger)
+        public HomeController(ApplicationDbContext context)
         {
-            _logger = logger;
+           _context = context;
         }
 
+        //private readonly ILogger<HomeController> _logger;
+
+        //public HomeController(ILogger<HomeController> logger)
+        //{
+        //    _logger = logger;
+        //}
+
+        [HttpGet]
         public IActionResult Index()
         {
             return View();
         }
 
-        public IActionResult Privacy()
+		[HttpPost]
+		public async Task<IActionResult> Index(Login login)
+		{
+            Empleado empleado_encontrado = await _context.Empleados
+                                           .Where(e => e.Correo == login.Correo &&
+                                                       e.Contrasena == login.Contrasena
+                                           ).FirstOrDefaultAsync();
+            if (empleado_encontrado == null)
+            {
+                return View();
+                
+            }
+            else 
+            {
+                return RedirectToAction("Index", "Venta");
+            }
+            
+
+		}
+
+
+		public IActionResult Privacy()
         {
             return View();
         }
@@ -29,11 +60,18 @@ namespace proy_caguamanta.Controllers
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
 
-        public IActionResult Login()
+        [HttpGet]
+		public IActionResult Login()
+		{
+			return View();
+		}
+
+		[HttpPost]        
+        public async Task<IActionResult> Login(Empleado empleado)
         {
-            // TODO: Implementar la lógica de autenticación
-            return RedirectToAction("Index", "Venta");
-        }
+            //Empleado empleado_encontrado = await context.Empleados.Where(e => e.Contrasena == empleado.Contrasena)
+			return RedirectToAction("Index", "Venta");
+		}
 
         public IActionResult Registros()
         {
