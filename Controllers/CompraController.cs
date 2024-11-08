@@ -26,7 +26,6 @@ namespace proy_caguamanta.Controllers
         [HttpGet]
         public IActionResult Crear()
         {
-
             return View();
         }
 
