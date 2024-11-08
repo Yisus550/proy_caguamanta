@@ -10,19 +10,19 @@
                 <form asp-action="AgregarProducto" method="post">
 					<div class="col-12">
                         <div class="col-12">
-							<div class="col">
+							<div class="col-12">
                                 <label for="productoDropdown">Producto:</label>
                                 @Html.DropDownList("productoId",
-                                         ViewBag.SelectListProductos as List<SelectListItem>,
-                                         "Seleccione un producto", new
-                                         {
-                                             @class = "form-select border rounded-5 py-2 px-3 w-50 mb-1",
-                                             id = "productoDropdown"
-                                         })
-                            </div>
-							<div class="col">
-                                <label for="cantidad">Cantidad:</label>
-                                <input type="number" class="border btn" id="cantidad" name="cantidadProducto" value="1" min="1" max="100" />
+                                            ViewBag.SelectListProductos as List<SelectListItem>,
+                                            "Seleccione un producto", new
+                                            {
+                                                @class = "form-select border rounded-5 py-2 px-3 w-50 mt-2 mb-3",
+                                                id = "productoDropdown"
+                                            })
+                                <div class="col-12">
+                                    <label for="cantidad">Cantidad:</label>
+                                    <input type="number" class="col-1 border btn mt-2 mb-3" id="cantidad" name="cantidadProducto" value="1" min="1" max="100" />
+                                </div>
                             </div>
                         </div>
                         <div class="col-6d-inline-block my-3">
@@ -80,8 +80,11 @@
                 </div>
                 <hr style="border: 1px dashed;" />
                 <div class="mt-4 px-3 fw-bold">
-                    <p class="text-end fs-4 mb-5">Total: @ViewBag.Total</p>
+                    <p class="text-end fs-4 mb-5">Total: $@ViewBag.Total</p>
                 </div>
             </div>
+        </div>
+        <div class="col-16">
+			<div class="row"></div>
         </div>
     </div>
