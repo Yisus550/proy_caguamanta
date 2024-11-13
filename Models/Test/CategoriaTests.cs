@@ -1,10 +1,11 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using proy_caguamanta.Models;
 using System.ComponentModel.DataAnnotations;
-namespace proy_caguamanta.Tests
+
+namespace proy_caguamanta.Models.Test
 {
     [TestClass]
-    public class ClienteTests
+    public class CategoriaTests
     {
         private ValidationContext GetValidationContext(object model)
         {
@@ -19,13 +20,13 @@ namespace proy_caguamanta.Tests
         }
 
         [TestMethod]
-        public void Cliente_Id_IsRequired()
+        public void Categoria_Id_IsRequired()
         {
             // Arrange
-            var cliente = new Cliente();
+            var categoria = new Categoria();
 
             // Act
-            var isValid = ValidateModel(cliente, out var results);
+            var isValid = ValidateModel(categoria, out var results);
 
             // Assert
             Assert.IsFalse(isValid);
@@ -33,13 +34,13 @@ namespace proy_caguamanta.Tests
         }
 
         [TestMethod]
-        public void Cliente_Nombre_IsRequired()
+        public void Categoria_Nombre_IsRequired()
         {
             // Arrange
-            var cliente = new Cliente();
+            var categoria = new Categoria();
 
             // Act
-            var isValid = ValidateModel(cliente, out var results);
+            var isValid = ValidateModel(categoria, out var results);
 
             // Assert
             Assert.IsFalse(isValid);
@@ -47,13 +48,13 @@ namespace proy_caguamanta.Tests
         }
 
         [TestMethod]
-        public void Cliente_Nombre_MaxLength()
+        public void Categoria_Nombre_MaxLength()
         {
             // Arrange
-            var cliente = new Cliente { Nombre = new string('a', 61) };
+            var categoria = new Categoria { Nombre = new string('a', 61) };
 
             // Act
-            var isValid = ValidateModel(cliente, out var results);
+            var isValid = ValidateModel(categoria, out var results);
 
             // Assert
             Assert.IsFalse(isValid);
@@ -61,31 +62,31 @@ namespace proy_caguamanta.Tests
         }
 
         [TestMethod]
-        public void Cliente_Telefono_IsRequired()
+        public void Categoria_Descripcion_IsRequired()
         {
             // Arrange
-            var cliente = new Cliente();
+            var categoria = new Categoria();
 
             // Act
-            var isValid = ValidateModel(cliente, out var results);
+            var isValid = ValidateModel(categoria, out var results);
 
             // Assert
             Assert.IsFalse(isValid);
-            Assert.IsTrue(results.Any(v => v.MemberNames.Contains("Telefono") && v.ErrorMessage.Contains("Este campo es requerido.")));
+            Assert.IsTrue(results.Any(v => v.MemberNames.Contains("Descripcion") && v.ErrorMessage.Contains("Este campo es obligatorio")));
         }
 
         [TestMethod]
-        public void Cliente_Telefono_IsPhoneNumber()
+        public void Categoria_Descripcion_MaxLength()
         {
             // Arrange
-            var cliente = new Cliente { Telefono = "InvalidPhoneNumber" };
+            var categoria = new Categoria { Descripcion = new string('a', 61) };
 
             // Act
-            var isValid = ValidateModel(cliente, out var results);
+            var isValid = ValidateModel(categoria, out var results);
 
             // Assert
             Assert.IsFalse(isValid);
-            Assert.IsTrue(results.Any(v => v.MemberNames.Contains("Telefono") && v.ErrorMessage.Contains("El formato debe de ser de un número de celular")));
+            Assert.IsTrue(results.Any(v => v.MemberNames.Contains("Descripcion") && v.ErrorMessage.Contains("La cadena de texto no puede sobrepasar los 60 caracteres")));
         }
     }
 }

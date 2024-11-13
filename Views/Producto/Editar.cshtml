@@ -11,6 +11,7 @@
         <div class="row mt-5">
             <div class="col-12">
                 <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+               
                 <div class="row mt-2">
                     <div class=" col-10">
                         <label asp-for="Nombre" class="form-label"></label>
@@ -25,6 +26,15 @@
                         <input asp-for="Descripcion" class="form-control" />
                         <span asp-validation-for="Descripcion" class="text-danger"></span>
                     </div>
+
+                    <div class="row mt-2">
+                        <div class="col-10">
+                            <label asp-for="CategoriaId" class="form-label"></label>
+                            <input asp-for="CategoriaId" class="form-control" />
+                            <span asp-validation-for="CategoriaId" class="text-danger"></span>
+                        </div>
+                    </div>
+
                 </div>
                 <div class="row mt-2">
                     <div class=" col-10">
@@ -47,6 +57,7 @@
                         <button class="btn btn-secondary text-white form-control" type="submit">Actualziar &nbsp;</button>
                     </div>
                 </div>
+
             </div>
         </div>
     </div>

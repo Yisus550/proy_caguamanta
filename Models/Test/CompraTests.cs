@@ -2,7 +2,7 @@
 using proy_caguamanta.Models;
 using System.ComponentModel.DataAnnotations;
 
-namespace proy_caguamanta.Tests
+namespace proy_caguamanta.Models.Test
 {
     [TestClass]
     public class CompraTests

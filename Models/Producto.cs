@@ -18,6 +18,10 @@ namespace proy_caguamanta.Models
 		[Display(Name = "Descripción del producto")]
 		public string Descripcion { get; set; }
 
+		[Required(ErrorMessage = "Este campo es obligatorio")]
+		[Display(Name = "Categoria")]
+		public int CategoriaId { get; set; }
+
 		[Required(ErrorMessage = "Este campo es requerido.")]
 		[Range(0, double.MaxValue, ErrorMessage = "El precio debe ser mayor a 0.")]
 		[Display(Name = "Precio del producto")]

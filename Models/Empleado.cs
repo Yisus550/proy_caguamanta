@@ -41,9 +41,8 @@ namespace proy_caguamanta.Models
 		public string Direccion { get; set; }
 
 		[Required(ErrorMessage = "Este campo es requerido.")]
-		[StringLength(20, ErrorMessage = "La cadena de texto no puede sobrepasar los 20 caracteres")]
 		[Display(Name = "Puesto")]
-		public string Puesto { get; set; }
+		public int PuestoId { get; set; }
 
 		[Required(ErrorMessage = "Este campo es requerido.")]
 		[EnumDataType(typeof(EstadosUsuario))]

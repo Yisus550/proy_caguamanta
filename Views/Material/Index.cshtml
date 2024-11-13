@@ -23,6 +23,7 @@
 							<td>Nombre</td>
 							<td>Cantidad</td>
 							<td>Proveedor</td>
+					     	<td>Categoria</td>
 							<td>Costo</td>
 						</tr>
 					</thead>
@@ -32,7 +33,8 @@
 							<tr>
 								<td>@item.Nombre</td>
 								<td>@item.Cantidad</td>
-								<td>@item.Proveedor</td>
+								<td>@item.ProveedorId</td>
+								<td>@item.CategoriaId</td>
 								<td>@item.Costo</td>
 								<td><a class="btn btn-outline-primary form-control" asp-action="Editar" asp-route-id="@item.Id">Editar</a></td>
 								<td><a class="btn btn-outline-danger form-control" asp-action="Eliminar" asp-route-id="@item.Id">Eliminar</a></td>
