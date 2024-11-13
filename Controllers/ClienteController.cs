@@ -45,5 +45,39 @@ namespace proy_caguamanta.Controllers
 
         }
 
+        [HttpGet]
+        public IActionResult Editar(int id)
+        {
+            Cliente cliente = _context.Clientes.Find(id);
+            return View(cliente);
+        }
+
+        [HttpPost]
+        public IActionResult Editar(Cliente cliente)
+        {
+            if (cliente.Id != 0 && cliente.Nombre != null && cliente.Telefono != null)
+            {
+                _context.Clientes.Update(cliente);
+                _context.SaveChanges();
+                return RedirectToAction("Index");
+            }
+            return View("Editar", cliente);
+        }
+
+        [HttpGet]
+        public IActionResult Eliminar(int id)
+        {
+            Cliente cliente = _context.Clientes.Find(id);
+            return View(cliente);
+        }
+
+        [HttpPost]
+        public IActionResult Eliminar(Cliente cliente)
+        {
+            _context.Clientes.Remove(cliente);
+            _context.SaveChanges();
+            return RedirectToAction("Index");
+        }
+
     }
 }

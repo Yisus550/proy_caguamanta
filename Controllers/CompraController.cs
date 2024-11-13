@@ -62,10 +62,44 @@ namespace proy_caguamanta.Controllers
         {
             return _context.Proveedores.Select(d => new SelectListItem
             {
-                Text = d.Nombre,
-                Value = d.IdProveedor.ToString(),
+                Text = d.Nombre, // valor mostrado
+                Value = d.IdProveedor.ToString(), // valor tomado
                 Selected = false
             }).ToList();
+        }
+
+        [HttpGet]
+        public IActionResult Editar(int id)
+        {
+            Compra compra = _context.Compras.Find(id);
+            return View(compra);
+        }
+
+        [HttpPost]
+        public IActionResult Editar(Compra compra)
+        {
+            if (compra.Id == 0 && compra.IdEmpleado != null && compra.FechaCompra != null && compra.IdProveedor != null && compra.Importe != null)
+            {
+                _context.Compras.Update(compra);
+                _context.SaveChanges();
+                return RedirectToAction("Index");
+            }
+            return View("Editar", compra);
+        }
+
+        [HttpGet]
+        public IActionResult Eliminar(int id)
+        {
+            Compra compra = _context.Compras.Find(id);
+            return View(compra);
+        }
+
+        [HttpPost]
+        public IActionResult Eliminar(Compra compra)
+        {
+            _context.Compras.Remove(compra);
+            _context.SaveChanges();
+            return RedirectToAction("Index");
         }
     }
 }

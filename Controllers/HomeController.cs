@@ -31,7 +31,7 @@ namespace proy_caguamanta.Controllers
 
         public IActionResult Login()
         {
-            return RedirectToAction("Index", "Empleado");
+            return RedirectToAction("Index", "Venta");
         }
     }
 }

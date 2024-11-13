@@ -51,5 +51,40 @@ namespace proy_caguamanta.Controllers
                 Selected = false
             }).ToList();
         }
+
+        [HttpGet]
+        public IActionResult Editar(int id)
+        {
+            Producto producto = _context.Productos.Find(id);
+            return View(producto);
+        }
+
+
+        [HttpPost]
+        public IActionResult Editar(Producto producto)
+        {
+            if (producto.Id == 0 && producto.Nombre != null && producto.Descripcion != null && producto.Precio != null && producto.Cantidad != null && producto.IdCategoria != null)
+            {
+                _context.Productos.Update(producto);
+                _context.SaveChanges();
+                return RedirectToAction("Index");
+            }
+            return View("Editar", producto);
+        }
+
+        [HttpGet]
+        public IActionResult Eliminar(int id)
+        {
+            Producto producto = _context.Productos.Find(id);
+            return View(producto);
+        }
+
+        [HttpPost]
+        public IActionResult Eliminar(Producto producto)
+        {
+            _context.Productos.Remove(producto);
+            _context.SaveChanges();
+            return RedirectToAction("Index");
+        }
     }
 }

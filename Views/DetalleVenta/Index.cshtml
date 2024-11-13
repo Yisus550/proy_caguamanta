@@ -24,7 +24,7 @@
                             <th>IdProducto</th>
                             <th>PrecioUnidad</th>
                             <th>Cantidad</th>
-                            <th>Importe</th>
+                            <th>Total</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -36,7 +36,7 @@
                                 <td>@item.IdProducto</td>
                                 <td>@item.PrecioUnidad</td>
                                 <th>@item.Cantidad</th>
-                                <td>@item.Importe</td>
+                                <td>@String.Format("{0:C}", item.Importe)</td>
                             </tr>
                         }
                     </tbody>

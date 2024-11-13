@@ -45,5 +45,39 @@ namespace proy_caguamanta.Controllers
 
         }
 
+        [HttpGet]
+        public IActionResult Editar(int id)
+        {
+            Categoria estudiante = _context.Categorias.Find(id);
+            return View(estudiante);
+        }
+
+        [HttpPost]
+        public IActionResult Editar(Categoria categoria)
+        {
+            if (categoria.Id != 0 && categoria.Nombre != null && categoria.Descripcion != null)
+            {
+                _context.Categorias.Update(categoria);
+                _context.SaveChanges();
+                return RedirectToAction("Index");
+            }
+            return View("Editar", categoria);
+        }
+
+        [HttpGet]
+        public IActionResult Eliminar(int id)
+        {
+            Categoria estudiante = _context.Categorias.Find(id);
+            return View(estudiante);
+        }
+
+        [HttpPost]
+        public IActionResult Eliminar(Categoria categoria)
+        {
+            _context.Categorias.Remove(categoria);
+            _context.SaveChanges();
+            return RedirectToAction("Index");
+        }
+
     }
 }

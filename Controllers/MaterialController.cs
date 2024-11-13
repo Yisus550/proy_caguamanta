@@ -23,7 +23,7 @@ namespace proy_caguamanta.Controllers
 		[HttpGet]
 		public IActionResult Crear()
 		{
-            ViewBag.Categoria = GetPuestosSelectList();
+            ViewBag.Categoria = GetCategoriasSelectList();
             return View();
 		}
 		[HttpPost]
@@ -43,7 +43,7 @@ namespace proy_caguamanta.Controllers
 			}
 		}
         // metodo para mandar los puestos 
-        private List<SelectListItem> GetPuestosSelectList()
+        private List<SelectListItem> GetCategoriasSelectList()
         {
             return _context.Categorias.Select(d => new SelectListItem
             {
@@ -51,6 +51,40 @@ namespace proy_caguamanta.Controllers
                 Value = d.Id.ToString(),
                 Selected = false
             }).ToList();
+        }
+
+        [HttpGet]
+        public IActionResult Editar(int id)
+        {
+            Material material = _context.Materiales.Find(id);
+            return View(material);
+        }
+
+        [HttpPost]
+        public IActionResult Editar(Material material)
+        {
+            if (material.IdMaterial == 0 && material.Nombre != null && material.Proveedor != null && material.Cantidad != null && material.Costo != null && material.IdCategoria != null)
+            {
+                _context.Materiales.Update(material);
+                _context.SaveChanges();
+                return RedirectToAction("Index");
+            }
+            return View("Editar", material);
+        }
+
+        [HttpGet]
+        public IActionResult Eliminar(int id)
+        {
+            Material material = _context.Materiales.Find(id);
+            return View(material);
+        }
+
+        [HttpPost]
+        public IActionResult Eliminar(Material material)
+        {
+            _context.Materiales.Remove(material);
+            _context.SaveChanges();
+            return RedirectToAction("Index");
         }
     }
 }
