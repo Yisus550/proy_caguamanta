@@ -28,7 +28,7 @@ namespace proy_caguamanta.Controllers
 		public IActionResult Crear(Proveedor proveedor)
 		{
 			//validar apellido telefono correo empresa
-			if (proveedor.IdProveedor == 0 && proveedor.Nombre != null && proveedor.Apellido != null && proveedor.Telefono != null && proveedor.Correo != null && proveedor.Empresa != null)
+			if (proveedor.Id == 0 && proveedor.Nombre != null && proveedor.Apellido != null && proveedor.Telefono != null && proveedor.Correo != null && proveedor.Empresa != null)
 			{
 				// agregar, guardar y redireccionar
 				_context.Proveedores.Add(proveedor);

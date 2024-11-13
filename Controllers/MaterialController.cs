@@ -30,7 +30,7 @@ namespace proy_caguamanta.Controllers
 		public IActionResult Crear(Material material)
 		{
 			//validar
-			if (material.IdMaterial == 0 && material.Nombre != null && material.Proveedor != null && material.Cantidad != null && material.Costo != null && material.IdCategoria != null)
+			if (material.Id == 0 && material.Nombre != null && material.Proveedor != null && material.Cantidad != null && material.Costo != null && material.IdCategoria != null)
 			{
 				// agregar, guardar y redireccionar
 				_context.Materiales.Add(material);
@@ -88,3 +88,4 @@ namespace proy_caguamanta.Controllers
         }
     }
 }
+

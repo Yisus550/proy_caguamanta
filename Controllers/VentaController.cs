@@ -17,7 +17,7 @@ namespace proy_caguamanta.Controllers
 			_context = context;
 		}
 
-		public ActionResult Index() 
+		public ActionResult Index()
 		{
             List<SelectListItem> options = _context.Productos.Select(p => new SelectListItem
             {
@@ -110,4 +110,39 @@ namespace proy_caguamanta.Controllers
             return RedirectToAction("Index");
         }
     }
+
+		[HttpGet]
+		public IActionResult Editar(int id)
+		{
+			Venta venta = _context.Ventas.Find(id);
+			return View(venta);
+		}
+
+		[HttpPost]
+		public IActionResult Editar(Venta venta)
+		{
+			if (venta.Id != 0 && venta.FechaVenta != null && venta.IdEmpleado != null && venta.IdCliente != null && venta.Importe != null)
+			{
+				_context.Ventas.Update(venta);
+				_context.SaveChanges();
+				return RedirectToAction("Index");
+			}
+			return View("Editar", venta);
+		}
+
+		[HttpGet]
+		public IActionResult Eliminar(int id)
+		{
+			Venta venta = _context.Ventas.Find(id);
+			return View(venta);
+		}
+
+		[HttpPost]
+		public IActionResult Eliminar(Venta venta)
+		{
+			_context.Ventas.Remove(venta);
+			_context.SaveChanges();
+			return RedirectToAction("Index");
+		}
+	}
 }

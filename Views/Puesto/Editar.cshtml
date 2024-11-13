@@ -1,0 +1,38 @@
+﻿@model proy_caguamanta.Models.Puesto
+@{
+    ViewData["Title"] = "Editar Puesto";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1 class="text-center">Editar Puesto</h1>
+
+<form method="post" asp-action="Editar">
+    <div class="container">
+        <div class="row mt-5">
+            <div class="col-12">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <div class="row mt-2">
+                    <div class=" col-10">
+                        <label asp-for="Nombre" class="form-label"></label>
+                        <input asp-for="Nombre" class="form-control" />
+                        <span asp-validation-for="Nombre" class="text-danger"></span>
+                    </div>
+                </div>
+
+                <div class="row mt-2">
+                    <div class=" col-10">
+                        <label asp-for="Sueldo" class="form-label"></label>
+                        <input asp-for="Sueldo" class="form-control" />
+                        <span asp-validation-for="Sueldo" class="text-danger"></span>
+                    </div>
+                </div>
+                
+                <div class="row mt-5">
+                    <div class=" col-4">
+                        <button class="btn btn-secondary text-white form-control" type="submit">Actualziar &nbsp;</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>

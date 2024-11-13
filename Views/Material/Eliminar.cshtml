@@ -1,0 +1,28 @@
+﻿@model proy_caguamanta.Models.Material
+@{
+	ViewData["Title"] = "Eliminar material";
+	Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1 class="text-center m-5">Eliminar material</h1>
+
+<form method="post" asp-action="Eliminar">
+	<div class="container">
+		<p>¿Estas seguro de eliminar este material?</p>
+		<hr color="gray" />
+		<p>
+			<strong>Nombre</strong>: @Model.Nombre
+		</p>
+		<p>
+			<strong>Cantidad</strong>: @Model.Cantidad
+		</p>
+		<p>
+			<strong>Proveedor</strong>: @Model.IdProveedor
+		</p>
+		<p>
+			<strong>Costo</strong>: @Model.Costo
+		</p>
+		<button class="btn btn-danger" type="submit">Eliminar</button>
+		<button class="btn btn-secondary" asp-action="Index">Cancelar</button>
+	</div>
+</form>

@@ -6,12 +6,12 @@ namespace proy_caguamanta.Models;
 public partial class Compra
 {
     [Key]
-	[Required(ErrorMessage = "Este campo es obligatorio")]
-	public int Id { get; set; }
+    [Required(ErrorMessage = "Este campo es obligatorio")]
+    public int? Id { get; set; }
 
-	[Required(ErrorMessage = "Este campo es obligatorio")]
-	[DataType(DataType.Date)]
-	public DateOnly FechaCompra { get; set; }
+    [Required(ErrorMessage = "Este campo es obligatorio")]
+    [DataType(DataType.Date)]
+    public DateOnly? FechaCompra { get; set; }
 
 	[Required(ErrorMessage = "Este campo es obligatorio")]
 	// llave foranea

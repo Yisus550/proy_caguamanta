@@ -1,0 +1,40 @@
+﻿@model proy_caguamanta.Models.Empleado
+@{
+	ViewData["Title"] = "Eliminar Empleado";
+	Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1 class="text-center m-5">Eliminar Empleado</h1>
+
+<form method="post" asp-action="Eliminar">
+	<div class="container">
+		<p>¿Estas seguro de eliminar esta compra?</p>
+		<hr color="gray" />
+		<p>
+			<strong>Nombre</strong>: @Model.Nombre
+		</p>
+		<p>
+			<strong>Apellido</strong>: @Model.Apellido
+		</p>
+		<p>
+			<strong>Correo Electronico</strong>: @Model.Correo
+		</p>
+		<p>
+			<strong>Contraseña</strong>: @Model.Contrasena
+		</p>
+		<p>
+			<strong>Telefono</strong>: @Model.Telefono
+		</p>
+		<p>
+			<strong>Direccion</strong>: @Model.Direccion
+		</p>
+		<p>
+			<strong>Puesto</strong>: @Model.Puesto
+		</p>
+		<p>
+			<strong>Estado</strong>: @Model.Estado
+		</p>
+		<button class="btn btn-danger" type="submit">Eliminar</button>
+		<button class="btn btn-secondary" asp-action="Index">Cancelar</button>
+	</div>
+</form>

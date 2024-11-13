@@ -4,9 +4,9 @@ namespace proy_caguamanta.Models;
 
 public partial class Proveedor
 {
-    [Key]
+	[Key]
 	[Required(ErrorMessage = "Este campo es obligatorio")]
-	public int IdProveedor { get; set; }
+	public int Id { get; set; }
 
 	[Required(ErrorMessage = "Este campo es obligatorio")]
 	[StringLength(60, ErrorMessage = "La cadena de texto no puede sobrepasar los 60 caracteres")]
@@ -19,17 +19,18 @@ public partial class Proveedor
 	public string Apellido { get; set; }
 
 	[Required(ErrorMessage = "Este campo es obligatorio")]
-    [Phone]
+	[Phone]
 	public string Telefono { get; set; }
 
 	[Required(ErrorMessage = "Este campo es obligatorio")]
-    [EmailAddress]
+	[EmailAddress]
 	public string Correo { get; set; }
 
 	[Required(ErrorMessage = "Este campo es obligatorio")]
-    [StringLength(80)]
+	[StringLength(80)]
 	[Display(Name = "Empresa")]
 	public string Empresa { get; set; }
 
 	public List<Compra> Compra { get; set; }
+
 }

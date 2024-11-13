@@ -1,7 +1,7 @@
 ﻿@model proy_caguamanta.Models.Categoria
 @{
-    ViewData["Title"] = "Eliminar registros de estudiante";
-    Layout = "~/Views/Shared/_Layout.cshtml";
+	ViewData["Title"] = "Eliminar categoria";
+	Layout = "~/Views/Shared/_Layout.cshtml";
 }
 <h2>ELIMINACION DE ESTUDIANTE</h2>
 
@@ -16,12 +16,12 @@
     </div>
     <div class="mt-3 mb-3">
         <p class="text-danger">¿Está seguro de que desea eliminar el cliente @Model.Nombre?</p>
-    </div>
+	</div>
 
     <form asp-action="Eliminar">
         <input type="hidden" asp-for="Id" />
         <button type="submit" class="btn btn-danger text-white">Eliminar</button>
         <a asp-action="Index" class="btn btn-success text-white">Cancelar</a>
-    </form>
+</form>
 </div>
 

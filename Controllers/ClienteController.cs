@@ -16,10 +16,10 @@ namespace proy_caguamanta.Controllers
         }
 
         //Metodos de Accion
-        public IActionResult Index() 
+        public IActionResult Index()
         {
-            List<Cliente> listaCliente = _context.Clientes.ToList(); 
-            return View(listaCliente);        
+            List<Cliente> listaCliente = _context.Clientes.ToList();
+            return View(listaCliente);
         }
 
         [HttpGet]

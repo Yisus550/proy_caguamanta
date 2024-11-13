@@ -18,7 +18,7 @@ namespace proy_caguamanta.Controllers
         }
 
         //Metodos de accion
-        public IActionResult Index() 
+        public IActionResult Index()
         {
             List<Compra> listaCompra = _context.Compras.ToList();
             return View(listaCompra);
@@ -35,7 +35,7 @@ namespace proy_caguamanta.Controllers
         [HttpPost]
         public IActionResult Crear(Compra compra)
         {
-            if (compra.Id == 0 && compra.IdEmpleado != null && compra.FechaCompra != null && compra.IdProveedor != null && compra.Importe != null)
+            if (compra.Id == 0 && compra.IdEmpleado != 0 && compra.FechaCompra != null && compra.IdProveedor != 0 && compra.Importe != 0)
             {
                 _context.Compras.Add(compra);
                 _context.SaveChanges();
@@ -57,7 +57,7 @@ namespace proy_caguamanta.Controllers
                 Selected = false
             }).ToList();
         }
-        // metodo para mandar los clientes 
+        // metodo para mandar los proveedor 
         private List<SelectListItem> GetPrveedorSelectList()
         {
             return _context.Proveedores.Select(d => new SelectListItem

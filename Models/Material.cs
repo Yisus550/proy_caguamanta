@@ -7,7 +7,7 @@ public partial class Material
 {
 	[Key]
 	[Required(ErrorMessage = "Este campo es obligatorio")]
-	public int IdMaterial { get; set; }
+	public int Id { get; set; }
 
 	[Required(ErrorMessage = "Este campo es obligatorio")]
 	[StringLength(60, ErrorMessage = "La cadena de texto no puede sobrepasar los 60 caracteres")]
@@ -20,9 +20,8 @@ public partial class Material
 	public int Cantidad { get; set; }
 
 	[Required(ErrorMessage = "Este campo es obligatorio")]
-	[StringLength(60, ErrorMessage = "La cadena de texto no puede sobrepasar los 60 caracteres")]
 	[Display(Name = "Proveedor")]
-	public string Proveedor { get; set; }
+	public int IdProveedor { get; set; }
 
 	[Required(ErrorMessage = "Este campo es obligatorio")]
 	[Range(1, double.MaxValue, ErrorMessage = "El costo no debe de ser menor a $1")]

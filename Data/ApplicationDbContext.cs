@@ -72,7 +72,6 @@ namespace proy_caguamanta.Data
               .WithOne(d => d.Proveedor)
               .HasForeignKey(m => m.IdProveedor);
 
-
         }
     }
 }

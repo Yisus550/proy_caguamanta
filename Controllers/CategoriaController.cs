@@ -1,33 +1,32 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using proy_caguamanta.Data;
 using proy_caguamanta.Models;
 
 namespace proy_caguamanta.Controllers
 {
-    public class CategoriaController : Controller
-    {
-        //Crear variable 
-        public readonly ApplicationDbContext _context;
+	public class CategoriaController : Controller
+	{
+		//Crear variable 
+		public readonly ApplicationDbContext _context;
 
-        //Crear constructor
-        public CategoriaController(ApplicationDbContext context)
-        {
-            _context = context;
-        }
+		//Crear constructor
+		public CategoriaController(ApplicationDbContext context)
+		{
+			_context = context;
+		}
 
-        //Metodos de accion
-        public IActionResult Index() 
-        {
-            List<Categoria> listaCategoria = _context.Categorias.ToList();
-            return View(listaCategoria);
-        }
-        [HttpGet]
-        public IActionResult Crear()
-        {
+		//Metodos de accion
+		public IActionResult Index()
+		{
+			List<Categoria> listaCategoria = _context.Categorias.ToList();
+			return View(listaCategoria);
+		}
+		[HttpGet]
+		public IActionResult Crear()
+		{
 
-            return View();
-        }
+			return View();
+		}
 
         [HttpPost]
         public IActionResult Crear(Categoria categoria)
@@ -43,41 +42,41 @@ namespace proy_caguamanta.Controllers
                 return View("Crear", categoria);
             }
 
-        }
+		}
 
-        [HttpGet]
-        public IActionResult Editar(int id)
-        {
-            Categoria estudiante = _context.Categorias.Find(id);
-            return View(estudiante);
-        }
+		[HttpGet]
+		public IActionResult Editar(int id)
+		{
+			Categoria categoria = _context.Categorias.Find(id);
+			return View(categoria);
+		}
 
-        [HttpPost]
-        public IActionResult Editar(Categoria categoria)
-        {
-            if (categoria.Id != 0 && categoria.Nombre != null && categoria.Descripcion != null)
-            {
-                _context.Categorias.Update(categoria);
-                _context.SaveChanges();
-                return RedirectToAction("Index");
-            }
-            return View("Editar", categoria);
-        }
+		[HttpPost]
+		public IActionResult Editar(Categoria categoria)
+		{
+			if (categoria.Id != 0 && categoria.Nombre != null && categoria.Descripcion != null)
+			{
+				_context.Categorias.Update(categoria);
+				_context.SaveChanges();
+				return RedirectToAction("Index");
+			}
+			return View("Editar", categoria);
+		}
 
-        [HttpGet]
-        public IActionResult Eliminar(int id)
-        {
-            Categoria estudiante = _context.Categorias.Find(id);
-            return View(estudiante);
-        }
+		[HttpGet]
+		public IActionResult Eliminar(int id)
+		{
+			Categoria estudiante = _context.Categorias.Find(id);
+			return View(estudiante);
+		}
 
-        [HttpPost]
-        public IActionResult Eliminar(Categoria categoria)
-        {
-            _context.Categorias.Remove(categoria);
-            _context.SaveChanges();
-            return RedirectToAction("Index");
-        }
+		[HttpPost]
+		public IActionResult Eliminar(Categoria categoria)
+		{
+			_context.Categorias.Remove(categoria);
+			_context.SaveChanges();
+			return RedirectToAction("Index");
+		}
 
     }
 }

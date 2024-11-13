@@ -45,5 +45,39 @@ namespace proy_caguamanta.Controllers
 
         }
 
-    }
+		[HttpGet]
+		public IActionResult Editar(int id)
+		{
+			DetalleVenta estudiante = _context.DetalleVentas.Find(id);
+			return View(estudiante);
+		}
+
+		[HttpPost]
+		public IActionResult Editar(DetalleVenta detalleVenta)
+		{
+			if (detalleVenta.Id != 0 && detalleVenta.IdVenta != null && detalleVenta.IdProducto != null && detalleVenta.PrecioUnidad != null && detalleVenta.Cantidad != null && detalleVenta.Importe != null)
+			{
+				_context.DetalleVentas.Update(detalleVenta);
+				_context.SaveChanges();
+				return RedirectToAction("Index");
+			}
+			return View("Editar", detalleVenta);
+		}
+
+		[HttpGet]
+		public IActionResult Eliminar(int id)
+		{
+			DetalleVenta estudiante = _context.DetalleVentas.Find(id);
+			return View(estudiante);
+		}
+
+		[HttpPost]
+		public IActionResult Eliminar(DetalleVenta detalleVenta)
+		{
+			_context.DetalleVentas.Remove(detalleVenta);
+			_context.SaveChanges();
+			return RedirectToAction("Index");
+		}
+
+	}
 }

@@ -4,14 +4,16 @@
 	Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<div class="conteiner">
-	<h1>Listado de productos</h1>
-	<div class="row mt-4">
+
+<h1> LISTA DE PRODUCTOS</h1>
+
+<div class="container">
+	<div class="row mt-5">
 		<div class="col-3">
-			<a class="btn btn-primary text-white form-control" asp-action="Crear">Agregar nuevo</a>
+			<a class="btn btn-primary text-white form-control" asp-action="Crear">Agregar Nuevo</a>
 		</div>
 	</div>
-	<div class="row mt-4">
+	<div class="row mt-5">
 		<div class="col-12">
 
 			@if (Model.Count() > 0)
@@ -35,6 +37,8 @@
 								<td>@item.IdCategoria</td>
 								<td>@String.Format("{0:C}", item.Precio)</td>
 								<td>@item.Cantidad</td>
+								<td><a class="btn btn-outline-primary form-control" asp-action="Editar" asp-route-id="@item.Id">Editar</a></td>
+								<td><a class="btn btn-outline-danger form-control" asp-action="Eliminar" asp-route-id="@item.Id">Eliminar</a></td>
 							</tr>
 
 						}
@@ -43,7 +47,7 @@
 			}
 			else
 			{
-				<p>No se encontraron elementos</p>
+				<p>NO HAY NINGUN PRODUCTO</p>
 			}
 		</div>
 
