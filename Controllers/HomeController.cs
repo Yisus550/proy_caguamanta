@@ -10,17 +10,11 @@ namespace proy_caguamanta.Controllers
     {
         public readonly ApplicationDbContext _context;
 
+
         public HomeController(ApplicationDbContext context)
         {
            _context = context;
         }
-
-        //private readonly ILogger<HomeController> _logger;
-
-        //public HomeController(ILogger<HomeController> logger)
-        //{
-        //    _logger = logger;
-        //}
 
         [HttpGet]
         public IActionResult Index()
@@ -35,14 +29,22 @@ namespace proy_caguamanta.Controllers
                                            .Where(e => e.Correo == login.Correo &&
                                                        e.Contrasena == login.Contrasena
                                            ).FirstOrDefaultAsync();
-            if (empleado_encontrado == null)
+
+
+            if (empleado_encontrado != null)
             {
-                return View();
-                
-            }
-            else 
-            {
+
+                //login.Puesto = empleado_encontrado.Puesto;
+                //string puesto = login.Puesto;
+                //ViewBag.Puesto = puesto;
                 return RedirectToAction("Index", "Venta");
+
+            }
+            else
+            {
+
+                return View();
+
             }
             
 
@@ -59,19 +61,6 @@ namespace proy_caguamanta.Controllers
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
-
-        [HttpGet]
-		public IActionResult Login()
-		{
-			return View();
-		}
-
-		[HttpPost]        
-        public async Task<IActionResult> Login(Empleado empleado)
-        {
-            //Empleado empleado_encontrado = await context.Empleados.Where(e => e.Contrasena == empleado.Contrasena)
-			return RedirectToAction("Index", "Venta");
-		}
 
         public IActionResult Registros()
         {

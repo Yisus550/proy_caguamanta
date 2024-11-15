@@ -14,5 +14,7 @@ namespace proy_caguamanta.Models
 		[StringLength(20, ErrorMessage = "La cadena de texto no puede sobrepasar los 20 caracteres")]
 		[Display(Name = "Contraseña")]
 		public string Contrasena { get; set; }
-	}
+
+        public string Puesto { get; set; }
+    }
 }
