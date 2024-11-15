@@ -10,7 +10,7 @@ namespace proy_caguamanta.Models
 
 		[Required(ErrorMessage = "Este campo es obligatorio")]
 		[DataType(DataType.Date)]
-		public DateOnly FechaVenta { get; set; }
+		public DateTime FechaVenta { get; set; }
 
 		[Required(ErrorMessage = "Este campo es obligatorio")]
 		public int EmpleadoId { get; set; }
