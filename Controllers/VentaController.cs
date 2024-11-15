@@ -7,29 +7,43 @@ namespace proy_caguamanta.Controllers
 {
 	public class VentaController : Controller
 	{
-		public readonly ApplicationDbContext _context;
-		private static List<Object> _productos;
+		private readonly ApplicationDbContext _context;
 
-		private static int cantidad;
-		private static double precio;
+		private static Venta venta;
+		private static List<ProductosList> _productos;
+		private static List<SelectListItem> options;
+		private static List<Venta> listaVenta;
+
+		private int cantidad;
+		private int idEmpleado;
+		private int idCliente;
+		private double precio;
+		private double total;
+		private double cambio;
 
 		public VentaController(ApplicationDbContext context)
 		{
 			_context = context;
 		}
 
-		public ActionResult Index(double pago)
+		public ActionResult Index(double pago, int idCliente = 1, int idEmpleado = 1)
 		{
 			CargarProductos();
 			CalcularTotal();
 			CalcularCambio(pago);
+
+			this.idEmpleado = idEmpleado;
+			this.idCliente = idCliente;
+			ViewBag.IdCliente = idCliente;
+			ViewBag.IdEmpleado = idEmpleado;
+
 
 			return View();
 		}
 
 		public IActionResult Listar()
 		{
-			List<Venta> listaVenta = _context.Ventas.ToList();
+			listaVenta = _context.Ventas.ToList();
 			return View(listaVenta);
 		}
 
@@ -39,6 +53,7 @@ namespace proy_caguamanta.Controllers
 		{
 			return View();
 		}
+
 		[HttpPost]
 		public IActionResult Crear(Venta venta)
 		{
@@ -46,6 +61,8 @@ namespace proy_caguamanta.Controllers
 			if (ModelState.IsValid)
 			{
 				// agregar, guardar y redireccionar
+				venta.IdEmpleado = venta.IdEmpleado == 0 ? 1001 : 0;
+				venta.IdCliente = venta.IdCliente == 0 ? 2001 : 0;
 				_context.Ventas.Add(venta);
 				_context.SaveChanges();
 				return RedirectToAction("Index");
@@ -63,29 +80,53 @@ namespace proy_caguamanta.Controllers
 
 			if (_productos == null)
 			{
-				_productos = new List<Object>();
+				_productos = new List<ProductosList>();
 			}
-			_productos.Add(new
+
+			double subtotal = producto.Precio * cantidadProducto;
+			ProductosList productoList = new ProductosList
 			{
-				producto.Id,
-				producto.Nombre,
-				producto.Precio,
-				cantidadProducto,
-				SubTotal = producto.Precio * cantidadProducto,
-			});
+				Id = producto.Id,
+				Nombre = producto.Nombre,
+				Precio = producto.Precio,
+				Cantidad = cantidadProducto,
+				SubTotal = subtotal
+			};
+
+			_productos.Add(productoList);
 
 			return RedirectToAction("Index");
 		}
 
 		public ActionResult LimpiarTabla()
 		{
-			_productos = new List<Object>();
+			_productos.Clear();
+			return RedirectToAction("Index");
+		}
+
+		public ActionResult FinalizarVenta()
+		{
+			DetalleVentaController _detalleVenta = new DetalleVentaController(_context);
+
+			CalcularTotal();
+			venta = new Venta
+			{
+				FechaVenta = DateTime.Today,
+				IdEmpleado = this.idEmpleado,
+				IdCliente = this.idCliente,
+				Importe = (decimal)total
+			};
+
+			Crear(venta);
+
+			_detalleVenta.CrearMultiples(_productos);
+			LimpiarTabla();
 			return RedirectToAction("Index");
 		}
 
 		private void CargarProductos()
 		{
-			List<SelectListItem> options = _context.Productos.Select(p => new SelectListItem
+			options = _context.Productos.Select(p => new SelectListItem
 			{
 				Text = p.Nombre,
 				Value = p.Id.ToString()
@@ -97,14 +138,13 @@ namespace proy_caguamanta.Controllers
 
 		private void CalcularTotal()
 		{
-			double total = _productos != null ? _productos.Sum(p => (double)p.GetType().GetProperty("SubTotal").GetValue(p)) : 0;
+			total = _productos != null ? _productos.Sum(p => p.SubTotal) : 0;
 			ViewBag.Total = total;
 		}
 
 		private void CalcularCambio(double pago)
 		{
-			double total = _productos != null ? _productos.Sum(p => (double)p.GetType().GetProperty("SubTotal").GetValue(p)) : 0;
-			double cambio = pago <= 0 ? 0 : pago - total;
+			cambio = pago <= 0 ? 0 : pago - total;
 
 			ViewBag.Pago = pago;
 			ViewBag.Cambio = cambio >= 0 ? cambio : 0;
