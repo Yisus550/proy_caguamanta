@@ -25,18 +25,18 @@ namespace proy_caguamanta.Controllers
             _context = context;
         }
 
-        public ActionResult Index(double pago, int idCliente = 1, int idEmpleado = 1)
+        /// <summary>
+        /// Metodo que se encarga de cargar la vista principal de la venta.
+        /// </summary>
+        /// <param name="pago">Cantidad de dinero que el cliente paga</param>
+        /// <param name="idCliente">Id del cliente que realiza la compra, 1001 por defecto</param>
+        /// <param name="idEmpleado">Id del empleado que realiza la venta, 2001 por defecto</param>
+        public ActionResult Index(double pago, int idCliente = 1001, int idEmpleado = 2001)
         {
-            CargarProductos();
-            CalcularTotal();
-            CalcularCambio(pago);
-
-            this.idEmpleado = idEmpleado;
-            this.idCliente = idCliente;
-            ViewBag.IdCliente = idCliente;
-            ViewBag.IdEmpleado = idEmpleado;
-
-
+            CargarDatos(pago, idCliente, idEmpleado);
+            ViewBag.IdVenta = _context.Ventas.OrderBy(v => v.Id).Last().Id + 1;
+            ViewBag.IdCliente = this.idCliente;
+            ViewBag.IdEmpleado = this.idEmpleado;
             return View();
         }
 
@@ -119,6 +119,16 @@ namespace proy_caguamanta.Controllers
             _detalleVenta.CrearMultiples(_productos);
             LimpiarTabla();
             return RedirectToAction("Index");
+        }
+
+        private void CargarDatos(double pago, int idCliente = 1, int idEmpleado = 1)
+        {
+            CargarProductos();
+            CalcularTotal();
+            CalcularCambio(pago);
+            // Incrementar el 'Id' de la ultima venta para obtener el actual. No funciona con '++', se le tiene que agregar '+ 1'
+            this.idEmpleado = idEmpleado;
+            this.idCliente = idCliente;
         }
 
         private void CargarProductos()
