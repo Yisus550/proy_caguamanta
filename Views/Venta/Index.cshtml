@@ -4,110 +4,115 @@
 }
 
 <div class="container">
-	<div class="row mt-5">
-		<form asp-action="FinalizarVenta" method="post">
-			<div class="col-8">
-				<div class="col-12">
-					<div class="col-12">
-						<div class="col-12">
+	<form asp-action="FinalizarVenta" method="post">
+		<div class="col-12">
+			<div class="row">
+				<div class="col-8">
+					<div class="col-12 mb-3">
+						<div class="row">
 							<div class="col-12">
-								<label for="productoDropdown">Producto:</label>
-								@Html.DropDownList("productoId",
-											ViewBag.SelectListProductos as List<SelectListItem>,
-											"Seleccione un producto", new
-											{
-												@class = "form-select border rounded-5 py-2 px-3 w-50 mt-2 mb-3",
-												id = "productoDropdown"
-											})
 								<div class="col-12">
-									<label for="cantidad">Cantidad:</label>
-									<input type="number" class="col-1 border btn mt-2 mb-3" id="cantidad" name="cantidadProducto" value="1" min="1" max="100" />
+									<label for="productoDropdown">Producto:</label>
+									@Html.DropDownList("productoId",
+																		ViewBag.SelectListProductos as List<SelectListItem>,
+																		"Seleccione un producto", new
+																		{
+																			@class = "form-select border rounded-5 py-2 px-3 w-50 mt-2 mb-3",
+																			id = "productoDropdown"
+																		})
+									<div class="col-12">
+										<label for="cantidad">Cantidad:</label>
+										<input type="number" class="col-1 border btn mt-2 mb-3" id="cantidad" name="cantidadProducto" value="1" min="1" max="100" />
+									</div>
+								</div>
+							</div> <!-- Producto y cantidad -->
+							<div class="col-6d-inline-block my-3">
+								<button asp-action="AgregarProducto" class="btn btn-primary w-25">Agregar pruducto</button>
+								<button asp-action="LimpiarTabla" class="btn btn-outline-danger mx-1">Limpiar</button>
+							</div> <!-- Botones -->
+						</div>
+					</div> <!-- Formulario de productos -->
+					<hr color="gray" class="mx-3" />
+					<div class="col-12 my-3 pt-2">
+						<table class="table table-hover shadow-sm border">
+							<thead>
+								<tr>
+									<th>Producto</th>
+									<th>Cantidad</th>
+									<th>Precio /u</th>
+									<th>Total</th>
+								</tr>
+							</thead>
+							<tbody>
+								@if (ViewBag.Productos != null)
+								{
+									foreach (var item in ViewBag.Productos)
+									{
+										<tr>
+											<td class="col-4">@item.Nombre</td>
+											<td class="col-3">@item.Cantidad</td>
+											<td class="col-2">@item.Precio</td>
+											<td class="col-3">@item.SubTotal</td>
+										</tr>
+									}
+								}
+							</tbody>
+						</table>
+					</div> <!-- Tabla de productos -->
+				</div>
+				<div class="col-4">
+					<div class="col-12">
+						<div class="border rounded-4 p-3 shadow" align="center">
+							<div class="mb-4 px-3 mt-5">
+								<h3 class="fw-bold">Cahuamanta y mas</h3>
+								<p>ID: @ViewBag.IdVenta</p>
+								<p>@DateTime.Today.ToString("MMMM dd yyyy")</p>
+								<p>No. Empleado: @ViewBag.IdEmpleado</p>
+							</div>
+							<hr style="border: 1px dashed;" />
+							<div class="row text-start my-4 px-3">
+								<div class="col-3 fw-bold">
+									<p>Cliente:</p>
+									<p>Pago:</p>
+									<p>Cambio:</p>
+								</div>
+								<div class="col-9 text-end">
+									<p>@ViewBag.IdCliente</p>
+									<p>$@ViewBag.Pago</p>
+									<p>$@ViewBag.Cambio</p>
 								</div>
 							</div>
+							<hr style="border: 1px dashed;" />
+							<div class="mt-4 px-3 fw-bold">
+								<p class="text-end fs-4 mb-5">Total: $@ViewBag.Total</p>
+							</div>
 						</div>
-						<div class="col-6d-inline-block my-3">
-							<button asp-action="AgregarProducto" class="btn btn-primary w-25">Agregar pruducto</button>
-							<button asp-action="LimpiarTabla" class="btn btn-outline-danger mx-1">Limpiar</button>
-						</div>
-					</div>
-				</div>
-				<div class="col-12 mb-lg-5">
-					<table class="table table-hover shadow-sm border">
-						<thead>
-							<tr>
-								<th>Producto</th>
-								<th>Cantidad</th>
-								<th>Precio /u</th>
-								<th>Total</th>
-							</tr>
-						</thead>
-						<tbody>
-							@if (ViewBag.Productos != null)
-							{
-								foreach (var item in ViewBag.Productos)
-								{
-									<tr>
-										<td class="col-4">@item.Nombre</td>
-										<td class="col-3">@item.Cantidad</td>
-										<td class="col-2">@item.Precio</td>
-										<td class="col-3">@item.SubTotal</td>
-									</tr>
-								}
-							}
-						</tbody>
-					</table>
-				</div>
-				<div class="col-12 my-lg-5">
-					<div class="row">
-						<div class="col-2">
-							<label class="form-label my-2">Pago del cliente:</label>
-							<input class="form-control my-2" type="number" id="pago" name="pago" min="0" autocomplete="off" />
-						</div>
-						<div class="col-2">
-							<label class="form-label my-2">ID Empleado:</label>
-							<input class="form-control my-2" type="number" id="pago" name="idEmpleado" min="1" autocomplete="off" />
-						</div>
-						<div class="col-2">
-							<label class="form-label my-2">ID Cliente:</label>
-							<input class="form-control my-2" type="number" id="pago" name="idCliente" min="1" autocomplete="off" />
-						</div>
-					</div>
-					<div class="col-2 mt-2">
-						<button class="btn btn-outline-info" asp-action="Index">Calcular cambio</button>
-					</div>
-					<div class="col-2 mt-3">
-						<label class="form-label my-2">Cambio:</label>
-						<input class="form-control my-2" type="number" min="0" value="@ViewBag.Cambio" disabled />
-					</div>
-				</div>
-			<div class="col-5">
-				<div class="border rounded-4 p-3 shadow" align="center">
-					<div class="mb-4 px-3 mt-5">
-						<h3 class="fw-bold">Cahuamanta y mas</h3>
-						<p>ID: 1423</p>
-						<p>@DateTime.Today.ToString("MMMM dd yyyy")</p>
-						<p>No. Empleado: @ViewBag.IdEmpleado</p>
-					</div>
-					<hr style="border: 1px dashed;" />
-					<div class="row text-start my-4 px-3">
-						<div class="col-3 fw-bold">
-							<p>Cliente:</p>
-							<p>Pago:</p>
-							<p>Cambio:</p>
-						</div>
-						<div class="col-9 text-end">
-							<p>@ViewBag.IdCliente</p>
-							<p>$@ViewBag.Pago</p>
-							<p>$@ViewBag.Cambio</p>
-						</div>
-					</div>
-					<hr style="border: 1px dashed;" />
-					<div class="mt-4 px-3 fw-bold">
-						<p class="text-end fs-4 mb-5">Total: $@ViewBag.Total</p>
-					</div>
+					</div> <!-- Ticket -->
 				</div>
 			</div>
-			</div>
+			<div class="col-12 my-lg-5">
+				<div class="row">
+					<div class="col-2">
+						<label class="form-label my-2">Pago del cliente:</label>
+						<input class="form-control my-2" type="number" id="pago" name="pago" min="0" autocomplete="off" />
+					</div>
+					<div class="col-2">
+						<label class="form-label my-2">ID Empleado:</label>
+						<input class="form-control my-2" type="number" id="pago" name="idEmpleado" min="1" autocomplete="off" />
+					</div>
+					<div class="col-2">
+						<label class="form-label my-2">ID Cliente:</label>
+						<input class="form-control my-2" type="number" id="pago" name="idCliente" min="1" autocomplete="off" />
+					</div>
+				</div>
+				<div class="col-2 mt-2">
+					<button class="btn btn-outline-info" asp-action="Index">Calcular cambio</button>
+				</div>
+				<div class="col-2 mt-3">
+					<label class="form-label my-2">Cambio:</label>
+					<input class="form-control my-2" type="number" min="0" value="@ViewBag.Cambio" disabled />
+				</div>
+			</div> <!-- Pago, cambio -->
 			<div class="col">
 				<div class="row">
 					<div class="col-12 my-5">
@@ -116,7 +121,7 @@
 						</div>
 					</div>
 				</div>
-			</div>
-		</form>
-	</div>
+			</div> <!-- Finalizar venta -->
+		</div>
+	</form>
 </div>
