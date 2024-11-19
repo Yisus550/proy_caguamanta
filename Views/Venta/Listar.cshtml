@@ -19,10 +19,12 @@
 
 					<thead>
 						<tr>
-							<td>Fecha de venta</td>
-							<td>codigo empleado</td>
-							<td>codigo cliente</td>
-							<td>Total</td>
+							<td>codigo de venta</td>
+							<td>Fecha de Venta</td>
+							<td>codigo de empleado</td>
+							<td>codigo de cliente</td>
+							<td>Total vendido</td>
+							<td>Opciones</td>
 						</tr>
 					</thead>
 					<tbody>
@@ -31,8 +33,8 @@
 							<tr>
 								<td>@item.Id</td>
 								<td>@item.FechaVenta</td>
-								<td>@item.IdEmpleado</td>
-								<td>@item.IdCliente</td>
+								<td>@item.EmpleadoId</td>
+								<td>@item.ClienteId</td>
 								<td>@item.Importe</td>
 								<td><a class="btn btn-outline-primary form-control" asp-action="Editar" asp-route-id="@item.Id">Editar</a></td>
 								<td><a class="btn btn-outline-danger form-control" asp-action="Eliminar" asp-route-id="@item.Id">Eliminar</a></td>

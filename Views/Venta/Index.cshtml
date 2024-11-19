@@ -13,12 +13,12 @@
 							<div class="col-12">
 								<label for="productoDropdown">Producto:</label>
 								@Html.DropDownList("productoId",
-											ViewBag.SelectListProductos as List<SelectListItem>,
-											"Seleccione un producto", new
-											{
-												@class = "form-select border rounded-5 py-2 px-3 w-50 mt-2 mb-3",
-												id = "productoDropdown"
-											})
+																	ViewBag.SelectListProductos as List<SelectListItem>,
+																	"Seleccione un producto", new
+																	{
+																		@class = "form-select border rounded-5 py-2 px-3 w-50 mt-2 mb-3",
+																		id = "productoDropdown"
+																	})
 								<div class="col-12">
 									<label for="cantidad">Cantidad:</label>
 									<input type="number" class="col-1 border btn mt-2 mb-3" id="cantidad" name="cantidadProducto" value="1" min="1" max="100" />
@@ -80,33 +80,33 @@
 						<input class="form-control my-2" type="number" min="0" value="@ViewBag.Cambio" disabled />
 					</div>
 				</div>
-			<div class="col-5">
-				<div class="border rounded-4 p-3 shadow" align="center">
-					<div class="mb-4 px-3 mt-5">
-						<h3 class="fw-bold">Cahuamanta y mas</h3>
-						<p>ID: 1423</p>
-						<p>@DateTime.Today.ToString("MMMM dd yyyy")</p>
-						<p>No. Empleado: @ViewBag.IdEmpleado</p>
-					</div>
-					<hr style="border: 1px dashed;" />
-					<div class="row text-start my-4 px-3">
-						<div class="col-3 fw-bold">
-							<p>Cliente:</p>
-							<p>Pago:</p>
-							<p>Cambio:</p>
+				<div class="col-5">
+					<div class="border rounded-4 p-3 shadow" align="center">
+						<div class="mb-4 px-3 mt-5">
+							<h3 class="fw-bold">Cahuamanta y mas</h3>
+							<p>ID: 1423</p>
+							<p>@DateTime.Today.ToString("MMMM dd yyyy")</p>
+							<p>No. Empleado: @ViewBag.IdEmpleado</p>
 						</div>
-						<div class="col-9 text-end">
-							<p>@ViewBag.IdCliente</p>
-							<p>$@ViewBag.Pago</p>
-							<p>$@ViewBag.Cambio</p>
+						<hr style="border: 1px dashed;" />
+						<div class="row text-start my-4 px-3">
+							<div class="col-3 fw-bold">
+								<p>Cliente:</p>
+								<p>Pago:</p>
+								<p>Cambio:</p>
+							</div>
+							<div class="col-9 text-end">
+								<p>@ViewBag.IdCliente</p>
+								<p>$@ViewBag.Pago</p>
+								<p>$@ViewBag.Cambio</p>
+							</div>
 						</div>
-					</div>
-					<hr style="border: 1px dashed;" />
-					<div class="mt-4 px-3 fw-bold">
-						<p class="text-end fs-4 mb-5">Total: $@ViewBag.Total</p>
+						<hr style="border: 1px dashed;" />
+						<div class="mt-4 px-3 fw-bold">
+							<p class="text-end fs-4 mb-5">Total: $@ViewBag.Total</p>
+						</div>
 					</div>
 				</div>
-			</div>
 			</div>
 			<div class="col">
 				<div class="row">

@@ -1,52 +1,73 @@
-﻿@model IEnumerable<proy_caguamanta.Models.Compra>
+﻿
 @{
     ViewData["Title"] = "Lista de Compra";
     Layout = "/Views/Shared/_Layout.cshtml";
 }
 
-<h1> LISTA DE COMPRAS</h1>
-
 <div class="container">
     <div class="row mt-5">
-        <div class="col-3">
-            <a class="btn btn-primary text-white form-control" asp-action="Crear">Agregar Nuevo</a>
-        </div>
-    </div>
-    <div class="row mt-5">
-        <div class="col-12">
-            @if (Model.Count() > 0)
-            {
-                <table class="table table-striped border">
-                    <thead>
-                        <tr>
-                            <th>Id</th>
-                            <th>Fecha de Compra</th>
-                            <th>IdEmpleado</th>
-                            <th>IdProveedor</th>
-                            <th>Importe</th>                            
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @foreach (var item in Model)
-                        {
-                            <tr>
-                                <td>@item.Id</td>
-                                <th>@item.FechaCompra</th>
-                                <td>@item.EmpleadoId</td>
-                                <td>@item.ProveedorId</td>
-                                <td>@item.Importe</td>
-                                <td><a class="btn btn-outline-primary form-control" asp-action="Editar" asp-route-id="@item.Id">Editar</a></td>
-                                <td><a class="btn btn-outline-danger form-control" asp-action="Eliminar" asp-route-id="@item.Id">Eliminar</a></td>
-                            </tr>
-                        }
-                    </tbody>
-                </table>
-            }
-            else
-            {
-                <p>NO HAY NINGUNA COMPRA</p>
+        <form asp-action="FinalizarVenta" method="post">
+			<div class="col-8">
+				<div class="row mt-2 col-5 mb-1">
+					<label class="mb-3">Material:</label>
+					<select class="form-select border rounded-5 py-2 px-3 w-100 mt-2 mb-3" asp-items="ViewBag.Items"></select>
+				</div>
+				<div class="col-8">
+					<label for="cantidad">Cantidad:</label>
+					<input type="number" class="col-1 border btn mt-2 mb-3" id="cantidad" name="cantidadProducto" value="1" min="1" max="100" />
+				</div>
+				<div class="col-6d-inline-block my-3">
+					<button asp-action="AgregarProducto" class="btn btn-primary w-25">Agregar pruducto</button>
+					<button asp-action="LimpiarTabla" class="btn btn-outline-danger mx-1">Limpiar</button>
+				</div>
+				<table class="table table-striped border">
+					<thead>
+						<tr>
+							<th>Codigo</th>
+							<th>Producto</th>
+							<th>Cantidad</th>
+							<th>Costo</th>
+							<th>SubTotal</th>
+							<td>Opciones</td>
+						</tr>
+					</thead>
+					<tbody>
+						@foreach (var item in ViewBag.Items)
+						{
+							<tr>
+								<td>@item.Id</td>
+								<th>@item.Nombre</th>
+								<td>@item.EmpleadoId</td>
+								<td>@item.ProveedorId</td>
+								<td>@item.Importe</td>
+								<td><a class="btn btn-outline-primary form-control" asp-action="Editar" asp-route-id="@item.Id">Editar</a></td>
+								<td><a class="btn btn-outline-danger form-control" asp-action="Eliminar" asp-route-id="@item.Id">Eliminar</a></td>
+							</tr>
+						}
+					</tbody>
+				</table>
+			</div>
+			<div class="col-4 card">
+				<div class=" bg-primary form-control col-4 card-title">
+					<h3>Comanda</h3>
+				</div>
 
-            }
-        </div>
+				<hr />
+				<p>@DateTime.Today.ToString("MMMM dd yyyy")</p>
+				<hr />
+				<p>Empleado:</p>
+				<p>Tipo de pago:</p>
+				<label class="form-label">Efectivo resivido:</label>
+				<imput class="form-control"> </imput>
+				<label class="form-label">Feria: $ </label>
+				<label class="form-label"> Total: $</label>
+				<div class="row mt-2 justify-content-evenly">
+					<div class="col-8 mt-4">
+						<button class="btn btn-primary text-white form-control-sm mb-5">Finalizar</button>
+						<button class="btn btn-primary text-white form-control-sm mb-5">Cancelar</button>
+					</div>
+				</div>
+			</div>
+        </form> 
     </div>
 </div>

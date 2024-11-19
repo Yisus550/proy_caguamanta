@@ -26,7 +26,7 @@ namespace proy_caguamanta.Controllers
 			_context = context;
 		}
 
-		public ActionResult Index(double pago, int idCliente = 1, int idEmpleado = 1)
+		public ActionResult Index(double pago, int idCliente, int idEmpleado)
 		{
 			CargarProductos();
 			CalcularTotal();
@@ -61,8 +61,8 @@ namespace proy_caguamanta.Controllers
 			if (ModelState.IsValid)
 			{
 				// agregar, guardar y redireccionar
-				venta.IdEmpleado = venta.IdEmpleado == 0 ? 1001 : 0;
-				venta.IdCliente = venta.IdCliente == 0 ? 2001 : 0;
+				venta.EmpleadoId = this.idEmpleado == 0 ? idEmpleado : 0;
+				venta.ClienteId = venta.ClienteId == 0 ? idCliente : 0;
 				_context.Ventas.Add(venta);
 				_context.SaveChanges();
 				return RedirectToAction("Index");
@@ -112,8 +112,8 @@ namespace proy_caguamanta.Controllers
 			venta = new Venta
 			{
 				FechaVenta = DateTime.Today,
-				IdEmpleado = this.idEmpleado,
-				IdCliente = this.idCliente,
+				EmpleadoId = this.idEmpleado,
+				ClienteId = this.idCliente,
 				Importe = (decimal)total
 			};
 

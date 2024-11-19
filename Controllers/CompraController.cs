@@ -1,4 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using proy_caguamanta.Data;
 using proy_caguamanta.Models;
 using System.ComponentModel;
@@ -16,11 +18,20 @@ namespace proy_caguamanta.Controllers
             _context = context;
         }
 
+        private List<SelectListItem> GetMaterialesSelectList()
+        {
+            return _context.Materiales.Select(d => new SelectListItem
+            {
+                Text = d.Nombre,
+                Value = d.Id.ToString()
+            }).ToList();
+        }
+
         //Metodos de accion
         public IActionResult Index() 
         {
-            List<Compra> listaCompra = _context.Compras.ToList();
-            return View(listaCompra);
+            ViewBag.Items = GetMaterialesSelectList();
+            return View(ViewBag.Items);
         }
 
         [HttpGet]

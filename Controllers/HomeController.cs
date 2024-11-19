@@ -30,7 +30,7 @@ namespace proy_caguamanta.Controllers
                                            ).FirstOrDefaultAsync();
             if (empleado_encontrado == null)
             {
-                return View();
+                return View("Index", login);
 
             }
             else
