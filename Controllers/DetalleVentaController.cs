@@ -45,7 +45,24 @@ namespace proy_caguamanta.Controllers
 
 		}
 
-		public IActionResult CrearMultiples(List<ProductosList> productosList)
+		[HttpPost]
+		public IActionResult CrearMultiples(List<DetalleVenta> detalleVentas)
+		{
+			// Logic . . .
+			return View();
+		}
+
+
+		/// <summary>
+		/// Método que se encarga de crear multiples detalles de venta. 
+		/// A diferencia de <see cref="CrearMultiples(Lista{DetalleVenta})"/> 
+		/// este método recibe una lista de <see cref="ProductosList"/> y 
+		/// crea un detalle de venta por cada producto en la lista, sin 
+		/// validar el modelo ni redireccionar a ninguna vista.
+		/// </summary>
+		/// <param name="productosList">Lista de productos con la cantidad a registrar</param></param>
+		[HttpPost]
+		public void CrearMultiples(List<ProductosList> productosList)
 		{
 			List<DetalleVenta> detalleVentas = new List<DetalleVenta>();
 			Venta venta = _context.Ventas.OrderBy(v => v.Id).Last();
@@ -65,7 +82,6 @@ namespace proy_caguamanta.Controllers
 
 			_context.DetalleVentas.AddRange(detalleVentas);
 			_context.SaveChanges();
-			return RedirectToAction("Index");
 		}
 
 		[HttpGet]

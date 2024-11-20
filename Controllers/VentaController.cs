@@ -5,156 +5,168 @@ using proy_caguamanta.Models;
 
 namespace proy_caguamanta.Controllers
 {
-    public class VentaController : Controller
-    {
-        private readonly ApplicationDbContext _context;
+	public class VentaController : Controller
+	{
+		private readonly ApplicationDbContext _context;
 
-        private static List<ProductosList> _productos;
-        private static List<SelectListItem> options;
-        private static List<Venta> listaVenta;
+		private static List<ProductosList> _productos;
+		private static List<SelectListItem> options;
+		private static List<Venta> listaVenta;
 
-        private int cantidad;
-        private int idEmpleado;
-        private int idCliente;
-        private double precio;
-        private double total;
-        private double cambio;
+		private static int cantidad;
+		private static int idEmpleadoRecover;
+		private static int idClienteRecover;
+		private static double precio;
+		private static double total;
+		private static double cambio;
 
-        public VentaController(ApplicationDbContext context)
-        {
-            _context = context;
-        }
+		public VentaController(ApplicationDbContext context)
+		{
+			_context = context;
+		}
 
-        /// <summary>
-        /// Metodo que se encarga de cargar la vista principal de la venta.
-        /// </summary>
-        /// <param name="pago">Cantidad de dinero que el cliente paga</param>
-        /// <param name="idCliente">Id del cliente que realiza la compra, 1001 por defecto</param>
-        /// <param name="idEmpleado">Id del empleado que realiza la venta, 2001 por defecto</param>
-        public ActionResult Index(double pago, int idCliente = 1001, int idEmpleado = 2001)
-        {
-            CargarDatos(pago, idCliente, idEmpleado);
-            ViewBag.IdVenta = _context.Ventas.OrderBy(v => v.Id).Last().Id + 1;
-            ViewBag.IdCliente = this.idCliente;
-            ViewBag.IdEmpleado = this.idEmpleado;
-            return View();
-        }
+		/// <summary>
+		/// Metodo que se encarga de cargar la vista principal de la venta.
+		/// </summary>
+		/// <param name="pago">Cantidad de dinero que el cliente paga</param>
+		/// <param name="idCliente">Id del cliente que realiza la compra, 1001 por defecto</param>
+		/// <param name="idEmpleado">Id del empleado que realiza la venta, 2001 por defecto</param>
+		/// <returns>Retorna la vista principal de la venta.</returns>
+		public ActionResult Index(double pago = 0, int idCliente = 1001, int idEmpleado = 2001)
+		{
+			CargarDatos(pago, idCliente, idEmpleado);
+			ViewBag.IdVenta = _context.Ventas.OrderBy(v => v.Id).Last().Id + 1;
+			ViewBag.IdEmpleado = idEmpleadoRecover;
+			ViewBag.IdCliente = idClienteRecover;
 
-        public IActionResult Listar()
-        {
-            listaVenta = _context.Ventas.ToList();
-            return View(listaVenta);
-        }
+			return View();
+		}
 
-        // sobrecaragr el metodo
-        [HttpGet]
-        public IActionResult Crear()
-        {
-            return View();
-        }
+		public IActionResult Listar()
+		{
+			listaVenta = _context.Ventas.ToList();
+			return View(listaVenta);
+		}
 
-        [HttpPost]
-        public IActionResult Crear(Venta venta)
-        {
-            //validar
-            if (ModelState.IsValid)
-            {
-                // agregar, guardar y redireccionar
-                venta.IdEmpleado = venta.IdEmpleado == 0 ? 1001 : 0;
-                venta.IdCliente = venta.IdCliente == 0 ? 2001 : 0;
-                _context.Ventas.Add(venta);
-                _context.SaveChanges();
-                return RedirectToAction("Index");
-            }
-            else
-            {
-                return View("Crear", venta);
-            }
-        }
+		// sobrecaragr el metodo
+		[HttpGet]
+		public IActionResult Crear()
+		{
+			return View();
+		}
 
-        [HttpPost]
-        public ActionResult AgregarProducto(int productoId, int cantidadProducto)
-        {
-            Producto producto = _context.Productos.Find(productoId);
 
-            if (_productos == null)
-            {
-                _productos = new List<ProductosList>();
-            }
+		/// <summary>
+		/// Método que se encarga de crear una venta. Valida el modelo y redirecciona a la vista principal de ventas.
+		/// </summary>
+		/// <param name="venta">Objeto de venta con el contenido a registrar</param>
+		/// <returns>Redirecciona a la vista principal <see cref="Index"/></returns>
+		[HttpPost]
+		public IActionResult Crear(Venta venta)
+		{
+			//validar
+			if (!ModelState.IsValid)
+				return View("Crear", venta);
 
-            double subtotal = producto.Precio * cantidadProducto;
-            ProductosList productoList = new ProductosList
-            {
-                Id = producto.Id,
-                Nombre = producto.Nombre,
-                Precio = producto.Precio,
-                Cantidad = cantidadProducto,
-                SubTotal = subtotal
-            };
+			// agregar, guardar y redireccionar
+			venta.IdEmpleado = venta.IdEmpleado = idEmpleadoRecover;
+			venta.IdCliente = venta.IdCliente = idClienteRecover;
+			_context.Ventas.Add(venta);
+			_context.SaveChanges();
+			return RedirectToAction("Index");
+		}
 
-            _productos.Add(productoList);
-            return RedirectToAction("Index");
-        }
+		/// <summary>
+		/// Método que se encarga de crear una venta al finalizar la compra. A diferencia del método Crear, este no valida el modelo ni redirecciona a ningúna vista.
+		/// </summary>
+		/// <param name="venta">Objeto de venta con el contenido a registrar</param>
+		public void CrearAlFinalizar(Venta venta)
+		{
+			venta.IdEmpleado = venta.IdEmpleado = idEmpleadoRecover;
+			venta.IdCliente = venta.IdCliente = idClienteRecover;
+			_context.Ventas.Add(venta);
+			_context.SaveChanges();
+		}
 
-        public ActionResult LimpiarTabla()
-        {
-            _productos.Clear();
-            return RedirectToAction("Index");
-        }
+		[HttpPost]
+		public ActionResult AgregarProducto(int productoId, int cantidadProducto)
+		{
+			Producto producto = _context.Productos.Find(productoId);
 
-        public ActionResult FinalizarVenta()
-        {
-            DetalleVentaController _detalleVenta = new DetalleVentaController(_context);
+			if (_productos == null)
+				_productos = new List<ProductosList>();
 
-            CalcularTotal();
-            Venta venta = new Venta
-            {
-                FechaVenta = DateTime.Today,
-                IdEmpleado = this.idEmpleado,
-                IdCliente = this.idCliente,
-                Importe = (decimal)total
-            };
+			ProductosList productoList = new ProductosList
+			{
+				Id = producto.Id,
+				Nombre = producto.Nombre,
+				Precio = producto.Precio,
+				Cantidad = cantidadProducto,
+				SubTotal = producto.Precio * cantidadProducto
+			};
 
-            Crear(venta);
-            _detalleVenta.CrearMultiples(_productos);
-            LimpiarTabla();
-            return RedirectToAction("Index");
-        }
+			_productos.Add(productoList);
+			return RedirectToAction("Index");
+		}
 
-        private void CargarDatos(double pago, int idCliente = 1, int idEmpleado = 1)
-        {
-            CargarProductos();
-            CalcularTotal();
-            CalcularCambio(pago);
-            // Incrementar el 'Id' de la ultima venta para obtener el actual. No funciona con '++', se le tiene que agregar '+ 1'
-            this.idEmpleado = idEmpleado;
-            this.idCliente = idCliente;
-        }
+		public ActionResult LimpiarTabla()
+		{
+			_productos.Clear();
+			return RedirectToAction("Index");
+		}
 
-        private void CargarProductos()
-        {
-            options = _context.Productos.Select(p => new SelectListItem
-            {
-                Text = p.Nombre,
-                Value = p.Id.ToString()
-            }).ToList();
+		public ActionResult FinalizarVenta()
+		{
+			DetalleVentaController _detalleVenta = new DetalleVentaController(_context);
 
-            ViewBag.SelectListProductos = options;
-            ViewBag.Productos = _productos;
-        }
+			CalcularTotal();
+			Venta venta = new Venta
+			{
+				FechaVenta = DateTime.Today,
+				IdEmpleado = idEmpleadoRecover,
+				IdCliente = idClienteRecover,
+				Importe = (decimal)total
+			};
 
-        private void CalcularTotal()
-        {
-            total = _productos != null ? _productos.Sum(p => p.SubTotal) : 0;
-            ViewBag.Total = total;
-        }
+			CrearAlFinalizar(venta);
+			_detalleVenta.CrearMultiples(_productos);
+			_productos.Clear();
+			return RedirectToAction("Index");
+		}
 
-        private void CalcularCambio(double pago)
-        {
-            cambio = pago <= 0 ? 0 : pago - total;
+		private void CargarDatos(double pago, int idCliente, int idEmpleado)
+		{
+			CargarProductos();
+			CalcularTotal();
+			CalcularCambio(pago);
+			idEmpleadoRecover = idEmpleado;
+			idClienteRecover = idCliente;
+		}
 
-            ViewBag.Pago = pago;
-            ViewBag.Cambio = cambio >= 0 ? cambio : 0;
-        }
-    }
+		private void CargarProductos()
+		{
+			options = _context.Productos.Select(p => new SelectListItem
+			{
+				Text = p.Nombre,
+				Value = p.Id.ToString()
+			}).ToList();
+
+			ViewBag.SelectListProductos = options;
+			ViewBag.Productos = _productos;
+		}
+
+		private void CalcularTotal()
+		{
+			total = _productos != null ? _productos.Sum(p => p.SubTotal) : 0;
+			ViewBag.Total = total;
+		}
+
+		private void CalcularCambio(double pago)
+		{
+			cambio = pago <= 0 ? 0 : pago - total;
+
+			ViewBag.Pago = pago;
+			ViewBag.Cambio = cambio >= 0 ? cambio : 0;
+		}
+	}
 }
