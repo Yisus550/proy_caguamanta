@@ -40,8 +40,55 @@ namespace proy_caguamanta.Controllers
 			}
 
 		}
+        [HttpGet]
+        public IActionResult CrearMulti()
+        {
 
-		[HttpGet]
+            return View();
+        }
+
+        [HttpPost]
+        public IActionResult CrearMulti(Producto producto)
+        {
+            //Creamos las varibales 
+            string nombre = Request.Form["Nombre"];
+            string descripcion = Request.Form["Descripcion"];
+            string precio = Request.Form["Precio"];
+            string cantidad = Request.Form["Cantidad"];
+
+            //Creamos lista de los elementos de la variable 
+            var listaNombre = nombre.Split(new[] { "," }, StringSplitOptions.RemoveEmptyEntries).Select(x => x.Trim()).ToList();
+            var listaDescripcion = descripcion.Split(new[] { "," }, StringSplitOptions.RemoveEmptyEntries).Select(x => x.Trim()).ToList();
+            var listaPrecio = precio.Split(new[] { "," }, StringSplitOptions.RemoveEmptyEntries).Select(x => x.Trim()).ToList();
+            var listaCantidad = cantidad.Split(new[] { "," }, StringSplitOptions.RemoveEmptyEntries).Select(x => x.Trim()).ToList();
+
+            //Crear varibale de objeto 
+            List<Producto> objProducto = new List<Producto>();
+
+            //validacion 
+            if (listaNombre.Count() == 0 | listaDescripcion.Count() == 0 | listaPrecio.Count() == 0 | listaCantidad.Count() == 0)
+            {
+                return View();
+            }
+
+            //crear bucle
+            for (int i = 0; i <= 2; i++)
+            {
+                objProducto.Add(new Producto
+                {
+                    Nombre = listaNombre[i],
+                    Descripcion = listaDescripcion[i],
+                    Precio = Convert.ToDouble(listaPrecio[i]),
+                    Cantidad = Convert.ToInt32(listaCantidad[i])
+                });
+            }
+
+            _context.AddRange(objProducto);
+            _context.SaveChanges();
+            return RedirectToAction("Index");
+        }
+
+        [HttpGet]
 		public IActionResult Editar(int id)
 		{
 			Producto estudiante = _context.Productos.Find(id);
@@ -61,11 +108,34 @@ namespace proy_caguamanta.Controllers
 			return View("Editar", producto);
 		}
 
-		[HttpGet]
+        [HttpGet]
+        public IActionResult EditarMultiple()
+        {
+            var producto = _context.Productos.ToList();
+            return View(producto);
+        }
+
+        [HttpPost]
+        public IActionResult EditarMultiple(List<Producto> productos)
+        {
+            if (ModelState.IsValid)
+            {
+                foreach (var producto in productos)
+                {
+                    _context.Productos.Update(producto);
+
+                }
+                _context.SaveChanges();
+                return RedirectToAction("Index");
+            }
+            return View(productos);
+        }
+
+        [HttpGet]
 		public IActionResult Eliminar(int id)
 		{
-			Producto estudiante = _context.Productos.Find(id);
-			return View(estudiante);
+			Producto producto = _context.Productos.Find(id);
+			return View(producto);
 		}
 
 		[HttpPost]
@@ -75,5 +145,15 @@ namespace proy_caguamanta.Controllers
 			_context.SaveChanges();
 			return RedirectToAction("Index");
 		}
-	}
+
+        [HttpGet]
+        public IActionResult EliminarMultiples()
+        {
+            IEnumerable<Producto> productos = _context.Productos.OrderByDescending(x => x.Id).Take(3);
+
+            _context.Productos.RemoveRange(productos);
+            _context.SaveChanges();
+            return RedirectToAction("Index");
+        }
+    }
 }

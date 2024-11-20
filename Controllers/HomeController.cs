@@ -13,7 +13,7 @@ namespace proy_caguamanta.Controllers
 
         public HomeController(ApplicationDbContext context)
         {
-           _context = context;
+            _context = context;
         }
 
         [HttpGet]
@@ -22,9 +22,9 @@ namespace proy_caguamanta.Controllers
             return View();
         }
 
-		[HttpPost]
-		public async Task<IActionResult> Index(Login login)
-		{
+        [HttpPost]
+        public async Task<IActionResult> Index(Login login)
+        {
             Empleado empleado_encontrado = await _context.Empleados
                                            .Where(e => e.Correo == login.Correo &&
                                                        e.Contrasena == login.Contrasena
@@ -33,25 +33,18 @@ namespace proy_caguamanta.Controllers
 
             if (empleado_encontrado != null)
             {
-
-                //login.Puesto = empleado_encontrado.Puesto;
-                //string puesto = login.Puesto;
-                //ViewBag.Puesto = puesto;
+                login.Puesto = empleado_encontrado.Puesto;
                 return RedirectToAction("Index", "Venta");
 
             }
             else
             {
-
                 return View();
 
             }
-            
+        }
 
-		}
-
-
-		public IActionResult Privacy()
+        public IActionResult Privacy()
         {
             return View();
         }
@@ -119,7 +112,7 @@ namespace proy_caguamanta.Controllers
 
         public IActionResult Venta()
         {
-            return RedirectToAction("Index", "Venta");
+            return RedirectToAction("Listar", "Venta");
         }
     }
 }
