@@ -32,7 +32,7 @@ namespace proy_caguamanta.Controllers
 		[HttpPost]
 		public IActionResult Crear(DetalleVenta detalleVenta)
 		{
-			if (ModelState.IsValid)
+			if (detalleVenta.Id == 0 && detalleVenta.VentaId != null && detalleVenta.ProductoId != null && detalleVenta.PrecioUnidad != null && detalleVenta.Cantidad != null && detalleVenta.Importe != null)
 			{
 				_context.DetalleVentas.Add(detalleVenta);
 				_context.SaveChanges();
@@ -94,7 +94,7 @@ namespace proy_caguamanta.Controllers
 		[HttpPost]
 		public IActionResult Editar(DetalleVenta detalleVenta)
 		{
-			if (ModelState.IsValid)
+			if (detalleVenta.Id != 0 && detalleVenta.VentaId != null && detalleVenta.ProductoId != null && detalleVenta.PrecioUnidad != null && detalleVenta.Cantidad != null && detalleVenta.Importe != null)
 			{
 				_context.DetalleVentas.Update(detalleVenta);
 				_context.SaveChanges();
