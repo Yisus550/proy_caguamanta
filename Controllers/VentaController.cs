@@ -60,8 +60,8 @@ namespace proy_caguamanta.Controllers
             if (ModelState.IsValid)
             {
                 // agregar, guardar y redireccionar
-                venta.IdEmpleado = venta.IdEmpleado == 0 ? 1001 : 0;
-                venta.IdCliente = venta.IdCliente == 0 ? 2001 : 0;
+                venta.EmpleadoId = venta.EmpleadoId == 0 ? 1001 : 0;
+                venta.ClienteId = venta.ClienteId == 0 ? 2001 : 0;
                 _context.Ventas.Add(venta);
                 _context.SaveChanges();
                 return RedirectToAction("Index");
@@ -110,8 +110,8 @@ namespace proy_caguamanta.Controllers
             Venta venta = new Venta
             {
                 FechaVenta = DateTime.Today,
-                IdEmpleado = this.idEmpleado,
-                IdCliente = this.idCliente,
+                EmpleadoId = this.idEmpleado,
+                ClienteId = this.idCliente,
                 Importe = (decimal)total
             };
 

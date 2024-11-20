@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using proy_caguamanta.Data;
 using proy_caguamanta.Models;
 
@@ -6,6 +7,16 @@ namespace proy_caguamanta.Controllers
 {
     public class EmpleadoController : Controller
     {
+        /// metodo de listado de puestos
+        private List<SelectListItem> GetPuestosSelectList()
+        {
+            return _context.Puestos.Select(d => new SelectListItem
+            {
+                Text = d.Nombre,
+                Value = d.Id.ToString()
+            }).ToList();
+        }
+
         //Crear variable
         public readonly ApplicationDbContext _context;
 
@@ -24,7 +35,7 @@ namespace proy_caguamanta.Controllers
         [HttpGet]
         public IActionResult Crear()
         {
-
+            ViewBag.Puesto = GetPuestosSelectList();
             return View();
         }
 
@@ -46,8 +57,10 @@ namespace proy_caguamanta.Controllers
 		[HttpGet]
 		public IActionResult Editar(int id)
 		{
+
 			Empleado estudiante = _context.Empleados.Find(id);
-			return View(estudiante);
+            ViewBag.Puesto = GetPuestosSelectList();
+            return View(estudiante);
 		}
 
 		[HttpPost]
