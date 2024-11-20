@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace proy_caguamanta.Models
 {
@@ -20,7 +21,9 @@ namespace proy_caguamanta.Models
 
         [Required(ErrorMessage = "Este campo es obligatorio")]
         [Display(Name = "Categoria")]
+		[ForeignKey("Categoria")]
         public int CategoriaId { get; set; } // llave foranea 
+		public Categoria Categoria { get; set; }
 
         [Required(ErrorMessage = "Este campo es requerido.")]
 		[Range(0, double.MaxValue, ErrorMessage = "El precio debe ser mayor a 0.")]
@@ -31,5 +34,7 @@ namespace proy_caguamanta.Models
 		[Range(0, int.MaxValue, ErrorMessage = "La cantidad debe ser mayor a 0.")]
 		[Display(Name = "Cantidad del producto")]
 		public int Cantidad { get; set; }
-	}
+
+        public List<DetalleVenta> ventas { get; set; }
+    }
 }

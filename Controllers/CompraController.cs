@@ -32,7 +32,7 @@ namespace proy_caguamanta.Controllers
         [HttpPost]
         public IActionResult Crear(Compra compra)
         {
-            if (ModelState.IsValid)
+            if (compra.Id == 0 && compra.EmpleadoId != 0 && compra.FechaCompra != null && compra.ProveedorId != 0 && compra.Importe != 0)
             {
                 _context.Compras.Add(compra);
                 _context.SaveChanges();
@@ -55,7 +55,7 @@ namespace proy_caguamanta.Controllers
 		[HttpPost]
 		public IActionResult Editar(Compra compra)
 		{
-			if (ModelState.IsValid)
+			if (compra.Id != 0 && compra.EmpleadoId != 0 && compra.FechaCompra != null && compra.ProveedorId != 0 && compra.Importe != 0)
 			{
 				_context.Compras.Update(compra);
 				_context.SaveChanges();

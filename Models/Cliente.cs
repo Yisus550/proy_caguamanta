@@ -17,4 +17,6 @@ public partial class Cliente
     [Phone(ErrorMessage = "El formato debe de ser de un número de celular")]
     [Display(Name = "Teléfono")]
     public string Telefono { get; set; }
+
+    public List<Venta> ventas { get; set; }
 }
