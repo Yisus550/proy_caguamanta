@@ -55,8 +55,8 @@ namespace proy_caguamanta.Controllers
         public IActionResult CrearMulti(DetalleVenta detalleVenta)
         {
             //Creamos las varibales 
-            string idVenta = Request.Form["IdVenta"];
-            string idProducto = Request.Form["IdProducto"];
+            string idVenta = Request.Form["VentaId"];
+            string idProducto = Request.Form["ProductoId"];
             string precio = Request.Form["PrecioUnidad"];
             string cantidad = Request.Form["Cantidad"];
             string importe = Request.Form["Importe"];
@@ -82,8 +82,8 @@ namespace proy_caguamanta.Controllers
             {
                 objDVenta.Add(new DetalleVenta
                 {
-                    IdVenta = Convert.ToInt32(listaIdVenta[i]),
-                    IdProducto = Convert.ToInt32(listaIdProducto[i]),
+                    VentaId = Convert.ToInt32(listaIdVenta[i]),
+                    ProductoId = Convert.ToInt32(listaIdProducto[i]),
                     PrecioUnidad = Convert.ToDecimal(listaPrecio[i]),
                     Cantidad = Convert.ToInt32(listaCantidad[i]),
                     Importe = Convert.ToInt32(listaImporte[i])
@@ -95,7 +95,8 @@ namespace proy_caguamanta.Controllers
             return RedirectToAction("Index");
         }
 
-        public IActionResult CrearMultiples(List<ProductosList> productosList)
+
+        public void CrearMultiples(List<ProductosList> productosList)
 		{
 			List<DetalleVenta> detalleVentas = new List<DetalleVenta>();
 			Venta venta = _context.Ventas.OrderBy(v => v.Id).Last();
@@ -105,8 +106,8 @@ namespace proy_caguamanta.Controllers
 				var producto = (_context.Productos.Find(item.Id));
 				detalleVentas.Add(new DetalleVenta
 				{
-					IdVenta = venta.Id,
-					IdProducto = producto.Id,
+					VentaId = venta.Id,
+					ProductoId = producto.Id,
 					PrecioUnidad = (Decimal)producto.Precio,
 					Cantidad = item.Cantidad,
 					Importe = (Decimal)producto.Precio * item.Cantidad
@@ -115,7 +116,6 @@ namespace proy_caguamanta.Controllers
 
 			_context.DetalleVentas.AddRange(detalleVentas);
 			_context.SaveChanges();
-			return RedirectToAction("Index");
 		}
 
 		[HttpGet]

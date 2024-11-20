@@ -57,8 +57,8 @@ namespace proy_caguamanta.Controllers
         public IActionResult CrearMulti(DetalleCompra detalleCompra)
         {
             //Creamos las varibales 
-            string idCompra = Request.Form["IdCompra"];
-            string idProducto = Request.Form["IdProducto"];
+            string idCompra = Request.Form["CompraId"];
+            string idProducto = Request.Form["MaterialId"];
             string precio = Request.Form["PrecioUnidad"];
             string cantidad = Request.Form["Cantidad"];
             string importe = Request.Form["Importe"];
@@ -84,8 +84,8 @@ namespace proy_caguamanta.Controllers
             {
                 objDCompra.Add(new DetalleCompra
                 {
-                    IdCompra = Convert.ToInt32(listaIdCompra[i]),
-                    IdProducto = Convert.ToInt32(listaIdProducto[i]),
+                    CompraId = Convert.ToInt32(listaIdCompra[i]),
+                    MaterialId = Convert.ToInt32(listaIdProducto[i]),
                     PrecioUnidad = Convert.ToDecimal(listaPrecio[i]),
                     Cantidad = Convert.ToInt32(listaCantidad[i]),
                     Importe = Convert.ToInt32(listaImporte[i])

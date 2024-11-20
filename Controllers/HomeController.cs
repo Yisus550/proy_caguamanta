@@ -33,7 +33,7 @@ namespace proy_caguamanta.Controllers
 
             if (empleado_encontrado != null)
             {
-                login.Puesto = empleado_encontrado.Puesto;
+                login.Puesto = Convert.ToString(empleado_encontrado.PuestoId);
                 return RedirectToAction("Index", "Venta");
 
             }

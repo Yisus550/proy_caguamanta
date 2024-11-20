@@ -13,10 +13,10 @@ namespace proy_caguamanta.Models
 		public DateTime FechaVenta { get; set; }
 
 		[Required(ErrorMessage = "Este campo es obligatorio")]
-		public int IdEmpleado { get; set; }
+		public int EmpleadoId { get; set; }
 
 		[Required(ErrorMessage = "Este campo es obligatorio")]
-		public int IdCliente { get; set; }
+		public int ClienteId { get; set; }
 
 		[Required(ErrorMessage = "Este campo es obligatorio")]
 		[Range(1, double.MaxValue, ErrorMessage = "La compora no debe de ser menor a $1")]
