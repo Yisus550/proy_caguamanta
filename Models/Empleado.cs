@@ -53,5 +53,8 @@ namespace proy_caguamanta.Models
 		[EnumDataType(typeof(EstadosUsuario))]
 		[Display(Name = "Estado del usuario")]
 		public string Estado { get; set; }
-	}
+
+        public List<Compra> compras { get; set; }
+        public List<Venta> venta { get; set; }
+    }
 }
