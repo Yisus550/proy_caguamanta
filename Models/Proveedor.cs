@@ -30,4 +30,5 @@ public partial class Proveedor
 	[StringLength(80)]
 	[Display(Name = "Empresa")]
 	public string Empresa { get; set; }
+	public List<Compra> compras { get; set; }
 }

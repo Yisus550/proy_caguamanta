@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace proy_caguamanta.Models;
 
@@ -24,12 +25,14 @@ public partial class Material
 
     [Required(ErrorMessage = "Este campo es obligatorio")]
     [Display(Name = "Categoria")]
+	[ForeignKey("Categoria")]
     public int CategoriaId { get; set; } // llave foranea 
+	public Categoria categoria { get; set; }
 
     [Required(ErrorMessage = "Este campo es obligatorio")]
 	[Range(1, double.MaxValue, ErrorMessage = "El costo no debe de ser menor a $1")]
 	[Display(Name = "Costo")]
 	public decimal Costo { get; set; }
 
-
+	public List<DetalleCompra> compras { get; set; }
 }

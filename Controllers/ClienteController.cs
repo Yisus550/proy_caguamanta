@@ -31,7 +31,7 @@ namespace proy_caguamanta.Controllers
 		[HttpPost]
 		public IActionResult Crear(Cliente cliente)
 		{
-			if (cliente.Id == null && cliente.Nombre != null && cliente.Telefono != null)
+			if (cliente.Id == 0 && cliente.Nombre != null && cliente.Telefono != null)
 			{
 				_context.Clientes.Add(cliente);
 				_context.SaveChanges();
@@ -96,7 +96,7 @@ namespace proy_caguamanta.Controllers
 		[HttpPost]
 		public IActionResult Editar(Cliente cliente)
 		{
-			if (cliente != null && cliente.Nombre != null && cliente.Telefono != null)
+			if (cliente.Id != 0 && cliente.Nombre != null && cliente.Telefono != null)
 			{
 				_context.Clientes.Update(cliente);
 				_context.SaveChanges();
