@@ -31,7 +31,7 @@ namespace proy_caguamanta.Controllers
         /// <param name="pago">Cantidad de dinero que el cliente paga</param>
         /// <param name="idCliente">Id del cliente que realiza la compra, 1001 por defecto</param>
         /// <param name="idEmpleado">Id del empleado que realiza la venta, 2001 por defecto</param>
-        public ActionResult Index(double pago, int idCliente = 1001, int idEmpleado = 2001)
+        public ActionResult Index(double pago, int idCliente, int idEmpleado)
         {
             CargarDatos(pago, idCliente, idEmpleado);
             ViewBag.IdVenta = _context.Ventas.OrderBy(v => v.Id).Last().Id + 1;
@@ -60,8 +60,8 @@ namespace proy_caguamanta.Controllers
             if (ModelState.IsValid)
             {
                 // agregar, guardar y redireccionar
-                venta.EmpleadoId = venta.EmpleadoId == 0 ? 1001 : 0;
-                venta.ClienteId = venta.ClienteId == 0 ? 2001 : 0;
+                venta.EmpleadoId = this.idEmpleado;
+                venta.ClienteId = this.idCliente;
                 _context.Ventas.Add(venta);
                 _context.SaveChanges();
                 return RedirectToAction("Index");
@@ -121,7 +121,7 @@ namespace proy_caguamanta.Controllers
             return RedirectToAction("Index");
         }
 
-        private void CargarDatos(double pago, int idCliente = 1, int idEmpleado = 1)
+        private void CargarDatos(double pago, int idCliente, int idEmpleado)
         {
             CargarProductos();
             CalcularTotal();

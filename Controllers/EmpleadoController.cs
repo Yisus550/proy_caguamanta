@@ -42,7 +42,7 @@ namespace proy_caguamanta.Controllers
         [HttpPost]
         public IActionResult Crear(Empleado empleado)
         {
-            if (ModelState.IsValid)
+            if (empleado.Id == 0 && empleado.Nombre != null && empleado.Apellido != null && empleado.Correo != null && empleado.Contrasena != null && empleado.Telefono != null && empleado.Direccion != null && empleado.Estado != null && empleado.PuestoId != 0)
             {
                 _context.Empleados.Add(empleado);
                 _context.SaveChanges();
@@ -50,6 +50,7 @@ namespace proy_caguamanta.Controllers
             }
             else
             {
+                ViewBag.Puesto = GetPuestosSelectList();
                 return View("Crear", empleado);
             }
 
@@ -66,13 +67,14 @@ namespace proy_caguamanta.Controllers
 		[HttpPost]
 		public IActionResult Editar(Empleado empleado)
 		{
-			if (ModelState.IsValid)
+			if (empleado.Id != 0 && empleado.Nombre != null && empleado.Apellido != null && empleado.Correo != null && empleado.Contrasena != null && empleado.Telefono != null && empleado.Direccion != null && empleado.Estado != null && empleado.PuestoId != 0)
 			{
 				_context.Empleados.Update(empleado);
 				_context.SaveChanges();
 				return RedirectToAction("Index");
 			}
-			return View("Editar", empleado);
+            ViewBag.Puesto = GetPuestosSelectList();
+            return View("Editar", empleado);
 		}
 
 		[HttpGet]

@@ -43,7 +43,11 @@ namespace proy_caguamanta.Models
 
 		[Required(ErrorMessage = "Este campo es requerido.")]
 		[Display(Name = "Puesto")]
+		// crear llave foranea
+		[ForeignKey("Puesto")]
 		public int PuestoId { get; set; }
+		// navegacion
+		public Puesto puesto { get; set; }
 
 		[Required(ErrorMessage = "Este campo es requerido.")]
 		[EnumDataType(typeof(EstadosUsuario))]
