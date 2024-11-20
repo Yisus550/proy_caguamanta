@@ -10,11 +10,11 @@ public partial class DetalleCompra
 
 	[Required(ErrorMessage = "Este campo es obligatorio")]
 	[Display(Name = "Compra")]
-	public int IdCompra { get; set; }
+	public int CompraId { get; set; }
 
 	[Required(ErrorMessage = "Este campo es obligatorio")]
-	[Display(Name = "Producto")]
-	public int IdProducto { get; set; }
+	[Display(Name = "Material")]
+	public int MaterialId { get; set; }
 
 	[Required(ErrorMessage = "Este campo es obligatorio")]
 	[Range(1, double.MaxValue, ErrorMessage = "El precio no debe de ser menor a $1")]

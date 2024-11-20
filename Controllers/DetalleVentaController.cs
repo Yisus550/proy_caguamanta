@@ -72,8 +72,8 @@ namespace proy_caguamanta.Controllers
 				var producto = (_context.Productos.Find(item.Id));
 				detalleVentas.Add(new DetalleVenta
 				{
-					IdVenta = venta.Id,
-					IdProducto = producto.Id,
+					VentaId = venta.Id,
+					ProductoId = producto.Id,
 					PrecioUnidad = (Decimal)producto.Precio,
 					Cantidad = item.Cantidad,
 					Importe = (Decimal)producto.Precio * item.Cantidad
