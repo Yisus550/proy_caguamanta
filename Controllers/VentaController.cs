@@ -69,8 +69,8 @@ namespace proy_caguamanta.Controllers
 				return View("Crear", venta);
 
 			// agregar, guardar y redireccionar
-			venta.IdEmpleado = venta.IdEmpleado = idEmpleadoRecover;
-			venta.IdCliente = venta.IdCliente = idClienteRecover;
+			venta.EmpleadoId = idEmpleadoRecover;
+			venta.ClienteId = idClienteRecover;
 			_context.Ventas.Add(venta);
 			_context.SaveChanges();
 			return RedirectToAction("Index");
@@ -82,8 +82,8 @@ namespace proy_caguamanta.Controllers
 		/// <param name="venta">Objeto de venta con el contenido a registrar</param>
 		public void CrearAlFinalizar(Venta venta)
 		{
-			venta.IdEmpleado = venta.IdEmpleado = idEmpleadoRecover;
-			venta.IdCliente = venta.IdCliente = idClienteRecover;
+			venta.EmpleadoId = idEmpleadoRecover;
+			venta.ClienteId = idClienteRecover;
 			_context.Ventas.Add(venta);
 			_context.SaveChanges();
 		}
@@ -123,8 +123,8 @@ namespace proy_caguamanta.Controllers
 			Venta venta = new Venta
 			{
 				FechaVenta = DateTime.Today,
-				IdEmpleado = idEmpleadoRecover,
-				IdCliente = idClienteRecover,
+				EmpleadoId = idEmpleadoRecover,
+				ClienteId = idClienteRecover,
 				Importe = (decimal)total
 			};
 
