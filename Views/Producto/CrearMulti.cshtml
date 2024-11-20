@@ -1,0 +1,56 @@
+﻿@model proy_caguamanta.Models.Producto
+@{
+    ViewData["Title"] = "Crear Multiples Producto";
+    Layout = "/Views/Shared/_Layout.cshtml";
+}
+
+<form method="post" asp-action="CrearMulti">
+    <div class="container">
+        <div class="row mt-5">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="col-10">
+                @for (int i = 0; i <= 2; i++)
+                {
+                    <div class="container border mt-5 p-4">
+
+                        <div class="row mt-2">
+                            <div class=" col-10">
+                                <label asp-for="Nombre" class="form-label"></label>
+                                <input asp-for="Nombre" class="form-control" />
+                                <span asp-validation-for="Nombre" class="text-danger"></span>
+                            </div>
+                        </div>
+                        <div class="row mt-2">
+                            <div class=" col-10">
+                                <label asp-for="Descripcion" class="form-label"></label>
+                                <input asp-for="Descripcion" class="form-control" />
+                                <span asp-validation-for="Descripcion" class="text-danger"></span>
+                            </div>
+                        </div>
+                        <div class="row mt-2">
+                            <div class=" col-10">
+                                <label asp-for="Precio" class="form-label"></label>
+                                <input asp-for="Precio" class="form-control" />
+                                <span asp-validation-for="Precio" class="text-danger"></span>
+                            </div>
+                        </div>
+                        <div class="row mt-2">
+                            <div class=" col-10">
+                                <label asp-for="Cantidad" class="form-label"></label>
+                                <input asp-for="Cantidad" class="form-control" />
+                                <span asp-validation-for="Cantidad" class="text-danger"></span>
+                            </div>
+                        </div>
+
+                    </div>
+                }
+
+                <div class="row mt-5">
+                    <div class=" col-4">
+                        <button class="btn btn-secondary text-white form-control" type="submit">Guardar &nbsp;</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
