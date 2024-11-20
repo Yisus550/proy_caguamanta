@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using proy_caguamanta.Data;
 
@@ -11,9 +12,11 @@ using proy_caguamanta.Data;
 namespace proy_caguamanta.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20241120005029_CambioDatoFK")]
+    partial class CambioDatoFK
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -197,8 +200,6 @@ namespace proy_caguamanta.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("PuestoId");
-
                     b.ToTable("Empleados");
                 });
 
@@ -344,22 +345,6 @@ namespace proy_caguamanta.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Ventas");
-                });
-
-            modelBuilder.Entity("proy_caguamanta.Models.Empleado", b =>
-                {
-                    b.HasOne("proy_caguamanta.Models.Puesto", "puesto")
-                        .WithMany("empleados")
-                        .HasForeignKey("PuestoId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("puesto");
-                });
-
-            modelBuilder.Entity("proy_caguamanta.Models.Puesto", b =>
-                {
-                    b.Navigation("empleados");
                 });
 #pragma warning restore 612, 618
         }
