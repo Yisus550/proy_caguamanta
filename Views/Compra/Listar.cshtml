@@ -1,0 +1,52 @@
+﻿@model IEnumerable<proy_caguamanta.Models.Compra>
+@{
+    ViewData["Title"] = "Lista de Compra";
+    Layout = "/Views/Shared/_Layout.cshtml";
+}
+
+<h1> LISTA DE COMPRAS</h1>
+
+<div class="container">
+    <div class="row mt-5">
+        <div class="col-3">
+            <a class="btn btn-primary text-white form-control" asp-action="Crear">Agregar Nuevo</a>
+        </div>
+    </div>
+    <div class="row mt-5">
+        <div class="col-12">
+            @if (Model.Count() > 0)
+            {
+                <table class="table table-striped border">
+                    <thead>
+                        <tr>
+                            <th>Id</th>
+                            <th>Fecha de Compra</th>
+                            <th>IdEmpleado</th>
+                            <th>IdProveedor</th>
+                            <th>Importe</th>                            
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <td>@item.Id</td>
+                                <th>@item.FechaCompra</th>
+                                <td>@item.IdEmpleado</td>
+                                <td>@item.IdProveedor</td>
+                                <td>@item.Importe</td>
+                                <td><a class="btn btn-outline-primary form-control" asp-action="Editar" asp-route-id="@item.Id">Editar</a></td>
+                                <td><a class="btn btn-outline-danger form-control" asp-action="Eliminar" asp-route-id="@item.Id">Eliminar</a></td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            }
+            else
+            {
+                <p>NO HAY NINGUNA COMPRA</p>
+
+            }
+        </div>
+    </div>
+</div>

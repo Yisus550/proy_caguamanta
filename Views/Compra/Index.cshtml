@@ -1,52 +1,163 @@
-﻿@model IEnumerable<proy_caguamanta.Models.Compra>
+﻿@model proy_caguamanta.Models.DetalleCompra
 @{
-    ViewData["Title"] = "Lista de Compra";
-    Layout = "/Views/Shared/_Layout.cshtml";
+	ViewData["Title"] = "Compra";
+	Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h1> LISTA DE COMPRAS</h1>
-
 <div class="container">
-    <div class="row mt-5">
-        <div class="col-3">
-            <a class="btn btn-primary text-white form-control" asp-action="Crear">Agregar Nuevo</a>
-        </div>
-    </div>
-    <div class="row mt-5">
-        <div class="col-12">
-            @if (Model.Count() > 0)
-            {
-                <table class="table table-striped border">
-                    <thead>
-                        <tr>
-                            <th>Id</th>
-                            <th>Fecha de Compra</th>
-                            <th>IdEmpleado</th>
-                            <th>IdProveedor</th>
-                            <th>Importe</th>                            
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @foreach (var item in Model)
-                        {
-                            <tr>
-                                <td>@item.Id</td>
-                                <th>@item.FechaCompra</th>
-                                <td>@item.IdEmpleado</td>
-                                <td>@item.IdProveedor</td>
-                                <td>@item.Importe</td>
-                                <td><a class="btn btn-outline-primary form-control" asp-action="Editar" asp-route-id="@item.Id">Editar</a></td>
-                                <td><a class="btn btn-outline-danger form-control" asp-action="Eliminar" asp-route-id="@item.Id">Eliminar</a></td>
-                            </tr>
-                        }
-                    </tbody>
-                </table>
-            }
-            else
-            {
-                <p>NO HAY NINGUNA COMPRA</p>
+	<form asp-action="FinalizarVenta" method="post">
+		<div class="col-12">
+			<div class="row">
+				<div class="col-8">
+					<div class="col-12 mb-3">
+						<div class="row">
+							<div class="col-12">
+								<div class="col-12">
+									<div class="row mt-5">
+										<div asp-validation-summary="ModelOnly" class="text-danger"></div>
+										<div class="col-12">
 
-            }
-        </div>
-    </div>
+											<div class="row mt-2">
+												<div class=" col-10">
+													<label asp-for="IdCompra" class="form-label"></label>
+													<input asp-for="IdCompra" class="form-control" />
+													<span asp-validation-for="IdCompra" class="text-danger"></span>
+												</div>
+											</div>
+											<div class="row mt-2">
+												<div class=" col-10">
+													<label asp-for="IdProducto" class="form-label"></label>
+													<input asp-for="IdProducto" class="form-control" />
+													<span asp-validation-for="IdProducto" class="text-danger"></span>
+												</div>
+											</div>
+											<div class="row mt-2">
+												<div class=" col-10">
+													<label asp-for="PrecioUnidad" class="form-label"></label>
+													<input asp-for="PrecioUnidad" class="form-control" />
+													<span asp-validation-for="PrecioUnidad" class="text-danger"></span>
+												</div>
+											</div>
+											<div class="row mt-2">
+												<div class=" col-10">
+													<label asp-for="Cantidad" class="form-label"></label>
+													<input asp-for="Cantidad" class="form-control" />
+													<span asp-validation-for="Cantidad" class="text-danger"></span>
+												</div>
+											</div>
+											<div class="row mt-2">
+												<div class=" col-10">
+													<label asp-for="Importe" class="form-label"></label>
+													<input asp-for="Importe" class="form-control" />
+													<span asp-validation-for="Importe" class="text-danger"></span>
+												</div>
+											</div>
+
+											<div class="row mt-5">
+												<div class=" col-4">
+													<button class="btn btn-secondary text-white form-control" type="submit">Guardar &nbsp;</button>
+												</div>
+											</div>
+										</div>
+									</div>
+									<div class="col-12">
+										<label for="cantidad">Cantidad:</label>
+										<input type="number" class="col-1 border btn mt-2 mb-3" id="cantidad" name="cantidadProducto" value="1" min="1" max="100" />
+									</div>
+								</div>
+							</div> <!-- Producto y cantidad -->
+							<div class="col-6d-inline-block my-3">
+								<button asp-action="AgregarProducto" class="btn btn-primary w-25">Agregar pruducto</button>
+								<button asp-action="LimpiarTabla" class="btn btn-outline-danger mx-1">Limpiar</button>
+							</div> <!-- Botones -->
+						</div>
+					</div> <!-- Formulario de productos -->
+					<hr color="gray" class="mx-3" />
+					<div class="col-12 my-3 pt-2">
+						<table class="table table-hover shadow-sm border">
+							<thead>
+								<tr>
+									<th>Producto</th>
+									<th>Cantidad</th>
+									<th>Precio /u</th>
+									<th>Total</th>
+								</tr>
+							</thead>
+							<tbody>
+								@if (ViewBag.Productos != null)
+								{
+									foreach (var item in ViewBag.Productos)
+									{
+										<tr>
+											<td class="col-4">@item.Nombre</td>
+											<td class="col-3">@item.Cantidad</td>
+											<td class="col-2">@item.Precio</td>
+											<td class="col-3">@item.SubTotal</td>
+										</tr>
+									}
+								}
+							</tbody>
+						</table>
+					</div> <!-- Tabla de productos -->
+				</div>
+				<div class="col-4">
+					<div class="col-12">
+						<div class="border rounded-4 p-3 shadow" align="center">
+							<div class="mb-4 px-3 mt-5">
+								<h3 class="fw-bold">Cahuamanta y mas</h3>
+								<p>ID: @ViewBag.IdVenta</p>
+								<p>@DateTime.Today.ToString("MMMM dd yyyy")</p>
+								<p>No. Empleado: @ViewBag.IdEmpleado</p>
+							</div>
+							<hr style="border: 1px dashed;" />
+							<div class="row text-start my-4 px-3">
+								<div class="col-3 fw-bold">
+									<p>Proveedor:</p>
+									<p>Pago:</p>
+									<p>Cambio:</p>
+								</div>
+								<div class="col-9 text-end">
+									<p>@ViewBag.IdProveedor</p>
+									<p>$@ViewBag.Pago</p>
+									<p>$@ViewBag.Cambio</p>
+								</div>
+							</div>
+							<hr style="border: 1px dashed;" />
+							<div class="mt-4 px-3 fw-bold">
+								<p class="text-end fs-4 mb-5">Total: $@ViewBag.Total</p>
+							</div>
+						</div>
+					</div> <!-- Ticket -->
+				</div>
+			</div>
+			<div class="col-12 my-lg-5">
+				<div class="row">
+					<div class="col-2">
+						<label class="form-label my-2">Pago:</label>
+						<input class="form-control my-2" type="number" id="pago" name="pago" min="0" autocomplete="off" />
+					</div>
+					<div class="col-2">
+						<label class="form-label my-2">ID Empleado:</label>
+						<input class="form-control my-2" type="number" id="pago" name="idEmpleado" min="1" autocomplete="off" />
+					</div>
+					<div class="col-2">
+						<label class="form-label my-2">ID Proveedor:</label>
+						<input class="form-control my-2" type="number" id="pago" name="idCliente" min="1" autocomplete="off" />
+					</div>
+				</div>
+				<div class="col-2 mt-2">
+					<button class="btn btn-outline-info" asp-action="Index">Agregar pago</button>
+				</div>
+			</div> <!-- Pago, cambio -->
+			<div class="col">
+				<div class="row">
+					<div class="col-12 my-5">
+						<div class="col-12">
+							<input type="submit" value="Finalizar Venta" class="btn btn-success" />
+						</div>
+					</div>
+				</div>
+			</div> <!-- Finalizar venta -->
+		</div>
+	</form>
 </div>
