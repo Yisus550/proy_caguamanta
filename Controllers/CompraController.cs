@@ -63,7 +63,7 @@ namespace proy_caguamanta.Controllers
             return _context.Proveedores.Select(d => new SelectListItem
             {
                 Text = d.Nombre, // valor mostrado
-                Value = d.IdProveedor.ToString(), // valor tomado
+                Value = d.Id.ToString(), // valor tomado
                 Selected = false
             }).ToList();
         }
@@ -78,7 +78,7 @@ namespace proy_caguamanta.Controllers
         [HttpPost]
         public IActionResult Editar(Compra compra)
         {
-            if (compra.Id == 0 && compra.IdEmpleado != null && compra.FechaCompra != null && compra.IdProveedor != null && compra.Importe != null)
+            if (compra.Id != 0 && compra.IdEmpleado != null && compra.FechaCompra != null && compra.IdProveedor != null && compra.Importe != null)
             {
                 _context.Compras.Update(compra);
                 _context.SaveChanges();

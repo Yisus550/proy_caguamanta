@@ -1,5 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
+﻿using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.AspNetCore.Mvc;
 using proy_caguamanta.Data;
 using proy_caguamanta.Models;
 
@@ -7,109 +7,67 @@ namespace proy_caguamanta.Controllers
 {
 	public class VentaController : Controller
 	{
+		//Crear variable 
 		public readonly ApplicationDbContext _context;
-        private static List<Object> _productos;
 
-        private static int cantidad;
-        private static double precio;
-        public VentaController(ApplicationDbContext context)
+		//Crear constructor
+		public VentaController(ApplicationDbContext context)
 		{
 			_context = context;
 		}
 
-		public ActionResult Index()
+		//Metodos de accion
+		public IActionResult Index()
 		{
-            List<SelectListItem> options = _context.Productos.Select(p => new SelectListItem
-            {
-                Text = p.Nombre,
-                Value = p.Id.ToString()
-            }).ToList();
-
-            ViewBag.SelectListProductos = options;
-            ViewBag.Productos = _productos;
-            ViewBag.Total = _productos != null ? _productos.Sum(p => (double)p.GetType().GetProperty("SubTotal").GetValue(p)) : 0;
-            ViewBag.Empleado = GetEmpleadoSelectList();
-            ViewBag.Cliente = GetClientesSelectList();
-            //List<Venta> listaVenta = _context.Ventas.ToList();
-            return View();
+			List<Venta> listaventa = _context.Ventas.ToList();
+			return View(listaventa);
 		}
-        public IActionResult Listar()
-        {
-            List<Venta> listaVenta = _context.Ventas.ToList();
-            return View(listaVenta);
-        }
-        // sobrecaragr el metodo
-        [HttpGet]
+
+		[HttpGet]
 		public IActionResult Crear()
 		{
-            ViewBag.Empleado = GetEmpleadoSelectList();
-            ViewBag.Cliente = GetClientesSelectList();
-            return View();
+			ViewBag.Empleado = GetEmpleadoSelectList();
+			ViewBag.Cliente = GetClienteSelectList();
+			return View();
 		}
+
 		[HttpPost]
 		public IActionResult Crear(Venta venta)
 		{
-			//validar
-			if (venta.Id == 0 && venta.FechaVenta != null && venta.IdEmpleado != null && venta.IdCliente != null && venta.Importe != null)
+			if (venta.Id == 0 && venta.IdEmpleado != 0 && venta.FechaVenta != null && venta.IdCliente != 0 && venta.Importe != 0)
 			{
-				// agregar, guardar y redireccionar
 				_context.Ventas.Add(venta);
 				_context.SaveChanges();
 				return RedirectToAction("Index");
 			}
 			else
 			{
+				ViewBag.Empleado = GetEmpleadoSelectList();
+				ViewBag.Cliente = GetClienteSelectList();
 				return View("Crear", venta);
 			}
+
 		}
-        // metodo para mandar los empleados 
-        private List<SelectListItem> GetEmpleadoSelectList()
-        {
-            return _context.Empleados.Select(d => new SelectListItem
-            {
-                Text = d.Nombre,
-                Value = d.Id.ToString(),
-                Selected = false
-            }).ToList();
-        }
-        // metodo para mandar los clientes 
-        private List<SelectListItem> GetClientesSelectList()
-        {
-            return _context.Clientes.Select(d => new SelectListItem
-            {
-                Text = d.Nombre,
-                Value = d.Id.ToString(),
-                Selected = false
-            }).ToList();
-        }
-
-        [HttpPost]
-        public ActionResult AgregarProducto(int productoId, int cantidadProducto)
-        {
-            Producto producto = _context.Productos.Find(productoId);
-
-            if (_productos == null)
-            {
-                _productos = new List<Object>();
-            }
-            _productos.Add(new
-            {
-                producto.Id,
-                producto.Nombre,
-                producto.Precio,
-                cantidadProducto,
-                SubTotal = producto.Precio * cantidadProducto
-            });
-
-            return RedirectToAction("Index");
-        }
-
-        public ActionResult LimpiarTabla()
-        {
-            _productos = new List<Object>();
-            return RedirectToAction("Index");
-        }
-    }
+		// metodo para mandar los empleados 
+		private List<SelectListItem> GetEmpleadoSelectList()
+		{
+			return _context.Empleados.Select(d => new SelectListItem
+			{
+				Text = d.Nombre,
+				Value = d.Id.ToString(),
+				Selected = false
+			}).ToList();
+		}
+		// metodo para mandar los clientes 
+		private List<SelectListItem> GetClienteSelectList()
+		{
+			return _context.Clientes.Select(d => new SelectListItem
+			{
+				Text = d.Nombre, // valor mostrado
+				Value = d.Id.ToString(), // valor tomado
+				Selected = false
+			}).ToList();
+		}
 
 		[HttpGet]
 		public IActionResult Editar(int id)
@@ -121,7 +79,7 @@ namespace proy_caguamanta.Controllers
 		[HttpPost]
 		public IActionResult Editar(Venta venta)
 		{
-			if (venta.Id != 0 && venta.FechaVenta != null && venta.IdEmpleado != null && venta.IdCliente != null && venta.Importe != null)
+			if (venta.Id != 0 && venta.IdEmpleado != null && venta.FechaVenta != null && venta.IdCliente != null && venta.Importe != null)
 			{
 				_context.Ventas.Update(venta);
 				_context.SaveChanges();
@@ -134,12 +92,10 @@ namespace proy_caguamanta.Controllers
 		public IActionResult Eliminar(int id)
 		{
 			Venta venta = _context.Ventas.Find(id);
-			return View(venta);
-		}
-
-		[HttpPost]
-		public IActionResult Eliminar(Venta venta)
-		{
+			if(venta == null)
+			{
+            return View(venta);
+			}
 			_context.Ventas.Remove(venta);
 			_context.SaveChanges();
 			return RedirectToAction("Index");

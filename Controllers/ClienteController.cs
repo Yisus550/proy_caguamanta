@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using proy_caguamanta.Data;
 using proy_caguamanta.Models;
 
@@ -76,6 +77,92 @@ namespace proy_caguamanta.Controllers
         {
             _context.Clientes.Remove(cliente);
             _context.SaveChanges();
+            return RedirectToAction("Index");
+        }
+
+        // metodos de multiples registros
+
+        // metodod de sobre carga de MULTIPLE
+        [HttpGet]
+        public IActionResult CrearMultiple()
+        {
+            return View();
+        }
+        [HttpPost]
+        public IActionResult CrearMultiple(Cliente cliente)
+        {
+            // declarar las variables que utilizaremos 
+            string Nombre = Request.Form["Nombre"];
+            string Telefono = Request.Form["Telefono"];
+
+
+            //generacion de las listas
+
+            var listaNombre = Nombre.Split(new[] { "," }, StringSplitOptions.RemoveEmptyEntries).Select(x => x.Trim()).ToList();
+
+            var listaTelefono = Telefono.Split(new[] { "," }, StringSplitOptions.RemoveEmptyEntries).Select(x => x.Trim()).ToList();
+
+
+            // validacion
+            if (listaNombre.Count == 0 | listaTelefono.Count == 0)
+            {
+                // en caso de no cumplir con la validacion
+                return View("CrearMultiple", cliente);
+            }
+            //creamos el objeto
+
+            List<Cliente> objCliente = new List<Cliente>();
+
+            //bucle
+
+            for (int i = 0; i <= 2; i++)
+            {
+                objCliente.Add(new Cliente
+                {
+                    Nombre = listaNombre[i],
+                    Telefono = listaTelefono[i]
+                });
+
+            }
+
+            // agregar, guardar y redireccionar
+            _context.AddRange(objCliente);
+            _context.SaveChanges();
+            return RedirectToAction("Index");
+        }
+
+        // editar multiples
+        [HttpGet]
+        public IActionResult EditarMultiple()
+        {
+            var cliente = _context.Clientes.ToList();
+            return View(cliente);
+        }
+
+        [HttpPost]
+        public IActionResult EditarMultiple(List<Cliente> clientes)
+        {
+            // Validar la entrada
+            if (clientes == null || !clientes.Any())
+            {
+                //En caso de que no haya una entrada válida, regrese a la vista con una lista vacía
+                return View(new List<Cliente>());
+            }
+            // Recorra la lista de estudiantes y actualice cada uno
+            foreach (var cliente in clientes)
+            {
+                // Validar cada objeto de estudiante si es necesario
+                if (cliente.Id != 0 && cliente.Nombre != null && cliente.Telefono != null)
+                {
+                    //
+                    _context.Entry(cliente).State = EntityState.Modified;
+                }
+            }
+
+            // Guarda cambios en la base de datos
+            _context.SaveChanges();
+
+            // Redirecciona al index o vista principal
             return RedirectToAction("Index");
         }
 
