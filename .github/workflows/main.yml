@@ -1,31 +1,26 @@
 name: CI/CD Pipeline
-
 on:
   push:
     branches:
-    - master
-    - dev
+      - master
+      - dev
   pull_request:
     branches:
-    - master
-    - dev
-
+      - master
+      - dev
 permissions:
   checks: write
   contents: write
-
 jobs:
   build:
     runs-on: ubuntu-latest
     steps:
       - name: Install dotnet-format
         run: dotnet tool install -g dotnet-format
-
       - name: Checkout repo
         uses: actions/checkout@v2
         with:
           ref: ${{ github.head_ref }}
-
       - name: Run dotnet format
         id: format
         uses: jfversluis/dotnet-format@v1.0.5
@@ -33,18 +28,22 @@ jobs:
           repo-token: ${{ secrets.GITHUB_TOKEN }}
           action: "fix"
           only-changed-files: true
-
       - name: Commit files
         if: steps.format.outputs.has-changes == 'true'
         run: |
           git config --local user.name "github-actions[bot]"
           git config --local user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git commit -a -m 'Automated dotnet-format update
-          Co-authored-by: ${{ github.event.pull_request.user.login }} <${{ github.event.pull_request.user.id }}+${{ github.event.pull_request.user.login }}@users.noreply.github.com>'
-      - name: Push changes
-        if: steps.format.outputs.has-changes == 'true'
-        uses: ad-m/github-push-action@v0.5.0
-        with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          branch: ${{ github.head_ref }}
-      
+          git commit -a -m 'Automated dotnet-format update'
+      - name: Build project
+        run: dotnet build --configuration Release
+#      - name: Publish project
+#        run: dotnet publish --configuration Release --output ./publish
+#      - name: Deploy to server
+#        uses: easingthemes/ssh-deploy@v2.1.5
+#        env:
+#          SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
+#          ARGS: "-rltgoDzvO --delete"
+#          SOURCE: "publish/"
+#          REMOTE_HOST: ${{ secrets.REMOTE_HOST }}
+#          REMOTE_USER: ${{ secrets.REMOTE_USER }}
+#          TARGET: "/var/www/proy_caguamanta"

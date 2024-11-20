@@ -77,25 +77,24 @@ namespace proy_caguamanta.Controllers
                 return View();
             }
 
-            //crear bucle
-            for (int i = 0; i <= 2; i++)
-            {
-                objDVenta.Add(new DetalleVenta
-                {
-                    IdVenta = Convert.ToInt32(listaIdVenta[i]),
-                    IdProducto = Convert.ToInt32(listaIdProducto[i]),
-                    PrecioUnidad = Convert.ToDecimal(listaPrecio[i]),
-                    Cantidad = Convert.ToInt32(listaCantidad[i]),
-                    Importe = Convert.ToInt32(listaImporte[i])
-                });
-            }
+		[HttpPost]
+		public IActionResult CrearMultiples(List<DetalleVenta> detalleVentas)
+		{
+			// Logic . . .
+			return View();
+		}
 
-            _context.AddRange(objDVenta);
-            _context.SaveChanges();
-            return RedirectToAction("Index");
-        }
 
-        public IActionResult CrearMultiples(List<ProductosList> productosList)
+		/// <summary>
+		/// Método que se encarga de crear multiples detalles de venta. 
+		/// A diferencia de <see cref="CrearMultiples(Lista{DetalleVenta})"/> 
+		/// este método recibe una lista de <see cref="ProductosList"/> y 
+		/// crea un detalle de venta por cada producto en la lista, sin 
+		/// validar el modelo ni redireccionar a ninguna vista.
+		/// </summary>
+		/// <param name="productosList">Lista de productos con la cantidad a registrar</param></param>
+		[HttpPost]
+		public void CrearMultiples(List<ProductosList> productosList)
 		{
 			List<DetalleVenta> detalleVentas = new List<DetalleVenta>();
 			Venta venta = _context.Ventas.OrderBy(v => v.Id).Last();
@@ -105,8 +104,8 @@ namespace proy_caguamanta.Controllers
 				var producto = (_context.Productos.Find(item.Id));
 				detalleVentas.Add(new DetalleVenta
 				{
-					IdVenta = venta.Id,
-					IdProducto = producto.Id,
+					VentaId = venta.Id,
+					ProductoId = producto.Id,
 					PrecioUnidad = (Decimal)producto.Precio,
 					Cantidad = item.Cantidad,
 					Importe = (Decimal)producto.Precio * item.Cantidad
@@ -115,7 +114,6 @@ namespace proy_caguamanta.Controllers
 
 			_context.DetalleVentas.AddRange(detalleVentas);
 			_context.SaveChanges();
-			return RedirectToAction("Index");
 		}
 
 		[HttpGet]

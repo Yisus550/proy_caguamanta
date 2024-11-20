@@ -13,10 +13,10 @@ public partial class Compra
     public DateOnly? FechaCompra { get; set; }
 
     [Required(ErrorMessage = "Este campo es obligatorio")]
-    public int? IdEmpleado { get; set; }
+    public int? EmpleadoId { get; set; }
 
     [Required(ErrorMessage = "Este campo es obligatorio")]
-    public int? IdProveedor { get; set; }
+    public int? ProveedorId { get; set; }
 
     [Required(ErrorMessage = "Este campo es obligatorio")]
     [Range(1, double.MaxValue, ErrorMessage = "El importe no debe de ser menor a $1")]

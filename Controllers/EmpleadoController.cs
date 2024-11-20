@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using proy_caguamanta.Data;
 using proy_caguamanta.Models;
 
@@ -6,6 +7,16 @@ namespace proy_caguamanta.Controllers
 {
     public class EmpleadoController : Controller
     {
+        /// metodo de listado de puestos
+        private List<SelectListItem> GetPuestosSelectList()
+        {
+            return _context.Puestos.Select(d => new SelectListItem
+            {
+                Text = d.Nombre,
+                Value = d.Id.ToString()
+            }).ToList();
+        }
+
         //Crear variable
         public readonly ApplicationDbContext _context;
 
@@ -24,14 +35,14 @@ namespace proy_caguamanta.Controllers
         [HttpGet]
         public IActionResult Crear()
         {
-
+            ViewBag.Puesto = GetPuestosSelectList();
             return View();
         }
 
         [HttpPost]
         public IActionResult Crear(Empleado empleado)
         {
-            if (ModelState.IsValid)
+            if (empleado.Id == 0 && empleado.Nombre != null && empleado.Apellido != null && empleado.Correo != null && empleado.Contrasena != null && empleado.Telefono != null && empleado.Direccion != null && empleado.Estado != null && empleado.PuestoId != 0)
             {
                 _context.Empleados.Add(empleado);
                 _context.SaveChanges();
@@ -39,6 +50,7 @@ namespace proy_caguamanta.Controllers
             }
             else
             {
+                ViewBag.Puesto = GetPuestosSelectList();
                 return View("Crear", empleado);
             }
 
@@ -46,20 +58,23 @@ namespace proy_caguamanta.Controllers
 		[HttpGet]
 		public IActionResult Editar(int id)
 		{
+
 			Empleado estudiante = _context.Empleados.Find(id);
-			return View(estudiante);
+            ViewBag.Puesto = GetPuestosSelectList();
+            return View(estudiante);
 		}
 
 		[HttpPost]
 		public IActionResult Editar(Empleado empleado)
 		{
-			if (ModelState.IsValid)
+			if (empleado.Id != 0 && empleado.Nombre != null && empleado.Apellido != null && empleado.Correo != null && empleado.Contrasena != null && empleado.Telefono != null && empleado.Direccion != null && empleado.Estado != null && empleado.PuestoId != 0)
 			{
 				_context.Empleados.Update(empleado);
 				_context.SaveChanges();
 				return RedirectToAction("Index");
 			}
-			return View("Editar", empleado);
+            ViewBag.Puesto = GetPuestosSelectList();
+            return View("Editar", empleado);
 		}
 
 		[HttpGet]
