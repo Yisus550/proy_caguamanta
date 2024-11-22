@@ -44,59 +44,59 @@ namespace proy_caguamanta.Controllers
 			}
 
 		}
-        [HttpGet]
-        public IActionResult CrearMulti()
-        {
+		[HttpGet]
+		public IActionResult CrearMulti()
+		{
 
-            return View();
-        }
+			return View();
+		}
 
-        [HttpPost]
-        public IActionResult CrearMulti(DetalleVenta detalleVenta)
-        {
-            //Creamos las varibales 
-            string idVenta = Request.Form["VentaId"];
-            string idProducto = Request.Form["ProductoId"];
-            string precio = Request.Form["PrecioUnidad"];
-            string cantidad = Request.Form["Cantidad"];
-            string importe = Request.Form["Importe"];
+		[HttpPost]
+		public IActionResult CrearMulti(DetalleVenta detalleVenta)
+		{
+			//Creamos las varibales 
+			string idVenta = Request.Form["VentaId"];
+			string idProducto = Request.Form["ProductoId"];
+			string precio = Request.Form["PrecioUnidad"];
+			string cantidad = Request.Form["Cantidad"];
+			string importe = Request.Form["Importe"];
 
-            //Creamos lista de los elementos de la variable 
-            var listaIdVenta = idVenta.Split(new[] { "," }, StringSplitOptions.RemoveEmptyEntries).Select(x => x.Trim()).ToList();
-            var listaIdProducto = idProducto.Split(new[] { "," }, StringSplitOptions.RemoveEmptyEntries).Select(x => x.Trim()).ToList();
-            var listaPrecio = precio.Split(new[] { "," }, StringSplitOptions.RemoveEmptyEntries).Select(x => x.Trim()).ToList();
-            var listaCantidad = cantidad.Split(new[] { "," }, StringSplitOptions.RemoveEmptyEntries).Select(x => x.Trim()).ToList();
-            var listaImporte = importe.Split(new[] { "," }, StringSplitOptions.RemoveEmptyEntries).Select(x => x.Trim()).ToList();
+			//Creamos lista de los elementos de la variable 
+			var listaIdVenta = idVenta.Split(new[] { "," }, StringSplitOptions.RemoveEmptyEntries).Select(x => x.Trim()).ToList();
+			var listaIdProducto = idProducto.Split(new[] { "," }, StringSplitOptions.RemoveEmptyEntries).Select(x => x.Trim()).ToList();
+			var listaPrecio = precio.Split(new[] { "," }, StringSplitOptions.RemoveEmptyEntries).Select(x => x.Trim()).ToList();
+			var listaCantidad = cantidad.Split(new[] { "," }, StringSplitOptions.RemoveEmptyEntries).Select(x => x.Trim()).ToList();
+			var listaImporte = importe.Split(new[] { "," }, StringSplitOptions.RemoveEmptyEntries).Select(x => x.Trim()).ToList();
 
-            //Crear varibale de objeto 
-            List<DetalleVenta> objDVenta = new List<DetalleVenta>();
+			//Crear varibale de objeto 
+			List<DetalleVenta> objDVenta = new List<DetalleVenta>();
 
-            //validacion 
-            if (listaIdVenta.Count() == 0 | listaIdProducto.Count() == 0 | listaPrecio.Count() == 0 | listaCantidad.Count() == 0 | listaImporte.Count() == 0)
-            {
-                return View();
-            }
+			//validacion 
+			if (listaIdVenta.Count() == 0 | listaIdProducto.Count() == 0 | listaPrecio.Count() == 0 | listaCantidad.Count() == 0 | listaImporte.Count() == 0)
+			{
+				return View();
+			}
 
-            //crear bucle
-            for (int i = 0; i <= 2; i++)
-            {
-                objDVenta.Add(new DetalleVenta
-                {
-                    VentaId = Convert.ToInt32(listaIdVenta[i]),
-                    ProductoId = Convert.ToInt32(listaIdProducto[i]),
-                    PrecioUnidad = Convert.ToDecimal(listaPrecio[i]),
-                    Cantidad = Convert.ToInt32(listaCantidad[i]),
-                    Importe = Convert.ToInt32(listaImporte[i])
-                });
-            }
+			//crear bucle
+			for (int i = 0; i <= 2; i++)
+			{
+				objDVenta.Add(new DetalleVenta
+				{
+					VentaId = Convert.ToInt32(listaIdVenta[i]),
+					ProductoId = Convert.ToInt32(listaIdProducto[i]),
+					PrecioUnidad = Convert.ToDecimal(listaPrecio[i]),
+					Cantidad = Convert.ToInt32(listaCantidad[i]),
+					Importe = Convert.ToInt32(listaImporte[i])
+				});
+			}
 
-            _context.AddRange(objDVenta);
-            _context.SaveChanges();
-            return RedirectToAction("Index");
-        }
+			_context.AddRange(objDVenta);
+			_context.SaveChanges();
+			return RedirectToAction("Index");
+		}
 
 
-        public void CrearMultiples(List<ProductosList> productosList)
+		public void CrearMultiples(List<ProductosList> productosList)
 		{
 			List<DetalleVenta> detalleVentas = new List<DetalleVenta>();
 			Venta venta = _context.Ventas.OrderBy(v => v.Id).Last();
@@ -137,30 +137,30 @@ namespace proy_caguamanta.Controllers
 			return View("Editar", detalleVenta);
 		}
 
-        [HttpGet]
-        public IActionResult EditarMultiple()
-        {
-            var DVentas = _context.DetalleVentas.ToList();
-            return View(DVentas);
-        }
+		[HttpGet]
+		public IActionResult EditarMultiple()
+		{
+			var DVentas = _context.DetalleVentas.ToList();
+			return View(DVentas);
+		}
 
-        [HttpPost]
-        public IActionResult EditarMultiple(List<DetalleVenta> detalleVentas)
-        {
-            if (ModelState.IsValid)
-            {
-                foreach (var detalleVenta in detalleVentas)
-                {
-                    _context.DetalleVentas.Update(detalleVenta);
+		[HttpPost]
+		public IActionResult EditarMultiple(List<DetalleVenta> detalleVentas)
+		{
+			if (detalleVentas != null)
+			{
+				foreach (var detalleVenta in detalleVentas)
+				{
+					_context.DetalleVentas.Update(detalleVenta);
 
-                }
-                _context.SaveChanges();
-                return RedirectToAction("Index");
-            }
-            return View(detalleVentas);
-        }
+				}
+				_context.SaveChanges();
+				return RedirectToAction("Index");
+			}
+			return View(detalleVentas);
+		}
 
-        [HttpGet]
+		[HttpGet]
 		public IActionResult Eliminar(int id)
 		{
 			DetalleVenta estudiante = _context.DetalleVentas.Find(id);
@@ -175,15 +175,15 @@ namespace proy_caguamanta.Controllers
 			return RedirectToAction("Index");
 		}
 
-        [HttpGet]
-        public IActionResult EliminarMultiples()
-        {
-            IEnumerable<DetalleVenta> detalleVentas = _context.DetalleVentas.OrderByDescending(x => x.Id).Take(3);
+		[HttpGet]
+		public IActionResult EliminarMultiples()
+		{
+			IEnumerable<DetalleVenta> detalleVentas = _context.DetalleVentas.OrderByDescending(x => x.Id).Take(3);
 
-            _context.DetalleVentas.RemoveRange(detalleVentas);
-            _context.SaveChanges();
-            return RedirectToAction("Index");
-        }
+			_context.DetalleVentas.RemoveRange(detalleVentas);
+			_context.SaveChanges();
+			return RedirectToAction("Index");
+		}
 
-    }
+	}
 }

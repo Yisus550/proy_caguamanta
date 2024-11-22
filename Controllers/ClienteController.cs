@@ -44,49 +44,49 @@ namespace proy_caguamanta.Controllers
 
 		}
 
-        [HttpGet]
-        public IActionResult CrearMulti()
-        {
+		[HttpGet]
+		public IActionResult CrearMulti()
+		{
 
-            return View();
-        }
+			return View();
+		}
 
-        [HttpPost]
-        public IActionResult CrearMulti(Cliente cliente)
-        {
-            //Creamos las varibales 
-            string nombre = Request.Form["Nombre"];
-            string telefono = Request.Form["Telefono"];
+		[HttpPost]
+		public IActionResult CrearMulti(Cliente cliente)
+		{
+			//Creamos las varibales 
+			string nombre = Request.Form["Nombre"];
+			string telefono = Request.Form["Telefono"];
 
-            //Creamos lista de los elementos de la variable 
-            var listaNombre = nombre.Split(new[] { "," }, StringSplitOptions.RemoveEmptyEntries).Select(x => x.Trim()).ToList();
-            var listaTelefono = telefono.Split(new[] { "," }, StringSplitOptions.RemoveEmptyEntries).Select(x => x.Trim()).ToList();
+			//Creamos lista de los elementos de la variable 
+			var listaNombre = nombre.Split(new[] { "," }, StringSplitOptions.RemoveEmptyEntries).Select(x => x.Trim()).ToList();
+			var listaTelefono = telefono.Split(new[] { "," }, StringSplitOptions.RemoveEmptyEntries).Select(x => x.Trim()).ToList();
 
-            //Crear varibale de objeto 
-            List<Cliente> objClientes = new List<Cliente>();
+			//Crear varibale de objeto 
+			List<Cliente> objClientes = new List<Cliente>();
 
-            //validacion 
-            if (listaNombre.Count() == 0 | listaTelefono.Count() == 0)
-            {
-                return View();
-            }
+			//validacion 
+			if (listaNombre.Count() == 0 | listaTelefono.Count() == 0)
+			{
+				return View();
+			}
 
-            //crear bucle
-            for (int i = 0; i <= 2; i++)
-            {
-                objClientes.Add(new Cliente
-                {
-                    Nombre = listaNombre[i],
-                    Telefono = listaTelefono[i]
-                });
-            }
+			//crear bucle
+			for (int i = 0; i <= 2; i++)
+			{
+				objClientes.Add(new Cliente
+				{
+					Nombre = listaNombre[i],
+					Telefono = listaTelefono[i]
+				});
+			}
 
-            _context.AddRange(objClientes);
-            _context.SaveChanges();
-            return RedirectToAction("Index");
-        }
+			_context.AddRange(objClientes);
+			_context.SaveChanges();
+			return RedirectToAction("Index");
+		}
 
-        [HttpGet]
+		[HttpGet]
 		public IActionResult Editar(int id)
 		{
 			Cliente cliente = _context.Clientes.Find(id);
@@ -105,30 +105,30 @@ namespace proy_caguamanta.Controllers
 			return View("Editar", cliente);
 		}
 
-        [HttpGet]
-        public IActionResult EditarMultiple()
-        {
-            var clinete = _context.Clientes.ToList();
-            return View(clinete);
-        }
+		[HttpGet]
+		public IActionResult EditarMultiple()
+		{
+			var clinete = _context.Clientes.ToList();
+			return View(clinete);
+		}
 
-        [HttpPost]
-        public IActionResult EditarMultiple(List<Cliente> clientes)
-        {
-            if (ModelState.IsValid)
-            {
-                foreach (var cliente in clientes)
-                {
+		[HttpPost]
+		public IActionResult EditarMultiple(List<Cliente> clientes)
+		{
+			if (clientes != null)
+			{
+				foreach (var cliente in clientes)
+				{
 					_context.Clientes.Update(cliente);
-                    
-                }
-                _context.SaveChanges();
-                return RedirectToAction("Index");
-            }
-            return View(clientes);
-        }
 
-        [HttpGet]
+				}
+				_context.SaveChanges();
+				return RedirectToAction("Index");
+			}
+			return View(clientes);
+		}
+
+		[HttpGet]
 		public IActionResult Eliminar(int id)
 		{
 			Cliente cliente = _context.Clientes.Find(id);
@@ -143,15 +143,15 @@ namespace proy_caguamanta.Controllers
 			return RedirectToAction("Index");
 		}
 
-        [HttpGet]
-        public IActionResult EliminarMultiples()
-        {
-            IEnumerable<Cliente> clientes = _context.Clientes.OrderByDescending(x => x.Id).Take(3);
+		[HttpGet]
+		public IActionResult EliminarMultiples()
+		{
+			IEnumerable<Cliente> clientes = _context.Clientes.OrderByDescending(x => x.Id).Take(3);
 
-            _context.Clientes.RemoveRange(clientes);
-            _context.SaveChanges();
-            return RedirectToAction("Index");
-        }
+			_context.Clientes.RemoveRange(clientes);
+			_context.SaveChanges();
+			return RedirectToAction("Index");
+		}
 
-    }
+	}
 }
