@@ -9,7 +9,7 @@
 <div class="container">
     <div class="row mt-5">
         <div class="col-3">
-            <a class="btn btn-primary text-white form-control" asp-action="Crear">Agregar nuevo</a>
+            <a class="btn btn-primary text-white form-control" asp-controller="Compra" asp-action="Index">Agregar nuevo</a>
         </div>
         <div class="col-3">
             <a class="btn btn-success text-white form-control" asp-action="CrearMulti">Agregar Multiples</a>
@@ -28,6 +28,7 @@
                 <table class="table table-striped border">
                     <thead>
                         <tr>
+                            <th>Codigo</th>
                             <th>IdCompra</th>
                             <th>IdProducto</th>
                             <th>PrecioUnidad</th>

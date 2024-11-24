@@ -1,18 +1,20 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace proy_caguamanta.Controllers
+namespace proy_caguamanta.Models
 {
-	public class ProductosList
+	public class MaterialesList
 	{
 		[Key]
 		public int Id { get; set; }
 		[Required]
 		public string Nombre { get; set; }
 		[Required]
-		public double Precio { get; set; }
+		public decimal Precio { get; set; }
 		[Required]
 		public int Cantidad { get; set; }
-        [Required]
-        public double SubTotal { get; set; }
-    }
+		[Required]
+		public decimal SubTotal { get; set; }
+
+
+	}
 }

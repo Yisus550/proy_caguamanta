@@ -11,6 +11,9 @@
         <div class="row mt-5">
             <div class="col-12">
                 <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+                <input type="hidden" asp-for="Id" />
+
                 <div class="row mt-2">
                     <div class=" col-10">
                         <label asp-for="Nombre" class="form-label"></label>

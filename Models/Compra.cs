@@ -7,7 +7,7 @@ public partial class Compra
 {
     [Key]
     [Required(ErrorMessage = "Este campo es obligatorio")]
-    public int? Id { get; set; }
+    public int Id { get; set; }
 
     [Required(ErrorMessage = "Este campo es obligatorio")]
     [DataType(DataType.Date)]

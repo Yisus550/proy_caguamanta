@@ -11,6 +11,9 @@
         <div class="row mt-5">
             <div class="col-12">
                 <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+                <input type="hidden" asp-for="Id" />
+
                 <div class="row mt-2">
                     <div class=" col-10">
                         <label asp-for="Nombre" class="form-label"></label>
@@ -26,10 +29,11 @@
                         <span asp-validation-for="Cantidad" class="text-danger"></span>
                     </div>
                 </div>
+              
                 <div class="row mt-2">
-                    <div class=" col-10">
+                    <div class="col-10">
                         <label asp-for="ProveedorId" class="form-label"></label>
-                        <input asp-for="ProveedorId" class="form-control" />
+                        <select asp-for="ProveedorId" class="form-control" asp-items="ViewBag.ProveedorID"></select>
                         <span asp-validation-for="ProveedorId" class="text-danger"></span>
                     </div>
                 </div>
@@ -37,7 +41,7 @@
                 <div class="row mt-2">
                     <div class=" col-10">
                         <label asp-for="CategoriaId" class="form-label"></label>
-                        <input asp-for="CategoriaId" class="form-control" />
+                        <select asp-for="CategoriaId" class="form-control" asp-items="ViewBag.CategoriaID"></select>
                         <span asp-validation-for="CategoriaId" class="text-danger"></span>
                     </div>
                 </div>

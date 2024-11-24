@@ -12,6 +12,8 @@ namespace proy_caguamanta.Controllers
 		private static List<ProductosList> _productos;
 		private static List<SelectListItem> options;
 		private static List<Venta> listaVenta;
+		private static List<SelectListItem> EmpleadoC;
+		private static List<SelectListItem> ClienteC;
 
 		private static int cantidad;
 		private static int idEmpleadoRecover;
@@ -20,11 +22,32 @@ namespace proy_caguamanta.Controllers
 		private static double total;
 		private static double cambio;
 
+
 		public VentaController(ApplicationDbContext context)
 		{
 			_context = context;
 		}
 
+		private void CargarEmpleado()
+		{
+			EmpleadoC = _context.Empleados.Select(e => new SelectListItem
+			{
+				Text = e.Nombre,
+				Value = e.Id.ToString()
+			}).ToList();
+
+			ViewBag.SelectEmpleado = EmpleadoC;
+		}
+		private void CargarCliente()
+		{
+			ClienteC = _context.Clientes.Select(e => new SelectListItem
+			{
+				Text = e.Nombre,
+				Value = e.Id.ToString()
+			}).ToList();
+
+			ViewBag.SelectCliente = ClienteC;
+		}
 		/// <summary>
 		/// Metodo que se encarga de cargar la vista principal de la venta.
 		/// </summary>
@@ -32,16 +55,24 @@ namespace proy_caguamanta.Controllers
 		/// <param name="idCliente">Id del cliente que realiza la compra, 1001 por defecto</param>
 		/// <param name="idEmpleado">Id del empleado que realiza la venta, 2001 por defecto</param>
 		/// <returns>Retorna la vista principal de la venta.</returns>
-		public ActionResult Index(double pago = 0, int idCliente = 1001, int idEmpleado = 2001)
+		public ActionResult Index(double pago = 0, int idCliente = 1, int idEmpleado = 1)
 		{
 			CargarDatos(pago, idCliente, idEmpleado);
-			ViewBag.IdVenta = _context.Ventas.OrderBy(v => v.Id).Last().Id + 1;
+			if (_context.Ventas.Count() == 0)
+			{
+				ViewBag.IdVenta = 1;
+			}
+			else
+			{
+				ViewBag.IdVenta = _context.Ventas.OrderBy(v => v.Id).Last().Id + 1;// toma el valor de la ultima venta y le suma 1 
+			}
+			
 			ViewBag.IdEmpleado = idEmpleadoRecover;
 			ViewBag.IdCliente = idClienteRecover;
-
+			
 			return View();
 		}
-
+		
 		public IActionResult Listar()
 		{
 			listaVenta = _context.Ventas.ToList();
@@ -115,7 +146,7 @@ namespace proy_caguamanta.Controllers
 			return RedirectToAction("Index");
 		}
 
-		public ActionResult FinalizarVenta()
+		public ActionResult FinalizarVenta(int idEmpleado, int idCliente)
 		{
 			DetalleVentaController _detalleVenta = new DetalleVentaController(_context);
 
@@ -123,8 +154,8 @@ namespace proy_caguamanta.Controllers
 			Venta venta = new Venta
 			{
 				FechaVenta = DateTime.Today,
-				EmpleadoId = idEmpleadoRecover,
-				ClienteId = idClienteRecover,
+				EmpleadoId = idEmpleado,
+				ClienteId = idCliente,
 				Importe = (decimal)total
 			};
 
@@ -137,6 +168,8 @@ namespace proy_caguamanta.Controllers
 		private void CargarDatos(double pago, int idCliente, int idEmpleado)
 		{
 			CargarProductos();
+			CargarCliente();
+			CargarEmpleado();
 			CalcularTotal();
 			CalcularCambio(pago);
 			idEmpleadoRecover = idEmpleado;

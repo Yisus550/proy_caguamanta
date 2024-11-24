@@ -1,4 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.EntityFrameworkCore;
 using proy_caguamanta.Data;
 using proy_caguamanta.Models;
 
@@ -12,15 +14,31 @@ namespace proy_caguamanta.Controllers
         {
             _context = context;
         }
+
+		/// metodo de listado de Categorias
+		private List<SelectListItem> SelectListCategorias()
+		{
+			return _context.Categorias.Select(d => new SelectListItem
+			{
+				Text = d.Nombre,
+				Value = d.Id.ToString()
+			}).ToList();
+		}
+        private void Cargar()
+        {
+            ViewBag.Categoria = SelectListCategorias();
+
+		}
         public IActionResult Index()
         {
-            List<Producto> listaProducto = _context.Productos.ToList();
+			List<Producto> listaProducto = _context.Productos.ToList();
             return View(listaProducto);
         }
 		// sobrecaragr el metodo
 		[HttpGet]
 		public IActionResult Crear()
 		{
+			Cargar();
 			return View();
 		}
 		[HttpPost]
@@ -36,6 +54,7 @@ namespace proy_caguamanta.Controllers
 			}
 			else
 			{
+				Cargar();
 				return View("Crear", producto);
 			}
 
@@ -43,8 +62,8 @@ namespace proy_caguamanta.Controllers
         [HttpGet]
         public IActionResult CrearMulti()
         {
-
-            return View();
+			Cargar();
+			return View();
         }
 
         [HttpPost]
@@ -68,7 +87,8 @@ namespace proy_caguamanta.Controllers
             //validacion 
             if (listaNombre.Count() == 0 | listaDescripcion.Count() == 0 | listaPrecio.Count() == 0 | listaCantidad.Count() == 0)
             {
-                return View();
+				Cargar();
+				return View();
             }
 
             //crear bucle
@@ -91,6 +111,7 @@ namespace proy_caguamanta.Controllers
         [HttpGet]
 		public IActionResult Editar(int id)
 		{
+			Cargar();
 			Producto estudiante = _context.Productos.Find(id);
 			return View(estudiante);
 		}
@@ -105,31 +126,48 @@ namespace proy_caguamanta.Controllers
 				_context.SaveChanges();
 				return RedirectToAction("Index");
 			}
+			Cargar();
 			return View("Editar", producto);
 		}
 
+        // editar multiples registros 
         [HttpGet]
         public IActionResult EditarMultiple()
         {
-            var producto = _context.Productos.ToList();
-            return View(producto);
+			Cargar();
+			// Recupera la lista de categorias para editar
+			var proveedores = _context.Proveedores.ToList();
+            return View(proveedores);
         }
 
         [HttpPost]
         public IActionResult EditarMultiple(List<Producto> productos)
         {
-            if (ModelState.IsValid)
+            // Validar la entrada
+            if (productos == null || !productos.Any())
             {
-                foreach (var producto in productos)
-                {
-                    _context.Productos.Update(producto);
-
-                }
-                _context.SaveChanges();
-                return RedirectToAction("Index");
+				Cargar();
+				//En caso de que no haya una entrada válida, regrese a la vista con una lista vacía
+				return View(new List<Proveedor>());
             }
-            return View(productos);
+            // Recorre la lista de categorias y actualiza cada uno
+            foreach (var producto in productos)
+            {
+                // Validar cada objeto de estudiante si es necesario
+                if (producto.Id != 0 || producto.Id != null && producto.Nombre != null && producto.Descripcion != null && producto.Precio != null && producto.Cantidad != null && producto.CategoriaId != null)
+                {
+                    // Marca la entidad como modificada
+                    _context.Entry(producto).State = EntityState.Modified;
+                }
+            }
+
+            // Guarda cambios en la base de datos
+            _context.SaveChanges();
+
+            // Redirecciona al index o vista principal
+            return RedirectToAction("Index");
         }
+
 
         [HttpGet]
 		public IActionResult Eliminar(int id)

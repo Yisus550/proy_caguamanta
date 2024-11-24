@@ -12,8 +12,8 @@ using proy_caguamanta.Data;
 namespace proy_caguamanta.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20241120202039_FinRelaciones")]
-    partial class FinRelaciones
+    [Migration("20241124200428_Relaciones")]
+    partial class Relaciones
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -27,11 +27,11 @@ namespace proy_caguamanta.Migrations
 
             modelBuilder.Entity("proy_caguamanta.Models.Categoria", b =>
                 {
-                    b.Property<int?>("Id")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int?>("Id"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<string>("Descripcion")
                         .IsRequired()
@@ -72,11 +72,11 @@ namespace proy_caguamanta.Migrations
 
             modelBuilder.Entity("proy_caguamanta.Models.Compra", b =>
                 {
-                    b.Property<int?>("Id")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int?>("Id"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<int?>("EmpleadoId")
                         .IsRequired()

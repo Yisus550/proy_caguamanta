@@ -1,0 +1,67 @@
+﻿@model proy_caguamanta.Models.Material
+@{
+    ViewData["Title"] = "Crear Multiples material";
+    Layout = "/Views/Shared/_Layout.cshtml";
+}
+
+<form method="post" asp-action="CrearMultiple">
+    <div class="container">
+        <div class="row mt-5">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="col-10">
+                @for (int i = 0; i <= 4; i++)
+                {
+                    <div class="container border mt-5 p-4">
+
+						<div class="row mt-2">
+							<div class="col-10">
+								<label asp-for="Nombre" class="form-label"></label>
+								<input asp-for="Nombre" class="form-control" />
+								<span asp-validation-for="Nombre" class="text-danger"></span>
+							</div>
+						</div>
+
+						<div class="row mt-2">
+							<div class="col-10">
+								<label asp-for="Cantidad" class="form-label"></label>
+								<input asp-for="Cantidad" class="form-control" />
+								<span asp-validation-for="Cantidad" class="text-danger"></span>
+							</div>
+						</div>
+
+						<div class="row mt-2">
+							<div class="col-10">
+								<label asp-for="ProveedorId" class="form-label"></label>
+								<select asp-for="ProveedorId" class="form-control" asp-items="ViewBag.ProveedorID"></select>
+								<span asp-validation-for="ProveedorId" class="text-danger"></span>
+							</div>
+						</div>
+
+						<div class="row mt-2">
+							<div class=" col-10">
+								<label asp-for="CategoriaId" class="form-label"></label>
+								<select asp-for="CategoriaId" class="form-control" asp-items="ViewBag.CategoriaID"></select>
+								<span asp-validation-for="CategoriaId" class="text-danger"></span>
+							</div>
+						</div>
+
+						<div class="row mt-2">
+							<div class="col-10">
+								<label asp-for="Costo" class="form-label"></label>
+								<input asp-for="Costo" class="form-control" />
+								<span asp-validation-for="Costo" class="text-danger"></span>
+							</div>
+						</div>
+
+                    </div>
+                }
+
+                <div class="row mt-5">
+                    <div class=" col-4">
+                        <button class="btn btn-secondary text-white form-control" type="submit">Guardar &nbsp;</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>

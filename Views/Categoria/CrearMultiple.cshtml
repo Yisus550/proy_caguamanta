@@ -1,10 +1,10 @@
-﻿@model proy_caguamanta.Models.Cliente 
+﻿@model proy_caguamanta.Models.Categoria
 @{
-    ViewData["Title"] = "Crear Multiples Clientes";
+    ViewData["Title"] = "Crear Multiples Categorias";
     Layout = "/Views/Shared/_Layout.cshtml";
 }
-
-<form method="post" asp-action="CrearMulti">
+<h1>CREACION MULTIPLE DE CATEGORIAS</h1>
+<form method="post" asp-action="CrearMultiple">
     <div class="container">
         <div class="row mt-5">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
@@ -22,12 +22,12 @@
                         </div>
                         <div class="row mt-2">
                             <div class=" col-10">
-                                <label asp-for="Telefono" class="form-label"></label>
-                                <input asp-for="Telefono" class="form-control" />
-                                <span asp-validation-for="Telefono" class="text-danger"></span>
+                                <label asp-for="Descripcion" class="form-label"></label>
+                                <input asp-for="Descripcion" class="form-control" />
+                                <span asp-validation-for="Descripcion" class="text-danger"></span>
                             </div>
                         </div>
-               
+
                     </div>
                 }
 

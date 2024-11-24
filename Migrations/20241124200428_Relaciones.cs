@@ -5,7 +5,7 @@
 namespace proy_caguamanta.Migrations
 {
     /// <inheritdoc />
-    public partial class FinRelaciones : Migration
+    public partial class Relaciones : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)

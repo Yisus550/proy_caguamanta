@@ -97,12 +97,24 @@
 						<input class="form-control my-2" type="number" id="pago" name="pago" min="0" autocomplete="off" />
 					</div>
 					<div class="col-2">
-						<label class="form-label my-2">ID Empleado:</label>
-						<input class="form-control my-2" type="number" id="idEmpleado" name="idEmpleado" min="1" value="@ViewBag.IdEmpleado" autocomplete="off" />
+						<label for="EmpleadoDropdown">Empleados:</label>
+						@Html.DropDownList("idEmpleado",
+															ViewBag.SelectEmpleado as List<SelectListItem>,
+															"Seleccione un Empleado", new
+															{
+																@class = "form-select border rounded-5 py-2 px-3 w-50 mt-2 mb-3",
+																id = "EmpleadoDropdown"
+															})
 					</div>
 					<div class="col-2">
-						<label class="form-label my-2">ID Cliente:</label>
-						<input class="form-control my-2" type="number" id="idCliente" name="idCliente" min="1" value="@ViewBag.IdCliente" autocomplete="off" />
+						<label for="ClienteDropdown">Clientes:</label>
+						@Html.DropDownList("idCliente",
+															ViewBag.SelectCliente as List<SelectListItem>,
+															"Seleccione un Cliente", new
+															{
+																@class = "form-select border rounded-5 py-2 px-3 w-50 mt-2 mb-3",
+																id = "ClienteDropdown"
+															})
 					</div>
 				</div>
 				<div class="col-2 mt-2">

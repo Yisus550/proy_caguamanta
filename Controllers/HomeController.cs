@@ -34,7 +34,7 @@ namespace proy_caguamanta.Controllers
             if (empleado_encontrado != null)
             {
                 login.Puesto = Convert.ToString(empleado_encontrado.PuestoId);
-                return RedirectToAction("Index", "Venta");
+                return RedirectToAction("Registros", "home");
 
             }
             else
@@ -72,7 +72,7 @@ namespace proy_caguamanta.Controllers
 
         public IActionResult Compra()
         {
-            return RedirectToAction("Index", "Compra");
+            return RedirectToAction("Listar", "Compra");
         }
 
         public IActionResult DetalleCompra()

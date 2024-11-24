@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using proy_caguamanta.Data;
 using proy_caguamanta.Models;
 
@@ -78,7 +79,7 @@ namespace proy_caguamanta.Controllers
             }
 
             //crear bucle
-            for (int i = 0; i <= 2; i++)
+            for (int i = 0; i <= 4; i++)
             {
                 objDVenta.Add(new DetalleVenta
                 {
@@ -137,34 +138,38 @@ namespace proy_caguamanta.Controllers
 			return View("Editar", detalleVenta);
 		}
 
-        [HttpGet]
-        public IActionResult EditarMultiple()
-        {
-            var DVentas = _context.DetalleVentas.ToList();
-            return View(DVentas);
-        }
-
         [HttpPost]
         public IActionResult EditarMultiple(List<DetalleVenta> detalleVentas)
         {
-            if (ModelState.IsValid)
+            // Validar la entrada
+            if (detalleVentas == null || !detalleVentas.Any())
             {
-                foreach (var detalleVenta in detalleVentas)
-                {
-                    _context.DetalleVentas.Update(detalleVenta);
-
-                }
-                _context.SaveChanges();
-                return RedirectToAction("Index");
+                //En caso de que no haya una entrada válida, regrese a la vista con una lista vacía
+                return View(new List<Cliente>());
             }
-            return View(detalleVentas);
+            // Recorre la lista de categorias y actualiza cada uno
+            foreach (var detalleVenta in detalleVentas)
+            {
+                // Validar cada objeto de estudiante si es necesario
+                if (detalleVenta.Id != 0 && detalleVenta.VentaId != null && detalleVenta.ProductoId != null && detalleVenta.PrecioUnidad != null && detalleVenta.Cantidad != null && detalleVenta.Importe != null)
+                {
+                    // Marca la entidad como modificada
+                    _context.Entry(detalleVenta).State = EntityState.Modified;
+                }
+            }
+
+            // Guarda cambios en la base de datos
+            _context.SaveChanges();
+
+            // Redirecciona al index o vista principal
+            return RedirectToAction("Index");
         }
 
         [HttpGet]
 		public IActionResult Eliminar(int id)
 		{
-			DetalleVenta estudiante = _context.DetalleVentas.Find(id);
-			return View(estudiante);
+			DetalleVenta ventas = _context.DetalleVentas.Find(id);
+			return View(ventas);
 		}
 
 		[HttpPost]

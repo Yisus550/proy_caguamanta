@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using proy_caguamanta.Data;
 using proy_caguamanta.Models;
 using System.ComponentModel;
@@ -97,7 +98,29 @@ namespace proy_caguamanta.Controllers
             return RedirectToAction("Index");
         }
 
-        [HttpGet]
+		public void CrearMultiples(List<MaterialesList> materialList)
+		{
+			List<DetalleCompra> detalleCompras = new List<DetalleCompra>();
+			Compra compra = _context.Compras.OrderBy(v => v.Id).Last();
+
+			foreach (var item in materialList)
+			{
+				var material = (_context.Materiales.Find(item.Id));
+				detalleCompras.Add(new DetalleCompra
+				{
+					CompraId = compra.Id,
+					MaterialId = material.Id,
+					PrecioUnidad = (Decimal)material.Costo,
+					Cantidad = item.Cantidad,
+					Importe = (Decimal)material.Costo * item.Cantidad
+				});
+			}
+
+			_context.DetalleCompras.AddRange(detalleCompras);
+			_context.SaveChanges();
+		}
+
+		[HttpGet]
 		public IActionResult Editar(int id)
 		{
 			DetalleCompra estudiante = _context.DetalleCompras.Find(id);
@@ -116,27 +139,31 @@ namespace proy_caguamanta.Controllers
 			return View("Editar", detalleCompra);
 		}
 
-        [HttpGet]
-        public IActionResult EditarMultiple()
-        {
-            var Dcompra = _context.DetalleCompras.ToList();
-            return View(Dcompra);
-        }
-
         [HttpPost]
-        public IActionResult EditarMultiple(List<DetalleCompra> detalleCompras)
+        public IActionResult EditarMultiple(List<DetalleCompra> compras)
         {
-            if (ModelState.IsValid)
+            // Validar la entrada
+            if (compras == null || !compras.Any())
             {
-                foreach (var detalleCompra in detalleCompras)
-                {
-                    _context.DetalleCompras.Update(detalleCompra);
-
-                }
-                _context.SaveChanges();
-                return RedirectToAction("Index");
+                //En caso de que no haya una entrada válida, regrese a la vista con una lista vacía
+                return View(new List<Cliente>());
             }
-            return View(detalleCompras);
+            // Recorre la lista de categorias y actualiza cada uno
+            foreach (var compra in compras)
+            {
+                // Validar cada objeto de estudiante si es necesario
+                if (compra.Id != 0 && compra.CompraId != null && compra.MaterialId != null && compra.PrecioUnidad != null && compra.Cantidad != null && compra.Importe != null)
+                {
+                    // Marca la entidad como modificada
+                    _context.Entry(compra).State = EntityState.Modified;
+                }
+            }
+
+            // Guarda cambios en la base de datos
+            _context.SaveChanges();
+
+            // Redirecciona al index o vista principal
+            return RedirectToAction("Index");
         }
 
         [HttpGet]

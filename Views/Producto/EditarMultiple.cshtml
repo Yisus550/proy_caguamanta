@@ -14,6 +14,13 @@
                         <input asp-for="@Model[i].Nombre" class="form-control" />
                         <label class="form-label">Descripcion:</label>
                         <input asp-for="@Model[i].Descripcion" class="form-control" />
+                        <div class="row mt-2">
+                            <div class=" col-10">
+                                <label asp-for="@Model[i].CategoriaId" class="form-label"></label>
+                                <select asp-for="@Model[i].CategoriaId" class="form-select" asp-items="ViewBag.Categoria">Seleccciona uno</select>
+                                <span asp-validation-for="@Model[i].CategoriaId" class="text-danger"></span>
+                            </div>
+                        </div>
                         <label class="form-label">Precio:</label>
                         <input asp-for="@Model[i].Precio" class="form-control" />
                         <label class="form-label">Cantidad:</label>
