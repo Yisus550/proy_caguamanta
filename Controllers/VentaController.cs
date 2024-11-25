@@ -96,6 +96,9 @@ namespace proy_caguamanta.Controllers
 			if (_productos == null)
 				_productos = new List<ProductosList>();
 
+			if (productoId == 0)
+				return RedirectToAction("Index");
+
 			ProductosList productoList = new ProductosList
 			{
 				Id = producto.Id,
@@ -118,6 +121,9 @@ namespace proy_caguamanta.Controllers
 		public ActionResult FinalizarVenta()
 		{
 			DetalleVentaController _detalleVenta = new DetalleVentaController(_context);
+
+			if (!(cambio >= 0))
+				return RedirectToAction("Index");
 
 			CalcularTotal();
 			Venta venta = new Venta
