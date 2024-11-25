@@ -28,7 +28,7 @@ namespace proy_caguamanta.Controllers
 		public IActionResult Crear(Puesto puesto)
 		{
 			//validar
-			if (ModelState.IsValid)
+			if (puesto.Id == 0 && puesto.Nombre != null && puesto.Sueldo != null)
 			{
 				// agregar, guardar y redireccionar
 				_context.Puestos.Add(puesto);
@@ -50,7 +50,7 @@ namespace proy_caguamanta.Controllers
 		[HttpPost]
 		public IActionResult Editar(Puesto puesto)
 		{
-			if (ModelState.IsValid)
+			if (puesto.Id != 0 && puesto.Nombre != null && puesto.Sueldo != null)
 			{
 				_context.Puestos.Update(puesto);
 				_context.SaveChanges();

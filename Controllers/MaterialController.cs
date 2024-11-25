@@ -28,7 +28,7 @@ namespace proy_caguamanta.Controllers
 		public IActionResult Crear(Material material)
 		{
 			//validar
-			if (ModelState.IsValid)
+			if (material.Id == 0 && material.Nombre != null && material.ProveedorId != null && material.Cantidad != null && material.Costo != null && material.CategoriaId != null)
 			{
 				// agregar, guardar y redireccionar
 				_context.Materiales.Add(material);
@@ -50,7 +50,7 @@ namespace proy_caguamanta.Controllers
 		[HttpPost]
 		public IActionResult Editar(Material material)
 		{
-			if (ModelState.IsValid)
+			if (material.Id != 0 && material.Nombre != null && material.ProveedorId != null && material.Cantidad != null && material.Costo != null && material.CategoriaId != null)
 			{
 				_context.Materiales.Update(material);
 				_context.SaveChanges();

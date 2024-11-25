@@ -1,4 +1,5 @@
-﻿@{
+﻿    @model proy_caguamanta.Models.Login
+@{
   ViewData["Title"] = "Home Page";
   Layout = null;
 }
@@ -19,7 +20,7 @@
 
 <body>
   <div class="container mt-5 d-flex justify-content-center" style="width: clamp(348px, 50%, 500px); color: #1e6091">
-    <form style="width: clamp(548px, 50%, 600px)">
+    <form method="post" asp-action="Index" style="width: clamp(548px, 50%, 600px)">
       <div class="container border p-4 rounded-4 shadow" style="background-color: #99d98c">
         <div class="container text-center">
           <div class="col-12">
@@ -40,28 +41,28 @@
 
               <div class="row mt-3">
                 <div class="col-12">
-                  <label class="form-label">
+                    <label asp-for="Correo" class="form-label">
                     Usuario</label>
-                  <input type="text" class="form-control" />
-                  <span class="text-danger"></span>
+                    <input asp-for="Correo" type="text" class="form-control" />
+                    <span asp-validation-for="Correo" class="text-danger"></span>
                 </div>
               </div>
 
               <div class="row mt-2">
                 <div class="col-12">
-                  <label class="form-label">Contraseña</label>
-                  <input type="password" class="form-control" />
-                  <span class="text-danger"></span>
+                  <label asp-for="Contrasena" class="form-label">Contraseña</label>
+                  <input asp-for="Contrasena" type="password" class="form-control" />
+                  <span asp-validation-for="Contrasena" class="text-danger"></span>
                 </div>
               </div>
               <div class="row mt-5">
                 <div class="col-5">
                   <button class="btn btn-secondary text-white form-control border-0" style="background-color: #34a0a4"
-                    type="submit" asp-action="Login">
+                    type="submit">
                     Ingresar&nbsp;
                   </button>
                 </div>
-              </div>
+              </div> 
             </div>
           </div>
         </div>

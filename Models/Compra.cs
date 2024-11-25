@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace proy_caguamanta.Models;
 
@@ -13,12 +14,18 @@ public partial class Compra
     public DateOnly? FechaCompra { get; set; }
 
     [Required(ErrorMessage = "Este campo es obligatorio")]
-    public int? IdEmpleado { get; set; }
+    [ForeignKey("Empleado")]
+    public int? EmpleadoId { get; set; }
+    public Empleado Empleado { get; set; }
 
     [Required(ErrorMessage = "Este campo es obligatorio")]
-    public int? IdProveedor { get; set; }
+    [ForeignKey("Proveedor")]
+    public int? ProveedorId { get; set; }
+    public Proveedor Proveedor { get; set; }
 
     [Required(ErrorMessage = "Este campo es obligatorio")]
     [Range(1, double.MaxValue, ErrorMessage = "El importe no debe de ser menor a $1")]
     public double? Importe { get; set; }
+
+    public List<DetalleCompra> compras { get; set; }
 }

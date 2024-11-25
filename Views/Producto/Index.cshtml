@@ -10,7 +10,16 @@
 <div class="container">
 	<div class="row mt-5">
 		<div class="col-3">
-			<a class="btn btn-primary text-white form-control" asp-action="Crear">Agregar Nuevo</a>
+			<a class="btn btn-primary text-white form-control" asp-action="Crear">Agregar nuevo</a>
+		</div>
+		<div class="col-3">
+			<a class="btn btn-success text-white form-control" asp-action="CrearMulti">Agregar Multiples</a>
+		</div>
+		<div class="col-3">
+			<a class="btn btn-outline-secondary text-dark form-control" asp-action="EditarMultiple">Editar Multiples</a>
+		</div>
+		<div class="col-3">
+			<a class="btn btn-outline-danger text-dark form-control" asp-action="EliminarMultiples">Eliminar Multiples</a>
 		</div>
 	</div>
 	<div class="row mt-5">
@@ -23,6 +32,7 @@
 						<tr>
 							<td>Nombre</td>
 							<td>Descripcion</td>
+					        <td>Categoria Id</td>	
 							<td>Precio</td>
 							<td>Cantidad</td>
 						</tr>
@@ -33,6 +43,7 @@
 							<tr>
 								<td>@item.Nombre</td>
 								<td>@item.Descripcion</td>
+								<td>@item.CategoriaId</td>
 								<td>@item.Precio</td>
 								<td>@item.Cantidad</td>
 								<td><a class="btn btn-outline-primary form-control" asp-action="Editar" asp-route-id="@item.Id">Editar</a></td>

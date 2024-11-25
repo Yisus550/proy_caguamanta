@@ -1,4 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using proy_caguamanta.Data;
 using proy_caguamanta.Models;
 using System.Diagnostics;
 
@@ -6,16 +8,40 @@ namespace proy_caguamanta.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly ILogger<HomeController> _logger;
+        public readonly ApplicationDbContext _context;
 
-        public HomeController(ILogger<HomeController> logger)
+
+        public HomeController(ApplicationDbContext context)
         {
-            _logger = logger;
+            _context = context;
         }
 
+        [HttpGet]
         public IActionResult Index()
         {
             return View();
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Index(Login login)
+        {
+            Empleado empleado_encontrado = await _context.Empleados
+                                           .Where(e => e.Correo == login.Correo &&
+                                                       e.Contrasena == login.Contrasena
+                                           ).FirstOrDefaultAsync();
+
+
+            if (empleado_encontrado != null)
+            {
+                login.Puesto = Convert.ToString(empleado_encontrado.PuestoId);
+                return RedirectToAction("Index", "Venta");
+
+            }
+            else
+            {
+                return View();
+
+            }
         }
 
         public IActionResult Privacy()
@@ -27,12 +53,6 @@ namespace proy_caguamanta.Controllers
         public IActionResult Error()
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
-        }
-
-        public IActionResult Login()
-        {
-            // TODO: Implementar la lógica de autenticación
-            return RedirectToAction("Index", "Venta");
         }
 
         public IActionResult Registros()
@@ -92,7 +112,7 @@ namespace proy_caguamanta.Controllers
 
         public IActionResult Venta()
         {
-            return RedirectToAction("Index", "Venta");
+            return RedirectToAction("Listar", "Venta");
         }
     }
 }
